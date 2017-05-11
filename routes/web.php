@@ -12,5 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return config('app.name');
 });
+
+Route::resource('recipes', RecipeController::class);
