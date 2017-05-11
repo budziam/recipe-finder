@@ -14,13 +14,19 @@ return [
     |
     */
 
+    'facebook' => [
+        'client_id'     => '1234567890444',
+        'client_secret' => '1aa2af333336fffvvvffffvff',
+        'redirect'      => 'http://laravel.dev/login/callback/facebook',
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
     ],
 
     'ses' => [
-        'key' => env('SES_KEY'),
+        'key'    => env('SES_KEY'),
         'secret' => env('SES_SECRET'),
         'region' => 'us-east-1',
     ],
@@ -30,8 +36,8 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
-        'key' => env('STRIPE_KEY'),
+        'model'  => App\User::class,
+        'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
 
