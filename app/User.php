@@ -10,14 +10,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @mixin \Eloquent
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $facebook_id
- * @property string $remember_token
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property int                                                                                                            $id
+ * @property string                                                                                                         $name
+ * @property string                                                                                                         $email
+ * @property string                                                                                                         $password
+ * @property string                                                                                                         $facebook_id
+ * @property string                                                                                                         $remember_token
+ * @property \Carbon\Carbon                                                                                                 $created_at
+ * @property \Carbon\Carbon                                                                                                 $updated_at
  * @method static \Illuminate\Database\Query\Builder|\App\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereEmail($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereFacebookId($value)
@@ -37,7 +37,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'facebook_id',
     ];
 
     /**
@@ -46,6 +49,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 }
