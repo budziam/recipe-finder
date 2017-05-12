@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Recipe
  *
- * @property int $id
- * @property string $recipe_id
- * @property string $publisher
- * @property string $f2f_url
- * @property string $title
- * @property string $source_url
- * @property string $image_url
- * @property float $social_rank
- * @property string $publisher_url
- * @property array $ingredients
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property int                                                                    $id
+ * @property string                                                                 $recipe_id
+ * @property string                                                                 $publisher
+ * @property string                                                                 $f2f_url
+ * @property string                                                                 $title
+ * @property string                                                                 $source_url
+ * @property string                                                                 $image_url
+ * @property float                                                                  $social_rank
+ * @property string                                                                 $publisher_url
+ * @property array                                                                  $ingredients
+ * @property \Carbon\Carbon                                                         $created_at
+ * @property \Carbon\Carbon                                                         $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserRecipe[] $userRecipes
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Recipe whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Recipe whereF2fUrl($value)
@@ -49,6 +49,10 @@ class Recipe extends Model
 
     protected $casts = [
         'ingredients' => 'array',
+    ];
+
+    protected $attributes = [
+        'ingredients' => '[]',
     ];
 
     public function userRecipes()

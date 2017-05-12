@@ -19,6 +19,9 @@
 |
 */
 
+// Make every request wants json
+$_SERVER['HTTP_ACCEPT'] = 'application/json';
+
 require __DIR__.'/../bootstrap/autoload.php';
 
 /*

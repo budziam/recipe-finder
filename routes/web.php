@@ -15,6 +15,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RecipeController;
 
 Route::get('/', function () {
+    throw new \Exception();
     if (auth()->check()) {
         return "Hi, " . auth()->user()->name;
     }
@@ -34,6 +35,12 @@ Route::group(['prefix' => 'login/facebook'], function () {
         'uses' => LoginController::class . '@handleProviderCallback',
     ]);
 });
+
+Route::post('logout', [
+    'as'          => 'logout',
+    'uses'        => LoginController::class . '@logout',
+])
+    ->middleware('auth');
 
 // Recipes
 Route::group(['prefix' => 'recipes', 'middleware' => 'auth'], function () {

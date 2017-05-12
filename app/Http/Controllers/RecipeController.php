@@ -23,7 +23,9 @@ class RecipeController extends Controller
         return $this->user()
             ->userRecipes()
             ->where('favourite', true)
-            ->get();
+            ->with('recipe')
+            ->get()
+            ->pluck('recipe');
     }
 
     public function done()
@@ -31,7 +33,9 @@ class RecipeController extends Controller
         return $this->user()
             ->userRecipes()
             ->where('done', true)
-            ->get();
+            ->with('recipe')
+            ->get()
+            ->pluck('recipe');
     }
 
     public function todo()
@@ -39,7 +43,9 @@ class RecipeController extends Controller
         return $this->user()
             ->userRecipes()
             ->where('todo', true)
-            ->get();
+            ->with('recipe')
+            ->get()
+            ->pluck('recipe');
     }
 
     public function markFavourite(Recipe $recipe, UserRecipeRepository $repository)
