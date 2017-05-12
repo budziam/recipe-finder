@@ -11,7 +11,9 @@ class LoginController extends Controller
      */
     public function redirectToProvider()
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('facebook')
+            ->redirectUrl(route('login.facebook.callback'))
+            ->redirect();
     }
 
     /**
