@@ -24,7 +24,9 @@ class LoginController extends Controller
      */
     public function handleProviderCallback(FacebookService $service)
     {
-        $socialiteUser = Socialite::driver('facebook')->user();
+        $socialiteUser = Socialite::driver('facebook')
+            ->redirectUrl(route('login.facebook.callback'))
+            ->user();
 
         $user = $service->firstOrCreate($socialiteUser->getId(), $socialiteUser->getEmail(), $socialiteUser->getName());
 

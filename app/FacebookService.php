@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+use Illuminate\Support\Str;
+
 class FacebookService
 {
     public function firstOrCreate($id, string $email, string $name) : User
@@ -27,6 +29,7 @@ class FacebookService
             'email'       => $email,
             'name'        => $name,
             'facebook_id' => $id,
+            'password'    => bcrypt(Str::random()),
         ]);
     }
 }
