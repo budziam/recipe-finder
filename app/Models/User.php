@@ -25,7 +25,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePassword($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserRecipe[] $userRecipes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\UserRecipe[]                                         $userRecipes
  */
 class User extends Authenticatable
 {
@@ -51,6 +51,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'facebook_id',
     ];
 
     public function userRecipes()
