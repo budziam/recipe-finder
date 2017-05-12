@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -22,6 +23,11 @@ Route::get('/', function () {
     return config('app.name');
 });
 
+Route::get('users/me', [
+    'as'   => 'user.me',
+    'uses' => UserController::class . '@me',
+])
+    ->middleware('auth');
 
 // Social Login
 Route::group(['prefix' => 'login/facebook'], function () {
@@ -36,8 +42,8 @@ Route::group(['prefix' => 'login/facebook'], function () {
 });
 
 Route::post('logout', [
-    'as'          => 'logout',
-    'uses'        => LoginController::class . '@logout',
+    'as'   => 'logout',
+    'uses' => LoginController::class . '@logout',
 ])
     ->middleware('auth');
 
