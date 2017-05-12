@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+use App\Models\Recipe;
 use Illuminate\Support\Collection;
 
 class RecipeFinder
@@ -17,9 +18,9 @@ class RecipeFinder
         $this->recipeRepository = $recipeRepository;
     }
 
-    public function search(array $ingredients, int $page) : Collection
+    public function search(array $ingredients, int $page, string $sort) : Collection
     {
-        $results = $this->client->search($ingredients, $page);
+        $results = $this->client->search($ingredients, $page, $sort);
 
         return collect($results)
             ->map(function (array $result) {
@@ -27,7 +28,7 @@ class RecipeFinder
             });
     }
 
-    public function get(string $id)
+    public function get(string $id) : Recipe
     {
         $result = $this->client->get($id);
 

@@ -22,7 +22,7 @@ class CreateRecipesTable extends Migration
             $table->string('image_url', 512);
             $table->double('social_rank');
             $table->string('publisher_url', 512);
-            $table->json('ingredients');
+            $table->text('ingredients');
             $table->timestamps();
         });
     }
