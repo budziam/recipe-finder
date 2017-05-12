@@ -15,7 +15,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RecipeController;
 
 Route::get('/', function () {
-    throw new \Exception();
     if (auth()->check()) {
         return "Hi, " . auth()->user()->name;
     }
