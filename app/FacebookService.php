@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 
 class FacebookService
