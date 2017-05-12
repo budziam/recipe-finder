@@ -15,9 +15,9 @@ return [
     */
 
     'facebook' => [
-        'client_id'     => '1234567890444',
-        'client_secret' => '1aa2af333336fffvvvffffvff',
-        'redirect'      => 'http://laravel.dev/login/callback/facebook',
+        'client_id'     => env('FACEBOOK_APP_ID'),
+        'client_secret' => env('FACEBOOK_APP_SECRET'),
+        'redirect'      => '/login/facebook/callback',
     ],
 
     'mailgun' => [
