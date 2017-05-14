@@ -23,11 +23,20 @@ Route::get('/', function () {
     return config('app.name');
 });
 
-Route::get('users/me', [
-    'as'   => 'user.me',
-    'uses' => UserController::class . '@me',
-])
-    ->middleware('auth');
+Route::group(['prefix' => 'users'], function () {
+    Route::get('me', [
+        'as'   => 'user.me',
+        'uses' => UserController::class . '@me',
+    ])
+        ->middleware('auth');
+
+    if (app()->environment('local')) {
+        Route::post('{user}/login', [
+            'as'   => 'login',
+            'uses' => UserController::class . '@login',
+        ]);
+    }
+});
 
 // Social Login
 Route::group(['prefix' => 'login/facebook'], function () {
