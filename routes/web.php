@@ -16,11 +16,7 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    if (auth()->check()) {
-        return "Hi, " . auth()->user()->name;
-    }
-
-    return config('app.name');
+    return view('index');
 });
 
 Route::group(['prefix' => 'users'], function () {
