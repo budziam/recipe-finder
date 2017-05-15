@@ -15,10 +15,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('index');
-});
-
 Route::group(['prefix' => 'users'], function () {
     Route::get('me', [
         'as'   => 'user.me',
@@ -109,4 +105,8 @@ Route::group(['prefix' => 'recipes', 'middleware' => 'auth'], function () {
             'uses' => RecipeController::class . '@unmarkDone',
         ]);
     });
+});
+
+Route::get('/{path?}', function () {
+    return view('index');
 });
