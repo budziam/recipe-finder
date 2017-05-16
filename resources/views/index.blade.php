@@ -12,5 +12,5 @@
 <body>
 <div class="app"></div>
 </body>
-<script src="./bundle.js"></script>
+<script src="{{ url('bundle.js') }}"></script>
 </html>
