@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Food2ForkClient;
 use App\Http\Requests\SearchRequest;
 use App\Models\Recipe;
+use App\Models\UserRecipe;
 use App\RecipeFinder;
+use App\Transformers\UserRecipeTransformer;
 use App\UserRecipeRepository;
 
 class RecipeController extends Controller
@@ -15,37 +17,65 @@ class RecipeController extends Controller
         $page = $request->input('page', 1);
         $sort = $request->input('sort', Food2ForkClient::SORT_RATING);
 
-        return $recipeFinder->search($ingredients, $page, $sort);
+        $userRecipes = $recipeFinder->search($ingredients, $page, $sort)
+            ->map(function (Recipe $recipe) {
+                $userRecipe = $this->user()
+                    ->userRecipes
+                    ->first(function (UserRecipe $userRecipe) use ($recipe) {
+                        return $userRecipe->recipe_id === $recipe->id;
+                    });
+
+                if ($userRecipe === null) {
+                    /** @var UserRecipe $userRecipe */
+                    $userRecipe = UserRecipe::make();
+                    $userRecipe->setAttribute('recipe', $recipe);
+                }
+
+                return $userRecipe;
+            });
+
+        return fractal()
+            ->collection($userRecipes, new UserRecipeTransformer())
+            ->toArray();
     }
 
     public function favourites()
     {
-        return $this->user()
+        $userRecipes = $this->user()
             ->userRecipes()
-            ->where('favourite', true)
             ->with('recipe')
-            ->get()
-            ->pluck('recipe');
+            ->where('favourite', true)
+            ->get();
+
+        return fractal()
+            ->collection($userRecipes, new UserRecipeTransformer())
+            ->toArray();
     }
 
     public function done()
     {
-        return $this->user()
+        $userRecipes = $this->user()
             ->userRecipes()
-            ->where('done', true)
             ->with('recipe')
-            ->get()
-            ->pluck('recipe');
+            ->where('done', true)
+            ->get();
+
+        return fractal()
+            ->collection($userRecipes, new UserRecipeTransformer())
+            ->toArray();
     }
 
     public function todo()
     {
-        return $this->user()
+        $userRecipes = $this->user()
             ->userRecipes()
-            ->where('todo', true)
             ->with('recipe')
-            ->get()
-            ->pluck('recipe');
+            ->where('todo', true)
+            ->get();
+
+        return fractal()
+            ->collection($userRecipes, new UserRecipeTransformer())
+            ->toArray();
     }
 
     public function markFavourite(Recipe $recipe, UserRecipeRepository $repository)
