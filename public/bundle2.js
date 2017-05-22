@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = ".";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -22596,11 +22596,10 @@
 	        _react2.default.createElement(
 	          _reactRouterDom.Switch,
 	          null,
-	          _react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
-	              return userProfile.loggedIn ? _react2.default.createElement(_reactRouterDom.Redirect, { to: '/app' }) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' });
+	          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
+	              return userProfile.loggedIn ? _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _app2.default }) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' });
 	            } }),
-	          _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
-	          _react2.default.createElement(_reactRouterDom.Route, { path: '/app', component: _app2.default })
+	          _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default })
 	        )
 	      );
 	    }
@@ -27018,6 +27017,7 @@
 	          { className: 'user-profile-spinner' },
 	          _react2.default.createElement(_Spinner2.default, null)
 	        ) : null,
+	        console.log(userProfile),
 	        userProfile ? _react2.default.createElement(
 	          'div',
 	          null,
@@ -27692,7 +27692,7 @@
 	    value: function submitSearch(e) {
 	      e.preventDefault();
 
-	      this.props.searchRecipes(['banana']);
+	      this.props.searchRecipes(this.state.inputIngredients);
 	    }
 	  }, {
 	    key: 'render',
@@ -27703,7 +27703,8 @@
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this.submitSearch },
-	          _react2.default.createElement('input', { type: 'text', placeholder: 'Ingredients...', onChange: this.handleIngredientsInputChange })
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'Ingredients...', onChange: this.handleIngredientsInputChange }),
+	          console.log(this.props.list)
 	        )
 	      );
 	    }
@@ -27769,12 +27770,20 @@
 	var RECIPES_SEARCH = exports.RECIPES_SEARCH = 'RECIPES_SEARCH';
 	function searchRecipes(ingredients) {
 	  requestRecipesSearch();
-	  // API.get('/recipes/search', ingredients).then(recipes => {
-	  //   receiveRecipesSearch(recipes)
-	  // });
 
-	  return {
-	    type: RECIPES_SEARCH
+	  var queryString = '?';
+	  var ingredientsArray = ingredients.split(', ').map(function (ingredient) {
+	    return ingredient.replace(' ', '%20');
+	  });
+
+	  ingredientsArray.forEach(function (ingredient, index) {
+	    queryString += 'ingredients[]=' + ingredient + '&';
+	  });
+
+	  return function (dispatch) {
+	    _APIHelper2.default.get('/recipes/search' + queryString).then(function (recipes) {
+	      dispatch(receiveRecipesSearch(recipes.data));
+	    });
 	  };
 	}
 
@@ -31651,10 +31660,6 @@
 	exports.RECEIVE_USER_PROFILE = exports.REQUEST_USER_PROFILE = undefined;
 	exports.login = login;
 
-	var _axios = __webpack_require__(264);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
 	var _APIHelper = __webpack_require__(293);
 
 	var _APIHelper2 = _interopRequireDefault(_APIHelper);
@@ -31857,7 +31862,6 @@
 
 	  switch (action.type) {
 	    case actions.REQUEST_RECIPES_SEARCH:
-	      console.log('REQUEST');
 	      return _extends({}, state, {
 	        recipes: _extends({}, state.userProfile, {
 	          isFetching: true

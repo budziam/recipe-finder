@@ -12,5 +12,5 @@
 <body>
 <div class="app"></div>
 </body>
-<script src="./bundle.js"></script>
+<script src="./bundle2.js"></script>
 </html>
