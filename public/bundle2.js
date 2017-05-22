@@ -77,7 +77,7 @@
 
 	var _Router2 = _interopRequireDefault(_Router);
 
-	var _reducers = __webpack_require__(305);
+	var _reducers = __webpack_require__(331);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -22563,7 +22563,7 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _Login = __webpack_require__(301);
+	var _Login = __webpack_require__(327);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -22599,7 +22599,12 @@
 	          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
 	              return userProfile.loggedIn ? _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _app2.default }) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' });
 	            } }),
-	          _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default })
+	          _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
+	          _react2.default.createElement(
+	            _reactRouterDom.Route,
+	            { path: '*' },
+	            _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' })
+	          )
 	        )
 	      );
 	    }
@@ -26751,17 +26756,17 @@
 
 	var _RecipeFinder2 = _interopRequireDefault(_RecipeFinder);
 
-	var _RecipesList = __webpack_require__(294);
+	var _RecipesList = __webpack_require__(320);
 
 	var _RecipesList2 = _interopRequireDefault(_RecipesList);
 
-	__webpack_require__(295);
+	__webpack_require__(321);
 
 	__webpack_require__(257);
 
-	__webpack_require__(297);
+	__webpack_require__(323);
 
-	__webpack_require__(299);
+	__webpack_require__(325);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26809,35 +26814,7 @@
 	        _react2.default.createElement(
 	          'main',
 	          null,
-	          _react2.default.createElement(
-	            'div',
-	            { className: (0, _classnames2.default)({ "user-profile__wrapper": true, "visible": this.state.showUserProfile }) },
-	            _react2.default.createElement(_UserProfile2.default, null),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'user-profile__toggler clickable', onClick: this.toggleUserProfile },
-	              _react2.default.createElement('span', { className: (0, _classnames2.default)({
-	                  "pt-icon-standard": true,
-	                  "pt-icon-chevron-right": !this.state.showUserProfile,
-	                  "pt-icon-chevron-left": this.state.showUserProfile
-	                }) })
-	            )
-	          ),
-	          _react2.default.createElement(_RecipeFinder2.default, null),
-	          _react2.default.createElement(
-	            'div',
-	            { className: (0, _classnames2.default)({ "recipes-list__wrapper": true, "visible": this.state.showRecipesList }) },
-	            _react2.default.createElement(_RecipesList2.default, null),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'recipes-list__toggler clickable', onClick: this.toggleRecipesList },
-	              _react2.default.createElement('span', { className: (0, _classnames2.default)({
-	                  "pt-icon-standard": true,
-	                  "pt-icon-chevron-right": this.state.showRecipesList,
-	                  "pt-icon-chevron-left": !this.state.showRecipesList
-	                }) })
-	            )
-	          )
+	          _react2.default.createElement(_RecipeFinder2.default, null)
 	        )
 	      );
 	    }
@@ -27142,7 +27119,7 @@
 
 
 	// module
-	exports.push([module.id, ".user-profile__wrapper {\n  width: 300px;\n  height: 100%;\n  position: relative;\n  left: -300px;\n  transition: left, .5s;\n}\n.user-profile__wrapper.visible {\n  left: 0;\n}\n.user-profile__wrapper .user-profile__toggler {\n  z-index: 10;\n  position: absolute;\n  top: 0;\n  right: -40px;\n  background: grey;\n  width: 40px;\n  height: 40px;\n  color: white;\n}\n.user-profile__wrapper .user-profile__toggler span {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  font-size: 20px;\n  transform: translateX(-50%) translateY(-50%);\n}\n.user-profile {\n  background: white;\n  box-shadow: 0 0 5px black;\n  width: 300px;\n  height: 100%;\n}\n", ""]);
+	exports.push([module.id, ".user-profile__wrapper {\n  width: 300px;\n  height: 100%;\n  position: absolute;\n  left: -300px;\n  transition: left, .5s;\n}\n.user-profile__wrapper.visible {\n  left: 0;\n}\n.user-profile__wrapper .user-profile__toggler {\n  z-index: 10;\n  position: absolute;\n  top: 0;\n  right: -40px;\n  background: grey;\n  width: 40px;\n  height: 40px;\n  color: white;\n}\n.user-profile__wrapper .user-profile__toggler span {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  font-size: 20px;\n  transform: translateX(-50%) translateY(-50%);\n}\n.user-profile {\n  background: white;\n  box-shadow: 0 0 5px black;\n  width: 300px;\n  height: 100%;\n}\n", ""]);
 
 	// exports
 
@@ -27655,7 +27632,19 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _actions = __webpack_require__(263);
+	var _ListItem = __webpack_require__(263);
+
+	var _ListItem2 = _interopRequireDefault(_ListItem);
+
+	var _actions = __webpack_require__(266);
+
+	var _reactPerfectScrollbar = __webpack_require__(297);
+
+	var _reactPerfectScrollbar2 = _interopRequireDefault(_reactPerfectScrollbar);
+
+	var _classnames = __webpack_require__(253);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27697,14 +27686,42 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var list = this.props.list;
+
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'recipe-finder' },
 	        _react2.default.createElement(
-	          'form',
-	          { onSubmit: this.submitSearch },
-	          _react2.default.createElement('input', { type: 'text', placeholder: 'Ingredients...', onChange: this.handleIngredientsInputChange }),
-	          console.log(this.props.list)
+	          'div',
+	          { className: (0, _classnames2.default)({ "recipe-finder__form__wrapper": true, "closed": list && list.length > 0 }) },
+	          _react2.default.createElement(
+	            'p',
+	            { className: 'description' },
+	            'Search for recipes by ingredients ',
+	            _react2.default.createElement('br', null),
+	            'you feel like to eat'
+	          ),
+	          _react2.default.createElement(
+	            'form',
+	            { onSubmit: this.submitSearch, className: 'recipe-finder__form' },
+	            _react2.default.createElement('input', { type: 'text', placeholder: 'Ingredients...', onChange: this.handleIngredientsInputChange })
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            { className: 'details' },
+	            'Type in ingredients seperated by comma'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          _reactPerfectScrollbar2.default,
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'recipe-finder__recipes', style: { height: '100%' } },
+	            list ? list.length > 0 ? list.map(function (recipe) {
+	              return _react2.default.createElement(_ListItem2.default, { recipe: recipe });
+	            }) : null : null
+	          )
 	        )
 	      );
 	    }
@@ -27739,48 +27756,170 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.RECIPES_SEARCH = exports.RECEIVE_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	__webpack_require__(264);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ListItem = function (_Component) {
+	  _inherits(ListItem, _Component);
+
+	  function ListItem(props) {
+	    _classCallCheck(this, ListItem);
+
+	    return _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call(this, props));
+	  }
+
+	  _createClass(ListItem, [{
+	    key: 'render',
+	    value: function render() {
+	      var recipe = this.props.recipe;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'rf__list-item__wrapper' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'rf__list-item' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'rf__list-item__img__wrapper' },
+	            recipe.image_url ? _react2.default.createElement('img', { src: recipe.image_url }) : null
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            recipe.title
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ListItem;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  return state;
+	}
+
+	function mapDispatchToProps(dispatch, ownProps) {
+	  return {};
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ListItem);
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(265);
+	if (typeof content === 'string') content = [[module.id, content, '']];
+	// Prepare cssTransformation
+	var transform;
+
+	var options = {};
+	options.transform = transform;
+	// add the styles to the DOM
+	var update = __webpack_require__(260)(content, options);
+	if (content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if (false) {
+		// When the styles change, update the <style> tags
+		if (!content.locals) {
+			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/less-loader/dist/index.js!./styles.less", function () {
+				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/less-loader/dist/index.js!./styles.less");
+				if (typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function () {
+			update();
+		});
+	}
+
+/***/ }),
+/* 265 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(259)(undefined);
+	// imports
+
+
+	// module
+	exports.push([module.id, ".rf__list-item__wrapper {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto;\n}\n.rf__list-item {\n  display: flex;\n  flex-wrap: nowrap;\n  align-items: center;\n  background: #ffffff;\n  padding: 10px;\n  margin: 10px;\n}\n.rf__list-item p {\n  margin-left: 15px;\n  font-size: 1.5em;\n  color: #3e3e3e;\n}\n.recipe-finder__recipes {\n  margin: 120px 0;\n}\n.rf__list-item__img__wrapper {\n  width: 150px;\n  height: 150px;\n  min-width: 150px;\n  display: flex;\n  align-items: center;\n  overflow: hidden;\n}\n.rf__list-item__img__wrapper img {\n  width: 100%;\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 266 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.RECEIVE_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = undefined;
 	exports.searchRecipes = searchRecipes;
 
-	var _axios = __webpack_require__(264);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _APIHelper = __webpack_require__(293);
+	var _APIHelper = __webpack_require__(267);
 
 	var _APIHelper2 = _interopRequireDefault(_APIHelper);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var REQUEST_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = 'RECIPES_SEARCH';
+	var REQUEST_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = 'REQUEST_RECIPES_SEARCH';
 	function requestRecipesSearch() {
+	  console.log(REQUEST_RECIPES_SEARCH);
 	  return {
 	    type: REQUEST_RECIPES_SEARCH
 	  };
 	}
 
-	var RECEIVE_RECIPES_SEARCH = exports.RECEIVE_RECIPES_SEARCH = 'RECIPES_SEARCH';
+	var RECEIVE_RECIPES_SEARCH = exports.RECEIVE_RECIPES_SEARCH = 'RECEIVE_RECIPES_SEARCH';
 	function receiveRecipesSearch(recipes) {
+	  console.log(RECEIVE_RECIPES_SEARCH);
 	  return {
 	    type: RECEIVE_RECIPES_SEARCH,
 	    recipes: recipes
 	  };
 	}
 
-	var RECIPES_SEARCH = exports.RECIPES_SEARCH = 'RECIPES_SEARCH';
 	function searchRecipes(ingredients) {
-	  requestRecipesSearch();
-
-	  var queryString = '?';
-	  var ingredientsArray = ingredients.split(', ').map(function (ingredient) {
-	    return ingredient.replace(' ', '%20');
-	  });
-
-	  ingredientsArray.forEach(function (ingredient, index) {
-	    queryString += 'ingredients[]=' + ingredient + '&';
-	  });
-
 	  return function (dispatch) {
+	    dispatch(requestRecipesSearch());
+
+	    var queryString = '?';
+	    var ingredientsArray = ingredients.split(', ').map(function (ingredient) {
+	      return ingredient.replace(' ', '%20');
+	    });
+
+	    ingredientsArray.forEach(function (ingredient, index) {
+	      queryString += 'ingredients[]=' + ingredient + '&';
+	    });
+
 	    _APIHelper2.default.get('/recipes/search' + queryString).then(function (recipes) {
 	      dispatch(receiveRecipesSearch(recipes.data));
 	    });
@@ -27788,21 +27927,49 @@
 	}
 
 /***/ }),
-/* 264 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(265);
-
-/***/ }),
-/* 265 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(266);
-	var bind = __webpack_require__(271);
-	var Axios = __webpack_require__(272);
-	var defaults = __webpack_require__(273);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _axios = __webpack_require__(268);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var API_BASE = 'http://' + location.host;
+
+	exports.default = {
+	  get: function get(url, body) {
+	    return _axios2.default.get('' + API_BASE + url, { body: body });
+	  },
+
+	  post: function post(url, body) {
+	    return _axios2.default.post('' + API_BASE + url, { body: body });
+	  }
+	};
+
+/***/ }),
+/* 268 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(269);
+
+/***/ }),
+/* 269 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(270);
+	var bind = __webpack_require__(275);
+	var Axios = __webpack_require__(276);
+	var defaults = __webpack_require__(277);
 
 	/**
 	 * Create an instance of Axios
@@ -27835,15 +28002,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(290);
-	axios.CancelToken = __webpack_require__(291);
-	axios.isCancel = __webpack_require__(287);
+	axios.Cancel = __webpack_require__(294);
+	axios.CancelToken = __webpack_require__(295);
+	axios.isCancel = __webpack_require__(291);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(292);
+	axios.spread = __webpack_require__(296);
 
 	module.exports = axios;
 
@@ -27852,12 +28019,12 @@
 
 
 /***/ }),
-/* 266 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 
-	var bind = __webpack_require__(271);
+	var bind = __webpack_require__(275);
 
 	/*global toString:true*/
 
@@ -28168,10 +28335,10 @@
 	  trim: trim
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(267).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(271).Buffer))
 
 /***/ }),
-/* 267 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -28184,9 +28351,9 @@
 
 	'use strict'
 
-	var base64 = __webpack_require__(268)
-	var ieee754 = __webpack_require__(269)
-	var isArray = __webpack_require__(270)
+	var base64 = __webpack_require__(272)
+	var ieee754 = __webpack_require__(273)
+	var isArray = __webpack_require__(274)
 
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -29967,7 +30134,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 268 */
+/* 272 */
 /***/ (function(module, exports) {
 
 	'use strict'
@@ -30087,7 +30254,7 @@
 
 
 /***/ }),
-/* 269 */
+/* 273 */
 /***/ (function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -30177,7 +30344,7 @@
 
 
 /***/ }),
-/* 270 */
+/* 274 */
 /***/ (function(module, exports) {
 
 	var toString = {}.toString;
@@ -30188,7 +30355,7 @@
 
 
 /***/ }),
-/* 271 */
+/* 275 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -30205,17 +30372,17 @@
 
 
 /***/ }),
-/* 272 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(273);
-	var utils = __webpack_require__(266);
-	var InterceptorManager = __webpack_require__(284);
-	var dispatchRequest = __webpack_require__(285);
-	var isAbsoluteURL = __webpack_require__(288);
-	var combineURLs = __webpack_require__(289);
+	var defaults = __webpack_require__(277);
+	var utils = __webpack_require__(270);
+	var InterceptorManager = __webpack_require__(288);
+	var dispatchRequest = __webpack_require__(289);
+	var isAbsoluteURL = __webpack_require__(292);
+	var combineURLs = __webpack_require__(293);
 
 	/**
 	 * Create a new instance of Axios
@@ -30296,13 +30463,13 @@
 
 
 /***/ }),
-/* 273 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(266);
-	var normalizeHeaderName = __webpack_require__(274);
+	var utils = __webpack_require__(270);
+	var normalizeHeaderName = __webpack_require__(278);
 
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/x-www-form-urlencoded'
@@ -30318,10 +30485,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(275);
+	    adapter = __webpack_require__(279);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(275);
+	    adapter = __webpack_require__(279);
 	  }
 	  return adapter;
 	}
@@ -30395,12 +30562,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 274 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(266);
+	var utils = __webpack_require__(270);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -30413,18 +30580,18 @@
 
 
 /***/ }),
-/* 275 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(266);
-	var settle = __webpack_require__(276);
-	var buildURL = __webpack_require__(279);
-	var parseHeaders = __webpack_require__(280);
-	var isURLSameOrigin = __webpack_require__(281);
-	var createError = __webpack_require__(277);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(282);
+	var utils = __webpack_require__(270);
+	var settle = __webpack_require__(280);
+	var buildURL = __webpack_require__(283);
+	var parseHeaders = __webpack_require__(284);
+	var isURLSameOrigin = __webpack_require__(285);
+	var createError = __webpack_require__(281);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(286);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -30520,7 +30687,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(283);
+	      var cookies = __webpack_require__(287);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -30599,12 +30766,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 276 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(277);
+	var createError = __webpack_require__(281);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -30630,12 +30797,12 @@
 
 
 /***/ }),
-/* 277 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(278);
+	var enhanceError = __webpack_require__(282);
 
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -30653,7 +30820,7 @@
 
 
 /***/ }),
-/* 278 */
+/* 282 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -30678,12 +30845,12 @@
 
 
 /***/ }),
-/* 279 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(266);
+	var utils = __webpack_require__(270);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -30752,12 +30919,12 @@
 
 
 /***/ }),
-/* 280 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(266);
+	var utils = __webpack_require__(270);
 
 	/**
 	 * Parse headers into an object
@@ -30795,12 +30962,12 @@
 
 
 /***/ }),
-/* 281 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(266);
+	var utils = __webpack_require__(270);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -30869,7 +31036,7 @@
 
 
 /***/ }),
-/* 282 */
+/* 286 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -30911,12 +31078,12 @@
 
 
 /***/ }),
-/* 283 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(266);
+	var utils = __webpack_require__(270);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -30970,12 +31137,12 @@
 
 
 /***/ }),
-/* 284 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(266);
+	var utils = __webpack_require__(270);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -31028,15 +31195,15 @@
 
 
 /***/ }),
-/* 285 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(266);
-	var transformData = __webpack_require__(286);
-	var isCancel = __webpack_require__(287);
-	var defaults = __webpack_require__(273);
+	var utils = __webpack_require__(270);
+	var transformData = __webpack_require__(290);
+	var isCancel = __webpack_require__(291);
+	var defaults = __webpack_require__(277);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -31113,12 +31280,12 @@
 
 
 /***/ }),
-/* 286 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(266);
+	var utils = __webpack_require__(270);
 
 	/**
 	 * Transform the data for a request or a response
@@ -31139,7 +31306,7 @@
 
 
 /***/ }),
-/* 287 */
+/* 291 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -31150,7 +31317,7 @@
 
 
 /***/ }),
-/* 288 */
+/* 292 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -31170,7 +31337,7 @@
 
 
 /***/ }),
-/* 289 */
+/* 293 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -31190,7 +31357,7 @@
 
 
 /***/ }),
-/* 290 */
+/* 294 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -31215,12 +31382,12 @@
 
 
 /***/ }),
-/* 291 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(290);
+	var Cancel = __webpack_require__(294);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -31278,7 +31445,7 @@
 
 
 /***/ }),
-/* 292 */
+/* 296 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -31311,7 +31478,7 @@
 
 
 /***/ }),
-/* 293 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31320,26 +31487,1808 @@
 	  value: true
 	});
 
-	var _axios = __webpack_require__(264);
+	var _scrollbar = __webpack_require__(298);
 
-	var _axios2 = _interopRequireDefault(_axios);
+	var _scrollbar2 = _interopRequireDefault(_scrollbar);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var API_BASE = 'http://' + location.host;
+	exports.default = _scrollbar2.default;
+	module.exports = exports['default'];
 
-	exports.default = {
-	  get: function get(url, body) {
-	    return _axios2.default.get('' + API_BASE + url, { body: body });
-	  },
+/***/ }),
+/* 298 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	  post: function post(url, body) {
-	    return _axios2.default.post('' + API_BASE + url, { body: body });
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _propTypes = __webpack_require__(210);
+
+	var _perfectScrollbar = __webpack_require__(299);
+
+	var _perfectScrollbar2 = _interopRequireDefault(_perfectScrollbar);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var handlerNameByEvent = {
+	    'ps-scroll-y': 'onScrollY',
+	    'ps-scroll-x': 'onScrollX',
+	    'ps-scroll-up': 'onScrollUp',
+	    'ps-scroll-down': 'onScrollDown',
+	    'ps-scroll-left': 'onScrollLeft',
+	    'ps-scroll-right': 'onScrollRight',
+	    'ps-y-reach-start': 'onYReachStart',
+	    'ps-y-reach-end': 'onYReachEnd',
+	    'ps-x-reach-start': 'onXReachStart',
+	    'ps-x-reach-end': 'onXReachEnd'
+	};
+	Object.freeze(handlerNameByEvent);
+
+	var ScrollBar = function (_Component) {
+	    _inherits(ScrollBar, _Component);
+
+	    function ScrollBar(props) {
+	        _classCallCheck(this, ScrollBar);
+
+	        var _this = _possibleConstructorReturn(this, (ScrollBar.__proto__ || Object.getPrototypeOf(ScrollBar)).call(this, props));
+
+	        _this._handlerByEvent = new Map();
+	        return _this;
+	    }
+
+	    _createClass(ScrollBar, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+
+	            _perfectScrollbar2.default.initialize(this._container, this.props.option);
+	            // hook up events
+	            Object.keys(handlerNameByEvent).forEach(function (key) {
+	                var callback = _this2.props[handlerNameByEvent[key]];
+	                if (callback) {
+	                    var handler = function handler() {
+	                        return callback(_this2._container);
+	                    };
+	                    _this2._handlerByEvent.set(key, handler);
+	                    _this2._container.addEventListener(key, handler, false);
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate() {
+	            _perfectScrollbar2.default.update(this._container);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            var _this3 = this;
+
+	            // unhook up evens
+	            Object.keys(this._handlerByEvent).forEach(function (value, key) {
+	                _this3._container.removeEventListener(key, value, false);
+	            });
+	            this._handlerByEvent.clear();
+	            _perfectScrollbar2.default.destroy(this._container);
+	        }
+
+	        // methods can be invoked by outside
+
+	    }, {
+	        key: 'setScrollTop',
+	        value: function setScrollTop(top) {
+	            if (this._container) {
+	                this._container.scrollTop = top;
+	                _perfectScrollbar2.default.update(this._container);
+
+	                return true;
+	            }
+	            return false;
+	        }
+	    }, {
+	        key: 'setScrollLeft',
+	        value: function setScrollLeft(left) {
+	            if (this._container) {
+	                this._container.scrollLeft = left;
+	                _perfectScrollbar2.default.update(this._container);
+
+	                return true;
+	            }
+	            return false;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this4 = this;
+
+	            var children = this.props.children;
+
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'scrollbar-container', ref: function ref(_ref) {
+	                        _this4._container = _ref;
+	                    } },
+	                children
+	            );
+	        }
+	    }]);
+
+	    return ScrollBar;
+	}(_react.Component);
+
+	exports.default = ScrollBar;
+
+
+	ScrollBar.defaultProps = {
+	    option: undefined,
+	    onScrollY: undefined,
+	    onScrollX: undefined,
+	    onScrollUp: undefined,
+	    onScrollDown: undefined,
+	    onScrollLeft: undefined,
+	    onScrollRight: undefined,
+	    onYReachStart: undefined,
+	    onYReachEnd: undefined,
+	    onXReachStart: undefined,
+	    onXReachEnd: undefined
+	};
+
+	ScrollBar.propTypes = {
+	    children: _propTypes.PropTypes.node.isRequired,
+	    option: _propTypes.PropTypes.object,
+	    onScrollY: _propTypes.PropTypes.func,
+	    onScrollX: _propTypes.PropTypes.func,
+	    onScrollUp: _propTypes.PropTypes.func,
+	    onScrollDown: _propTypes.PropTypes.func,
+	    onScrollLeft: _propTypes.PropTypes.func,
+	    onScrollRight: _propTypes.PropTypes.func,
+	    onYReachStart: _propTypes.PropTypes.func,
+	    onYReachEnd: _propTypes.PropTypes.func,
+	    onXReachStart: _propTypes.PropTypes.func,
+	    onXReachEnd: _propTypes.PropTypes.func
+	};
+	module.exports = exports['default'];
+
+/***/ }),
+/* 299 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(300);
+
+
+/***/ }),
+/* 300 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var destroy = __webpack_require__(301);
+	var initialize = __webpack_require__(309);
+	var update = __webpack_require__(319);
+
+	module.exports = {
+	  initialize: initialize,
+	  update: update,
+	  destroy: destroy
+	};
+
+
+/***/ }),
+/* 301 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(302);
+	var dom = __webpack_require__(304);
+	var instances = __webpack_require__(305);
+
+	module.exports = function (element) {
+	  var i = instances.get(element);
+
+	  if (!i) {
+	    return;
+	  }
+
+	  i.event.unbindAll();
+	  dom.remove(i.scrollbarX);
+	  dom.remove(i.scrollbarY);
+	  dom.remove(i.scrollbarXRail);
+	  dom.remove(i.scrollbarYRail);
+	  _.removePsClasses(element);
+
+	  instances.remove(element);
+	};
+
+
+/***/ }),
+/* 302 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var cls = __webpack_require__(303);
+	var dom = __webpack_require__(304);
+
+	var toInt = exports.toInt = function (x) {
+	  return parseInt(x, 10) || 0;
+	};
+
+	var clone = exports.clone = function (obj) {
+	  if (!obj) {
+	    return null;
+	  } else if (obj.constructor === Array) {
+	    return obj.map(clone);
+	  } else if (typeof obj === 'object') {
+	    var result = {};
+	    for (var key in obj) {
+	      result[key] = clone(obj[key]);
+	    }
+	    return result;
+	  } else {
+	    return obj;
 	  }
 	};
 
+	exports.extend = function (original, source) {
+	  var result = clone(original);
+	  for (var key in source) {
+	    result[key] = clone(source[key]);
+	  }
+	  return result;
+	};
+
+	exports.isEditable = function (el) {
+	  return dom.matches(el, "input,[contenteditable]") ||
+	         dom.matches(el, "select,[contenteditable]") ||
+	         dom.matches(el, "textarea,[contenteditable]") ||
+	         dom.matches(el, "button,[contenteditable]");
+	};
+
+	exports.removePsClasses = function (element) {
+	  var clsList = cls.list(element);
+	  for (var i = 0; i < clsList.length; i++) {
+	    var className = clsList[i];
+	    if (className.indexOf('ps-') === 0) {
+	      cls.remove(element, className);
+	    }
+	  }
+	};
+
+	exports.outerWidth = function (element) {
+	  return toInt(dom.css(element, 'width')) +
+	         toInt(dom.css(element, 'paddingLeft')) +
+	         toInt(dom.css(element, 'paddingRight')) +
+	         toInt(dom.css(element, 'borderLeftWidth')) +
+	         toInt(dom.css(element, 'borderRightWidth'));
+	};
+
+	exports.startScrolling = function (element, axis) {
+	  cls.add(element, 'ps-in-scrolling');
+	  if (typeof axis !== 'undefined') {
+	    cls.add(element, 'ps-' + axis);
+	  } else {
+	    cls.add(element, 'ps-x');
+	    cls.add(element, 'ps-y');
+	  }
+	};
+
+	exports.stopScrolling = function (element, axis) {
+	  cls.remove(element, 'ps-in-scrolling');
+	  if (typeof axis !== 'undefined') {
+	    cls.remove(element, 'ps-' + axis);
+	  } else {
+	    cls.remove(element, 'ps-x');
+	    cls.remove(element, 'ps-y');
+	  }
+	};
+
+	exports.env = {
+	  isWebKit: 'WebkitAppearance' in document.documentElement.style,
+	  supportsTouch: (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch),
+	  supportsIePointer: window.navigator.msMaxTouchPoints !== null
+	};
+
+
 /***/ }),
-/* 294 */
+/* 303 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	function oldAdd(element, className) {
+	  var classes = element.className.split(' ');
+	  if (classes.indexOf(className) < 0) {
+	    classes.push(className);
+	  }
+	  element.className = classes.join(' ');
+	}
+
+	function oldRemove(element, className) {
+	  var classes = element.className.split(' ');
+	  var idx = classes.indexOf(className);
+	  if (idx >= 0) {
+	    classes.splice(idx, 1);
+	  }
+	  element.className = classes.join(' ');
+	}
+
+	exports.add = function (element, className) {
+	  if (element.classList) {
+	    element.classList.add(className);
+	  } else {
+	    oldAdd(element, className);
+	  }
+	};
+
+	exports.remove = function (element, className) {
+	  if (element.classList) {
+	    element.classList.remove(className);
+	  } else {
+	    oldRemove(element, className);
+	  }
+	};
+
+	exports.list = function (element) {
+	  if (element.classList) {
+	    return Array.prototype.slice.apply(element.classList);
+	  } else {
+	    return element.className.split(' ');
+	  }
+	};
+
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	var DOM = {};
+
+	DOM.e = function (tagName, className) {
+	  var element = document.createElement(tagName);
+	  element.className = className;
+	  return element;
+	};
+
+	DOM.appendTo = function (child, parent) {
+	  parent.appendChild(child);
+	  return child;
+	};
+
+	function cssGet(element, styleName) {
+	  return window.getComputedStyle(element)[styleName];
+	}
+
+	function cssSet(element, styleName, styleValue) {
+	  if (typeof styleValue === 'number') {
+	    styleValue = styleValue.toString() + 'px';
+	  }
+	  element.style[styleName] = styleValue;
+	  return element;
+	}
+
+	function cssMultiSet(element, obj) {
+	  for (var key in obj) {
+	    var val = obj[key];
+	    if (typeof val === 'number') {
+	      val = val.toString() + 'px';
+	    }
+	    element.style[key] = val;
+	  }
+	  return element;
+	}
+
+	DOM.css = function (element, styleNameOrObject, styleValue) {
+	  if (typeof styleNameOrObject === 'object') {
+	    // multiple set with object
+	    return cssMultiSet(element, styleNameOrObject);
+	  } else {
+	    if (typeof styleValue === 'undefined') {
+	      return cssGet(element, styleNameOrObject);
+	    } else {
+	      return cssSet(element, styleNameOrObject, styleValue);
+	    }
+	  }
+	};
+
+	DOM.matches = function (element, query) {
+	  if (typeof element.matches !== 'undefined') {
+	    return element.matches(query);
+	  } else {
+	    if (typeof element.matchesSelector !== 'undefined') {
+	      return element.matchesSelector(query);
+	    } else if (typeof element.webkitMatchesSelector !== 'undefined') {
+	      return element.webkitMatchesSelector(query);
+	    } else if (typeof element.mozMatchesSelector !== 'undefined') {
+	      return element.mozMatchesSelector(query);
+	    } else if (typeof element.msMatchesSelector !== 'undefined') {
+	      return element.msMatchesSelector(query);
+	    }
+	  }
+	};
+
+	DOM.remove = function (element) {
+	  if (typeof element.remove !== 'undefined') {
+	    element.remove();
+	  } else {
+	    if (element.parentNode) {
+	      element.parentNode.removeChild(element);
+	    }
+	  }
+	};
+
+	DOM.queryChildren = function (element, selector) {
+	  return Array.prototype.filter.call(element.childNodes, function (child) {
+	    return DOM.matches(child, selector);
+	  });
+	};
+
+	module.exports = DOM;
+
+
+/***/ }),
+/* 305 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(302);
+	var cls = __webpack_require__(303);
+	var defaultSettings = __webpack_require__(306);
+	var dom = __webpack_require__(304);
+	var EventManager = __webpack_require__(307);
+	var guid = __webpack_require__(308);
+
+	var instances = {};
+
+	function Instance(element) {
+	  var i = this;
+
+	  i.settings = _.clone(defaultSettings);
+	  i.containerWidth = null;
+	  i.containerHeight = null;
+	  i.contentWidth = null;
+	  i.contentHeight = null;
+
+	  i.isRtl = dom.css(element, 'direction') === "rtl";
+	  i.isNegativeScroll = (function () {
+	    var originalScrollLeft = element.scrollLeft;
+	    var result = null;
+	    element.scrollLeft = -1;
+	    result = element.scrollLeft < 0;
+	    element.scrollLeft = originalScrollLeft;
+	    return result;
+	  })();
+	  i.negativeScrollAdjustment = i.isNegativeScroll ? element.scrollWidth - element.clientWidth : 0;
+	  i.event = new EventManager();
+	  i.ownerDocument = element.ownerDocument || document;
+
+	  function focus() {
+	    cls.add(element, 'ps-focus');
+	  }
+
+	  function blur() {
+	    cls.remove(element, 'ps-focus');
+	  }
+
+	  i.scrollbarXRail = dom.appendTo(dom.e('div', 'ps-scrollbar-x-rail'), element);
+	  i.scrollbarX = dom.appendTo(dom.e('div', 'ps-scrollbar-x'), i.scrollbarXRail);
+	  i.scrollbarX.setAttribute('tabindex', 0);
+	  i.event.bind(i.scrollbarX, 'focus', focus);
+	  i.event.bind(i.scrollbarX, 'blur', blur);
+	  i.scrollbarXActive = null;
+	  i.scrollbarXWidth = null;
+	  i.scrollbarXLeft = null;
+	  i.scrollbarXBottom = _.toInt(dom.css(i.scrollbarXRail, 'bottom'));
+	  i.isScrollbarXUsingBottom = i.scrollbarXBottom === i.scrollbarXBottom; // !isNaN
+	  i.scrollbarXTop = i.isScrollbarXUsingBottom ? null : _.toInt(dom.css(i.scrollbarXRail, 'top'));
+	  i.railBorderXWidth = _.toInt(dom.css(i.scrollbarXRail, 'borderLeftWidth')) + _.toInt(dom.css(i.scrollbarXRail, 'borderRightWidth'));
+	  // Set rail to display:block to calculate margins
+	  dom.css(i.scrollbarXRail, 'display', 'block');
+	  i.railXMarginWidth = _.toInt(dom.css(i.scrollbarXRail, 'marginLeft')) + _.toInt(dom.css(i.scrollbarXRail, 'marginRight'));
+	  dom.css(i.scrollbarXRail, 'display', '');
+	  i.railXWidth = null;
+	  i.railXRatio = null;
+
+	  i.scrollbarYRail = dom.appendTo(dom.e('div', 'ps-scrollbar-y-rail'), element);
+	  i.scrollbarY = dom.appendTo(dom.e('div', 'ps-scrollbar-y'), i.scrollbarYRail);
+	  i.scrollbarY.setAttribute('tabindex', 0);
+	  i.event.bind(i.scrollbarY, 'focus', focus);
+	  i.event.bind(i.scrollbarY, 'blur', blur);
+	  i.scrollbarYActive = null;
+	  i.scrollbarYHeight = null;
+	  i.scrollbarYTop = null;
+	  i.scrollbarYRight = _.toInt(dom.css(i.scrollbarYRail, 'right'));
+	  i.isScrollbarYUsingRight = i.scrollbarYRight === i.scrollbarYRight; // !isNaN
+	  i.scrollbarYLeft = i.isScrollbarYUsingRight ? null : _.toInt(dom.css(i.scrollbarYRail, 'left'));
+	  i.scrollbarYOuterWidth = i.isRtl ? _.outerWidth(i.scrollbarY) : null;
+	  i.railBorderYWidth = _.toInt(dom.css(i.scrollbarYRail, 'borderTopWidth')) + _.toInt(dom.css(i.scrollbarYRail, 'borderBottomWidth'));
+	  dom.css(i.scrollbarYRail, 'display', 'block');
+	  i.railYMarginHeight = _.toInt(dom.css(i.scrollbarYRail, 'marginTop')) + _.toInt(dom.css(i.scrollbarYRail, 'marginBottom'));
+	  dom.css(i.scrollbarYRail, 'display', '');
+	  i.railYHeight = null;
+	  i.railYRatio = null;
+	}
+
+	function getId(element) {
+	  return element.getAttribute('data-ps-id');
+	}
+
+	function setId(element, id) {
+	  element.setAttribute('data-ps-id', id);
+	}
+
+	function removeId(element) {
+	  element.removeAttribute('data-ps-id');
+	}
+
+	exports.add = function (element) {
+	  var newId = guid();
+	  setId(element, newId);
+	  instances[newId] = new Instance(element);
+	  return instances[newId];
+	};
+
+	exports.remove = function (element) {
+	  delete instances[getId(element)];
+	  removeId(element);
+	};
+
+	exports.get = function (element) {
+	  return instances[getId(element)];
+	};
+
+
+/***/ }),
+/* 306 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	module.exports = {
+	  handlers: ['click-rail', 'drag-scrollbar', 'keyboard', 'wheel', 'touch'],
+	  maxScrollbarLength: null,
+	  minScrollbarLength: null,
+	  scrollXMarginOffset: 0,
+	  scrollYMarginOffset: 0,
+	  suppressScrollX: false,
+	  suppressScrollY: false,
+	  swipePropagation: true,
+	  useBothWheelAxes: false,
+	  wheelPropagation: false,
+	  wheelSpeed: 1,
+	  theme: 'default'
+	};
+
+
+/***/ }),
+/* 307 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	var EventElement = function (element) {
+	  this.element = element;
+	  this.events = {};
+	};
+
+	EventElement.prototype.bind = function (eventName, handler) {
+	  if (typeof this.events[eventName] === 'undefined') {
+	    this.events[eventName] = [];
+	  }
+	  this.events[eventName].push(handler);
+	  this.element.addEventListener(eventName, handler, false);
+	};
+
+	EventElement.prototype.unbind = function (eventName, handler) {
+	  var isHandlerProvided = (typeof handler !== 'undefined');
+	  this.events[eventName] = this.events[eventName].filter(function (hdlr) {
+	    if (isHandlerProvided && hdlr !== handler) {
+	      return true;
+	    }
+	    this.element.removeEventListener(eventName, hdlr, false);
+	    return false;
+	  }, this);
+	};
+
+	EventElement.prototype.unbindAll = function () {
+	  for (var name in this.events) {
+	    this.unbind(name);
+	  }
+	};
+
+	var EventManager = function () {
+	  this.eventElements = [];
+	};
+
+	EventManager.prototype.eventElement = function (element) {
+	  var ee = this.eventElements.filter(function (eventElement) {
+	    return eventElement.element === element;
+	  })[0];
+	  if (typeof ee === 'undefined') {
+	    ee = new EventElement(element);
+	    this.eventElements.push(ee);
+	  }
+	  return ee;
+	};
+
+	EventManager.prototype.bind = function (element, eventName, handler) {
+	  this.eventElement(element).bind(eventName, handler);
+	};
+
+	EventManager.prototype.unbind = function (element, eventName, handler) {
+	  this.eventElement(element).unbind(eventName, handler);
+	};
+
+	EventManager.prototype.unbindAll = function () {
+	  for (var i = 0; i < this.eventElements.length; i++) {
+	    this.eventElements[i].unbindAll();
+	  }
+	};
+
+	EventManager.prototype.once = function (element, eventName, handler) {
+	  var ee = this.eventElement(element);
+	  var onceHandler = function (e) {
+	    ee.unbind(eventName, onceHandler);
+	    handler(e);
+	  };
+	  ee.bind(eventName, onceHandler);
+	};
+
+	module.exports = EventManager;
+
+
+/***/ }),
+/* 308 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	module.exports = (function () {
+	  function s4() {
+	    return Math.floor((1 + Math.random()) * 0x10000)
+	               .toString(16)
+	               .substring(1);
+	  }
+	  return function () {
+	    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+	           s4() + '-' + s4() + s4() + s4();
+	  };
+	})();
+
+
+/***/ }),
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(302);
+	var cls = __webpack_require__(303);
+	var instances = __webpack_require__(305);
+	var updateGeometry = __webpack_require__(310);
+
+	// Handlers
+	var handlers = {
+	  'click-rail': __webpack_require__(312),
+	  'drag-scrollbar': __webpack_require__(313),
+	  'keyboard': __webpack_require__(314),
+	  'wheel': __webpack_require__(315),
+	  'touch': __webpack_require__(316),
+	  'selection': __webpack_require__(317)
+	};
+	var nativeScrollHandler = __webpack_require__(318);
+
+	module.exports = function (element, userSettings) {
+	  userSettings = typeof userSettings === 'object' ? userSettings : {};
+
+	  cls.add(element, 'ps-container');
+
+	  // Create a plugin instance.
+	  var i = instances.add(element);
+
+	  i.settings = _.extend(i.settings, userSettings);
+	  cls.add(element, 'ps-theme-' + i.settings.theme);
+
+	  i.settings.handlers.forEach(function (handlerName) {
+	    handlers[handlerName](element);
+	  });
+
+	  nativeScrollHandler(element);
+
+	  updateGeometry(element);
+	};
+
+
+/***/ }),
+/* 310 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(302);
+	var cls = __webpack_require__(303);
+	var dom = __webpack_require__(304);
+	var instances = __webpack_require__(305);
+	var updateScroll = __webpack_require__(311);
+
+	function getThumbSize(i, thumbSize) {
+	  if (i.settings.minScrollbarLength) {
+	    thumbSize = Math.max(thumbSize, i.settings.minScrollbarLength);
+	  }
+	  if (i.settings.maxScrollbarLength) {
+	    thumbSize = Math.min(thumbSize, i.settings.maxScrollbarLength);
+	  }
+	  return thumbSize;
+	}
+
+	function updateCss(element, i) {
+	  var xRailOffset = {width: i.railXWidth};
+	  if (i.isRtl) {
+	    xRailOffset.left = i.negativeScrollAdjustment + element.scrollLeft + i.containerWidth - i.contentWidth;
+	  } else {
+	    xRailOffset.left = element.scrollLeft;
+	  }
+	  if (i.isScrollbarXUsingBottom) {
+	    xRailOffset.bottom = i.scrollbarXBottom - element.scrollTop;
+	  } else {
+	    xRailOffset.top = i.scrollbarXTop + element.scrollTop;
+	  }
+	  dom.css(i.scrollbarXRail, xRailOffset);
+
+	  var yRailOffset = {top: element.scrollTop, height: i.railYHeight};
+	  if (i.isScrollbarYUsingRight) {
+	    if (i.isRtl) {
+	      yRailOffset.right = i.contentWidth - (i.negativeScrollAdjustment + element.scrollLeft) - i.scrollbarYRight - i.scrollbarYOuterWidth;
+	    } else {
+	      yRailOffset.right = i.scrollbarYRight - element.scrollLeft;
+	    }
+	  } else {
+	    if (i.isRtl) {
+	      yRailOffset.left = i.negativeScrollAdjustment + element.scrollLeft + i.containerWidth * 2 - i.contentWidth - i.scrollbarYLeft - i.scrollbarYOuterWidth;
+	    } else {
+	      yRailOffset.left = i.scrollbarYLeft + element.scrollLeft;
+	    }
+	  }
+	  dom.css(i.scrollbarYRail, yRailOffset);
+
+	  dom.css(i.scrollbarX, {left: i.scrollbarXLeft, width: i.scrollbarXWidth - i.railBorderXWidth});
+	  dom.css(i.scrollbarY, {top: i.scrollbarYTop, height: i.scrollbarYHeight - i.railBorderYWidth});
+	}
+
+	module.exports = function (element) {
+	  var i = instances.get(element);
+
+	  i.containerWidth = element.clientWidth;
+	  i.containerHeight = element.clientHeight;
+	  i.contentWidth = element.scrollWidth;
+	  i.contentHeight = element.scrollHeight;
+
+	  var existingRails;
+	  if (!element.contains(i.scrollbarXRail)) {
+	    existingRails = dom.queryChildren(element, '.ps-scrollbar-x-rail');
+	    if (existingRails.length > 0) {
+	      existingRails.forEach(function (rail) {
+	        dom.remove(rail);
+	      });
+	    }
+	    dom.appendTo(i.scrollbarXRail, element);
+	  }
+	  if (!element.contains(i.scrollbarYRail)) {
+	    existingRails = dom.queryChildren(element, '.ps-scrollbar-y-rail');
+	    if (existingRails.length > 0) {
+	      existingRails.forEach(function (rail) {
+	        dom.remove(rail);
+	      });
+	    }
+	    dom.appendTo(i.scrollbarYRail, element);
+	  }
+
+	  if (!i.settings.suppressScrollX && i.containerWidth + i.settings.scrollXMarginOffset < i.contentWidth) {
+	    i.scrollbarXActive = true;
+	    i.railXWidth = i.containerWidth - i.railXMarginWidth;
+	    i.railXRatio = i.containerWidth / i.railXWidth;
+	    i.scrollbarXWidth = getThumbSize(i, _.toInt(i.railXWidth * i.containerWidth / i.contentWidth));
+	    i.scrollbarXLeft = _.toInt((i.negativeScrollAdjustment + element.scrollLeft) * (i.railXWidth - i.scrollbarXWidth) / (i.contentWidth - i.containerWidth));
+	  } else {
+	    i.scrollbarXActive = false;
+	  }
+
+	  if (!i.settings.suppressScrollY && i.containerHeight + i.settings.scrollYMarginOffset < i.contentHeight) {
+	    i.scrollbarYActive = true;
+	    i.railYHeight = i.containerHeight - i.railYMarginHeight;
+	    i.railYRatio = i.containerHeight / i.railYHeight;
+	    i.scrollbarYHeight = getThumbSize(i, _.toInt(i.railYHeight * i.containerHeight / i.contentHeight));
+	    i.scrollbarYTop = _.toInt(element.scrollTop * (i.railYHeight - i.scrollbarYHeight) / (i.contentHeight - i.containerHeight));
+	  } else {
+	    i.scrollbarYActive = false;
+	  }
+
+	  if (i.scrollbarXLeft >= i.railXWidth - i.scrollbarXWidth) {
+	    i.scrollbarXLeft = i.railXWidth - i.scrollbarXWidth;
+	  }
+	  if (i.scrollbarYTop >= i.railYHeight - i.scrollbarYHeight) {
+	    i.scrollbarYTop = i.railYHeight - i.scrollbarYHeight;
+	  }
+
+	  updateCss(element, i);
+
+	  if (i.scrollbarXActive) {
+	    cls.add(element, 'ps-active-x');
+	  } else {
+	    cls.remove(element, 'ps-active-x');
+	    i.scrollbarXWidth = 0;
+	    i.scrollbarXLeft = 0;
+	    updateScroll(element, 'left', 0);
+	  }
+	  if (i.scrollbarYActive) {
+	    cls.add(element, 'ps-active-y');
+	  } else {
+	    cls.remove(element, 'ps-active-y');
+	    i.scrollbarYHeight = 0;
+	    i.scrollbarYTop = 0;
+	    updateScroll(element, 'top', 0);
+	  }
+	};
+
+
+/***/ }),
+/* 311 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var instances = __webpack_require__(305);
+
+	var lastTop;
+	var lastLeft;
+
+	var createDOMEvent = function (name) {
+	  var event = document.createEvent("Event");
+	  event.initEvent(name, true, true);
+	  return event;
+	};
+
+	module.exports = function (element, axis, value) {
+	  if (typeof element === 'undefined') {
+	    throw 'You must provide an element to the update-scroll function';
+	  }
+
+	  if (typeof axis === 'undefined') {
+	    throw 'You must provide an axis to the update-scroll function';
+	  }
+
+	  if (typeof value === 'undefined') {
+	    throw 'You must provide a value to the update-scroll function';
+	  }
+
+	  if (axis === 'top' && value <= 0) {
+	    element.scrollTop = value = 0; // don't allow negative scroll
+	    element.dispatchEvent(createDOMEvent('ps-y-reach-start'));
+	  }
+
+	  if (axis === 'left' && value <= 0) {
+	    element.scrollLeft = value = 0; // don't allow negative scroll
+	    element.dispatchEvent(createDOMEvent('ps-x-reach-start'));
+	  }
+
+	  var i = instances.get(element);
+
+	  if (axis === 'top' && value >= i.contentHeight - i.containerHeight) {
+	    // don't allow scroll past container
+	    value = i.contentHeight - i.containerHeight;
+	    if (value - element.scrollTop <= 1) {
+	      // mitigates rounding errors on non-subpixel scroll values
+	      value = element.scrollTop;
+	    } else {
+	      element.scrollTop = value;
+	    }
+	    element.dispatchEvent(createDOMEvent('ps-y-reach-end'));
+	  }
+
+	  if (axis === 'left' && value >= i.contentWidth - i.containerWidth) {
+	    // don't allow scroll past container
+	    value = i.contentWidth - i.containerWidth;
+	    if (value - element.scrollLeft <= 1) {
+	      // mitigates rounding errors on non-subpixel scroll values
+	      value = element.scrollLeft;
+	    } else {
+	      element.scrollLeft = value;
+	    }
+	    element.dispatchEvent(createDOMEvent('ps-x-reach-end'));
+	  }
+
+	  if (!lastTop) {
+	    lastTop = element.scrollTop;
+	  }
+
+	  if (!lastLeft) {
+	    lastLeft = element.scrollLeft;
+	  }
+
+	  if (axis === 'top' && value < lastTop) {
+	    element.dispatchEvent(createDOMEvent('ps-scroll-up'));
+	  }
+
+	  if (axis === 'top' && value > lastTop) {
+	    element.dispatchEvent(createDOMEvent('ps-scroll-down'));
+	  }
+
+	  if (axis === 'left' && value < lastLeft) {
+	    element.dispatchEvent(createDOMEvent('ps-scroll-left'));
+	  }
+
+	  if (axis === 'left' && value > lastLeft) {
+	    element.dispatchEvent(createDOMEvent('ps-scroll-right'));
+	  }
+
+	  if (axis === 'top') {
+	    element.scrollTop = lastTop = value;
+	    element.dispatchEvent(createDOMEvent('ps-scroll-y'));
+	  }
+
+	  if (axis === 'left') {
+	    element.scrollLeft = lastLeft = value;
+	    element.dispatchEvent(createDOMEvent('ps-scroll-x'));
+	  }
+
+	};
+
+
+/***/ }),
+/* 312 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var instances = __webpack_require__(305);
+	var updateGeometry = __webpack_require__(310);
+	var updateScroll = __webpack_require__(311);
+
+	function bindClickRailHandler(element, i) {
+	  function pageOffset(el) {
+	    return el.getBoundingClientRect();
+	  }
+	  var stopPropagation = function (e) { e.stopPropagation(); };
+
+	  i.event.bind(i.scrollbarY, 'click', stopPropagation);
+	  i.event.bind(i.scrollbarYRail, 'click', function (e) {
+	    var positionTop = e.pageY - window.pageYOffset - pageOffset(i.scrollbarYRail).top;
+	    var direction = positionTop > i.scrollbarYTop ? 1 : -1;
+
+	    updateScroll(element, 'top', element.scrollTop + direction * i.containerHeight);
+	    updateGeometry(element);
+
+	    e.stopPropagation();
+	  });
+
+	  i.event.bind(i.scrollbarX, 'click', stopPropagation);
+	  i.event.bind(i.scrollbarXRail, 'click', function (e) {
+	    var positionLeft = e.pageX - window.pageXOffset - pageOffset(i.scrollbarXRail).left;
+	    var direction = positionLeft > i.scrollbarXLeft ? 1 : -1;
+
+	    updateScroll(element, 'left', element.scrollLeft + direction * i.containerWidth);
+	    updateGeometry(element);
+
+	    e.stopPropagation();
+	  });
+	}
+
+	module.exports = function (element) {
+	  var i = instances.get(element);
+	  bindClickRailHandler(element, i);
+	};
+
+
+/***/ }),
+/* 313 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(302);
+	var dom = __webpack_require__(304);
+	var instances = __webpack_require__(305);
+	var updateGeometry = __webpack_require__(310);
+	var updateScroll = __webpack_require__(311);
+
+	function bindMouseScrollXHandler(element, i) {
+	  var currentLeft = null;
+	  var currentPageX = null;
+
+	  function updateScrollLeft(deltaX) {
+	    var newLeft = currentLeft + (deltaX * i.railXRatio);
+	    var maxLeft = Math.max(0, i.scrollbarXRail.getBoundingClientRect().left) + (i.railXRatio * (i.railXWidth - i.scrollbarXWidth));
+
+	    if (newLeft < 0) {
+	      i.scrollbarXLeft = 0;
+	    } else if (newLeft > maxLeft) {
+	      i.scrollbarXLeft = maxLeft;
+	    } else {
+	      i.scrollbarXLeft = newLeft;
+	    }
+
+	    var scrollLeft = _.toInt(i.scrollbarXLeft * (i.contentWidth - i.containerWidth) / (i.containerWidth - (i.railXRatio * i.scrollbarXWidth))) - i.negativeScrollAdjustment;
+	    updateScroll(element, 'left', scrollLeft);
+	  }
+
+	  var mouseMoveHandler = function (e) {
+	    updateScrollLeft(e.pageX - currentPageX);
+	    updateGeometry(element);
+	    e.stopPropagation();
+	    e.preventDefault();
+	  };
+
+	  var mouseUpHandler = function () {
+	    _.stopScrolling(element, 'x');
+	    i.event.unbind(i.ownerDocument, 'mousemove', mouseMoveHandler);
+	  };
+
+	  i.event.bind(i.scrollbarX, 'mousedown', function (e) {
+	    currentPageX = e.pageX;
+	    currentLeft = _.toInt(dom.css(i.scrollbarX, 'left')) * i.railXRatio;
+	    _.startScrolling(element, 'x');
+
+	    i.event.bind(i.ownerDocument, 'mousemove', mouseMoveHandler);
+	    i.event.once(i.ownerDocument, 'mouseup', mouseUpHandler);
+
+	    e.stopPropagation();
+	    e.preventDefault();
+	  });
+	}
+
+	function bindMouseScrollYHandler(element, i) {
+	  var currentTop = null;
+	  var currentPageY = null;
+
+	  function updateScrollTop(deltaY) {
+	    var newTop = currentTop + (deltaY * i.railYRatio);
+	    var maxTop = Math.max(0, i.scrollbarYRail.getBoundingClientRect().top) + (i.railYRatio * (i.railYHeight - i.scrollbarYHeight));
+
+	    if (newTop < 0) {
+	      i.scrollbarYTop = 0;
+	    } else if (newTop > maxTop) {
+	      i.scrollbarYTop = maxTop;
+	    } else {
+	      i.scrollbarYTop = newTop;
+	    }
+
+	    var scrollTop = _.toInt(i.scrollbarYTop * (i.contentHeight - i.containerHeight) / (i.containerHeight - (i.railYRatio * i.scrollbarYHeight)));
+	    updateScroll(element, 'top', scrollTop);
+	  }
+
+	  var mouseMoveHandler = function (e) {
+	    updateScrollTop(e.pageY - currentPageY);
+	    updateGeometry(element);
+	    e.stopPropagation();
+	    e.preventDefault();
+	  };
+
+	  var mouseUpHandler = function () {
+	    _.stopScrolling(element, 'y');
+	    i.event.unbind(i.ownerDocument, 'mousemove', mouseMoveHandler);
+	  };
+
+	  i.event.bind(i.scrollbarY, 'mousedown', function (e) {
+	    currentPageY = e.pageY;
+	    currentTop = _.toInt(dom.css(i.scrollbarY, 'top')) * i.railYRatio;
+	    _.startScrolling(element, 'y');
+
+	    i.event.bind(i.ownerDocument, 'mousemove', mouseMoveHandler);
+	    i.event.once(i.ownerDocument, 'mouseup', mouseUpHandler);
+
+	    e.stopPropagation();
+	    e.preventDefault();
+	  });
+	}
+
+	module.exports = function (element) {
+	  var i = instances.get(element);
+	  bindMouseScrollXHandler(element, i);
+	  bindMouseScrollYHandler(element, i);
+	};
+
+
+/***/ }),
+/* 314 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(302);
+	var dom = __webpack_require__(304);
+	var instances = __webpack_require__(305);
+	var updateGeometry = __webpack_require__(310);
+	var updateScroll = __webpack_require__(311);
+
+	function bindKeyboardHandler(element, i) {
+	  var hovered = false;
+	  i.event.bind(element, 'mouseenter', function () {
+	    hovered = true;
+	  });
+	  i.event.bind(element, 'mouseleave', function () {
+	    hovered = false;
+	  });
+
+	  var shouldPrevent = false;
+	  function shouldPreventDefault(deltaX, deltaY) {
+	    var scrollTop = element.scrollTop;
+	    if (deltaX === 0) {
+	      if (!i.scrollbarYActive) {
+	        return false;
+	      }
+	      if ((scrollTop === 0 && deltaY > 0) || (scrollTop >= i.contentHeight - i.containerHeight && deltaY < 0)) {
+	        return !i.settings.wheelPropagation;
+	      }
+	    }
+
+	    var scrollLeft = element.scrollLeft;
+	    if (deltaY === 0) {
+	      if (!i.scrollbarXActive) {
+	        return false;
+	      }
+	      if ((scrollLeft === 0 && deltaX < 0) || (scrollLeft >= i.contentWidth - i.containerWidth && deltaX > 0)) {
+	        return !i.settings.wheelPropagation;
+	      }
+	    }
+	    return true;
+	  }
+
+	  i.event.bind(i.ownerDocument, 'keydown', function (e) {
+	    if ((e.isDefaultPrevented && e.isDefaultPrevented()) || e.defaultPrevented) {
+	      return;
+	    }
+
+	    var focused = dom.matches(i.scrollbarX, ':focus') ||
+	                  dom.matches(i.scrollbarY, ':focus');
+
+	    if (!hovered && !focused) {
+	      return;
+	    }
+
+	    var activeElement = document.activeElement ? document.activeElement : i.ownerDocument.activeElement;
+	    if (activeElement) {
+	      if (activeElement.tagName === 'IFRAME') {
+	        activeElement = activeElement.contentDocument.activeElement;
+	      } else {
+	        // go deeper if element is a webcomponent
+	        while (activeElement.shadowRoot) {
+	          activeElement = activeElement.shadowRoot.activeElement;
+	        }
+	      }
+	      if (_.isEditable(activeElement)) {
+	        return;
+	      }
+	    }
+
+	    var deltaX = 0;
+	    var deltaY = 0;
+
+	    switch (e.which) {
+	    case 37: // left
+	      if (e.metaKey) {
+	        deltaX = -i.contentWidth;
+	      } else if (e.altKey) {
+	        deltaX = -i.containerWidth;
+	      } else {
+	        deltaX = -30;
+	      }
+	      break;
+	    case 38: // up
+	      if (e.metaKey) {
+	        deltaY = i.contentHeight;
+	      } else if (e.altKey) {
+	        deltaY = i.containerHeight;
+	      } else {
+	        deltaY = 30;
+	      }
+	      break;
+	    case 39: // right
+	      if (e.metaKey) {
+	        deltaX = i.contentWidth;
+	      } else if (e.altKey) {
+	        deltaX = i.containerWidth;
+	      } else {
+	        deltaX = 30;
+	      }
+	      break;
+	    case 40: // down
+	      if (e.metaKey) {
+	        deltaY = -i.contentHeight;
+	      } else if (e.altKey) {
+	        deltaY = -i.containerHeight;
+	      } else {
+	        deltaY = -30;
+	      }
+	      break;
+	    case 33: // page up
+	      deltaY = 90;
+	      break;
+	    case 32: // space bar
+	      if (e.shiftKey) {
+	        deltaY = 90;
+	      } else {
+	        deltaY = -90;
+	      }
+	      break;
+	    case 34: // page down
+	      deltaY = -90;
+	      break;
+	    case 35: // end
+	      if (e.ctrlKey) {
+	        deltaY = -i.contentHeight;
+	      } else {
+	        deltaY = -i.containerHeight;
+	      }
+	      break;
+	    case 36: // home
+	      if (e.ctrlKey) {
+	        deltaY = element.scrollTop;
+	      } else {
+	        deltaY = i.containerHeight;
+	      }
+	      break;
+	    default:
+	      return;
+	    }
+
+	    updateScroll(element, 'top', element.scrollTop - deltaY);
+	    updateScroll(element, 'left', element.scrollLeft + deltaX);
+	    updateGeometry(element);
+
+	    shouldPrevent = shouldPreventDefault(deltaX, deltaY);
+	    if (shouldPrevent) {
+	      e.preventDefault();
+	    }
+	  });
+	}
+
+	module.exports = function (element) {
+	  var i = instances.get(element);
+	  bindKeyboardHandler(element, i);
+	};
+
+
+/***/ }),
+/* 315 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var instances = __webpack_require__(305);
+	var updateGeometry = __webpack_require__(310);
+	var updateScroll = __webpack_require__(311);
+
+	function bindMouseWheelHandler(element, i) {
+	  var shouldPrevent = false;
+
+	  function shouldPreventDefault(deltaX, deltaY) {
+	    var scrollTop = element.scrollTop;
+	    if (deltaX === 0) {
+	      if (!i.scrollbarYActive) {
+	        return false;
+	      }
+	      if ((scrollTop === 0 && deltaY > 0) || (scrollTop >= i.contentHeight - i.containerHeight && deltaY < 0)) {
+	        return !i.settings.wheelPropagation;
+	      }
+	    }
+
+	    var scrollLeft = element.scrollLeft;
+	    if (deltaY === 0) {
+	      if (!i.scrollbarXActive) {
+	        return false;
+	      }
+	      if ((scrollLeft === 0 && deltaX < 0) || (scrollLeft >= i.contentWidth - i.containerWidth && deltaX > 0)) {
+	        return !i.settings.wheelPropagation;
+	      }
+	    }
+	    return true;
+	  }
+
+	  function getDeltaFromEvent(e) {
+	    var deltaX = e.deltaX;
+	    var deltaY = -1 * e.deltaY;
+
+	    if (typeof deltaX === "undefined" || typeof deltaY === "undefined") {
+	      // OS X Safari
+	      deltaX = -1 * e.wheelDeltaX / 6;
+	      deltaY = e.wheelDeltaY / 6;
+	    }
+
+	    if (e.deltaMode && e.deltaMode === 1) {
+	      // Firefox in deltaMode 1: Line scrolling
+	      deltaX *= 10;
+	      deltaY *= 10;
+	    }
+
+	    if (deltaX !== deltaX && deltaY !== deltaY/* NaN checks */) {
+	      // IE in some mouse drivers
+	      deltaX = 0;
+	      deltaY = e.wheelDelta;
+	    }
+
+	    if (e.shiftKey) {
+	      // reverse axis with shift key
+	      return [-deltaY, -deltaX];
+	    }
+	    return [deltaX, deltaY];
+	  }
+
+	  function shouldBeConsumedByChild(deltaX, deltaY) {
+	    var child = element.querySelector('textarea:hover, select[multiple]:hover, .ps-child:hover');
+	    if (child) {
+	      if (!window.getComputedStyle(child).overflow.match(/(scroll|auto)/)) {
+	        // if not scrollable
+	        return false;
+	      }
+
+	      var maxScrollTop = child.scrollHeight - child.clientHeight;
+	      if (maxScrollTop > 0) {
+	        if (!(child.scrollTop === 0 && deltaY > 0) && !(child.scrollTop === maxScrollTop && deltaY < 0)) {
+	          return true;
+	        }
+	      }
+	      var maxScrollLeft = child.scrollLeft - child.clientWidth;
+	      if (maxScrollLeft > 0) {
+	        if (!(child.scrollLeft === 0 && deltaX < 0) && !(child.scrollLeft === maxScrollLeft && deltaX > 0)) {
+	          return true;
+	        }
+	      }
+	    }
+	    return false;
+	  }
+
+	  function mousewheelHandler(e) {
+	    var delta = getDeltaFromEvent(e);
+
+	    var deltaX = delta[0];
+	    var deltaY = delta[1];
+
+	    if (shouldBeConsumedByChild(deltaX, deltaY)) {
+	      return;
+	    }
+
+	    shouldPrevent = false;
+	    if (!i.settings.useBothWheelAxes) {
+	      // deltaX will only be used for horizontal scrolling and deltaY will
+	      // only be used for vertical scrolling - this is the default
+	      updateScroll(element, 'top', element.scrollTop - (deltaY * i.settings.wheelSpeed));
+	      updateScroll(element, 'left', element.scrollLeft + (deltaX * i.settings.wheelSpeed));
+	    } else if (i.scrollbarYActive && !i.scrollbarXActive) {
+	      // only vertical scrollbar is active and useBothWheelAxes option is
+	      // active, so let's scroll vertical bar using both mouse wheel axes
+	      if (deltaY) {
+	        updateScroll(element, 'top', element.scrollTop - (deltaY * i.settings.wheelSpeed));
+	      } else {
+	        updateScroll(element, 'top', element.scrollTop + (deltaX * i.settings.wheelSpeed));
+	      }
+	      shouldPrevent = true;
+	    } else if (i.scrollbarXActive && !i.scrollbarYActive) {
+	      // useBothWheelAxes and only horizontal bar is active, so use both
+	      // wheel axes for horizontal bar
+	      if (deltaX) {
+	        updateScroll(element, 'left', element.scrollLeft + (deltaX * i.settings.wheelSpeed));
+	      } else {
+	        updateScroll(element, 'left', element.scrollLeft - (deltaY * i.settings.wheelSpeed));
+	      }
+	      shouldPrevent = true;
+	    }
+
+	    updateGeometry(element);
+
+	    shouldPrevent = (shouldPrevent || shouldPreventDefault(deltaX, deltaY));
+	    if (shouldPrevent) {
+	      e.stopPropagation();
+	      e.preventDefault();
+	    }
+	  }
+
+	  if (typeof window.onwheel !== "undefined") {
+	    i.event.bind(element, 'wheel', mousewheelHandler);
+	  } else if (typeof window.onmousewheel !== "undefined") {
+	    i.event.bind(element, 'mousewheel', mousewheelHandler);
+	  }
+	}
+
+	module.exports = function (element) {
+	  var i = instances.get(element);
+	  bindMouseWheelHandler(element, i);
+	};
+
+
+/***/ }),
+/* 316 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(302);
+	var instances = __webpack_require__(305);
+	var updateGeometry = __webpack_require__(310);
+	var updateScroll = __webpack_require__(311);
+
+	function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
+	  function shouldPreventDefault(deltaX, deltaY) {
+	    var scrollTop = element.scrollTop;
+	    var scrollLeft = element.scrollLeft;
+	    var magnitudeX = Math.abs(deltaX);
+	    var magnitudeY = Math.abs(deltaY);
+
+	    if (magnitudeY > magnitudeX) {
+	      // user is perhaps trying to swipe up/down the page
+
+	      if (((deltaY < 0) && (scrollTop === i.contentHeight - i.containerHeight)) ||
+	          ((deltaY > 0) && (scrollTop === 0))) {
+	        return !i.settings.swipePropagation;
+	      }
+	    } else if (magnitudeX > magnitudeY) {
+	      // user is perhaps trying to swipe left/right across the page
+
+	      if (((deltaX < 0) && (scrollLeft === i.contentWidth - i.containerWidth)) ||
+	          ((deltaX > 0) && (scrollLeft === 0))) {
+	        return !i.settings.swipePropagation;
+	      }
+	    }
+
+	    return true;
+	  }
+
+	  function applyTouchMove(differenceX, differenceY) {
+	    updateScroll(element, 'top', element.scrollTop - differenceY);
+	    updateScroll(element, 'left', element.scrollLeft - differenceX);
+
+	    updateGeometry(element);
+	  }
+
+	  var startOffset = {};
+	  var startTime = 0;
+	  var speed = {};
+	  var easingLoop = null;
+	  var inGlobalTouch = false;
+	  var inLocalTouch = false;
+
+	  function globalTouchStart() {
+	    inGlobalTouch = true;
+	  }
+	  function globalTouchEnd() {
+	    inGlobalTouch = false;
+	  }
+
+	  function getTouch(e) {
+	    if (e.targetTouches) {
+	      return e.targetTouches[0];
+	    } else {
+	      // Maybe IE pointer
+	      return e;
+	    }
+	  }
+	  function shouldHandle(e) {
+	    if (e.targetTouches && e.targetTouches.length === 1) {
+	      return true;
+	    }
+	    if (e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== e.MSPOINTER_TYPE_MOUSE) {
+	      return true;
+	    }
+	    return false;
+	  }
+	  function touchStart(e) {
+	    if (shouldHandle(e)) {
+	      inLocalTouch = true;
+
+	      var touch = getTouch(e);
+
+	      startOffset.pageX = touch.pageX;
+	      startOffset.pageY = touch.pageY;
+
+	      startTime = (new Date()).getTime();
+
+	      if (easingLoop !== null) {
+	        clearInterval(easingLoop);
+	      }
+
+	      e.stopPropagation();
+	    }
+	  }
+	  function touchMove(e) {
+	    if (!inLocalTouch && i.settings.swipePropagation) {
+	      touchStart(e);
+	    }
+	    if (!inGlobalTouch && inLocalTouch && shouldHandle(e)) {
+	      var touch = getTouch(e);
+
+	      var currentOffset = {pageX: touch.pageX, pageY: touch.pageY};
+
+	      var differenceX = currentOffset.pageX - startOffset.pageX;
+	      var differenceY = currentOffset.pageY - startOffset.pageY;
+
+	      applyTouchMove(differenceX, differenceY);
+	      startOffset = currentOffset;
+
+	      var currentTime = (new Date()).getTime();
+
+	      var timeGap = currentTime - startTime;
+	      if (timeGap > 0) {
+	        speed.x = differenceX / timeGap;
+	        speed.y = differenceY / timeGap;
+	        startTime = currentTime;
+	      }
+
+	      if (shouldPreventDefault(differenceX, differenceY)) {
+	        e.stopPropagation();
+	        e.preventDefault();
+	      }
+	    }
+	  }
+	  function touchEnd() {
+	    if (!inGlobalTouch && inLocalTouch) {
+	      inLocalTouch = false;
+
+	      clearInterval(easingLoop);
+	      easingLoop = setInterval(function () {
+	        if (!instances.get(element)) {
+	          clearInterval(easingLoop);
+	          return;
+	        }
+
+	        if (!speed.x && !speed.y) {
+	          clearInterval(easingLoop);
+	          return;
+	        }
+
+	        if (Math.abs(speed.x) < 0.01 && Math.abs(speed.y) < 0.01) {
+	          clearInterval(easingLoop);
+	          return;
+	        }
+
+	        applyTouchMove(speed.x * 30, speed.y * 30);
+
+	        speed.x *= 0.8;
+	        speed.y *= 0.8;
+	      }, 10);
+	    }
+	  }
+
+	  if (supportsTouch) {
+	    i.event.bind(window, 'touchstart', globalTouchStart);
+	    i.event.bind(window, 'touchend', globalTouchEnd);
+	    i.event.bind(element, 'touchstart', touchStart);
+	    i.event.bind(element, 'touchmove', touchMove);
+	    i.event.bind(element, 'touchend', touchEnd);
+	  } else if (supportsIePointer) {
+	    if (window.PointerEvent) {
+	      i.event.bind(window, 'pointerdown', globalTouchStart);
+	      i.event.bind(window, 'pointerup', globalTouchEnd);
+	      i.event.bind(element, 'pointerdown', touchStart);
+	      i.event.bind(element, 'pointermove', touchMove);
+	      i.event.bind(element, 'pointerup', touchEnd);
+	    } else if (window.MSPointerEvent) {
+	      i.event.bind(window, 'MSPointerDown', globalTouchStart);
+	      i.event.bind(window, 'MSPointerUp', globalTouchEnd);
+	      i.event.bind(element, 'MSPointerDown', touchStart);
+	      i.event.bind(element, 'MSPointerMove', touchMove);
+	      i.event.bind(element, 'MSPointerUp', touchEnd);
+	    }
+	  }
+	}
+
+	module.exports = function (element) {
+	  if (!_.env.supportsTouch && !_.env.supportsIePointer) {
+	    return;
+	  }
+
+	  var i = instances.get(element);
+	  bindTouchHandler(element, i, _.env.supportsTouch, _.env.supportsIePointer);
+	};
+
+
+/***/ }),
+/* 317 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(302);
+	var instances = __webpack_require__(305);
+	var updateGeometry = __webpack_require__(310);
+	var updateScroll = __webpack_require__(311);
+
+	function bindSelectionHandler(element, i) {
+	  function getRangeNode() {
+	    var selection = window.getSelection ? window.getSelection() :
+	                    document.getSelection ? document.getSelection() : '';
+	    if (selection.toString().length === 0) {
+	      return null;
+	    } else {
+	      return selection.getRangeAt(0).commonAncestorContainer;
+	    }
+	  }
+
+	  var scrollingLoop = null;
+	  var scrollDiff = {top: 0, left: 0};
+	  function startScrolling() {
+	    if (!scrollingLoop) {
+	      scrollingLoop = setInterval(function () {
+	        if (!instances.get(element)) {
+	          clearInterval(scrollingLoop);
+	          return;
+	        }
+
+	        updateScroll(element, 'top', element.scrollTop + scrollDiff.top);
+	        updateScroll(element, 'left', element.scrollLeft + scrollDiff.left);
+	        updateGeometry(element);
+	      }, 50); // every .1 sec
+	    }
+	  }
+	  function stopScrolling() {
+	    if (scrollingLoop) {
+	      clearInterval(scrollingLoop);
+	      scrollingLoop = null;
+	    }
+	    _.stopScrolling(element);
+	  }
+
+	  var isSelected = false;
+	  i.event.bind(i.ownerDocument, 'selectionchange', function () {
+	    if (element.contains(getRangeNode())) {
+	      isSelected = true;
+	    } else {
+	      isSelected = false;
+	      stopScrolling();
+	    }
+	  });
+	  i.event.bind(window, 'mouseup', function () {
+	    if (isSelected) {
+	      isSelected = false;
+	      stopScrolling();
+	    }
+	  });
+	  i.event.bind(window, 'keyup', function () {
+	    if (isSelected) {
+	      isSelected = false;
+	      stopScrolling();
+	    }
+	  });
+
+	  i.event.bind(window, 'mousemove', function (e) {
+	    if (isSelected) {
+	      var mousePosition = {x: e.pageX, y: e.pageY};
+	      var containerGeometry = {
+	        left: element.offsetLeft,
+	        right: element.offsetLeft + element.offsetWidth,
+	        top: element.offsetTop,
+	        bottom: element.offsetTop + element.offsetHeight
+	      };
+
+	      if (mousePosition.x < containerGeometry.left + 3) {
+	        scrollDiff.left = -5;
+	        _.startScrolling(element, 'x');
+	      } else if (mousePosition.x > containerGeometry.right - 3) {
+	        scrollDiff.left = 5;
+	        _.startScrolling(element, 'x');
+	      } else {
+	        scrollDiff.left = 0;
+	      }
+
+	      if (mousePosition.y < containerGeometry.top + 3) {
+	        if (containerGeometry.top + 3 - mousePosition.y < 5) {
+	          scrollDiff.top = -5;
+	        } else {
+	          scrollDiff.top = -20;
+	        }
+	        _.startScrolling(element, 'y');
+	      } else if (mousePosition.y > containerGeometry.bottom - 3) {
+	        if (mousePosition.y - containerGeometry.bottom + 3 < 5) {
+	          scrollDiff.top = 5;
+	        } else {
+	          scrollDiff.top = 20;
+	        }
+	        _.startScrolling(element, 'y');
+	      } else {
+	        scrollDiff.top = 0;
+	      }
+
+	      if (scrollDiff.top === 0 && scrollDiff.left === 0) {
+	        stopScrolling();
+	      } else {
+	        startScrolling();
+	      }
+	    }
+	  });
+	}
+
+	module.exports = function (element) {
+	  var i = instances.get(element);
+	  bindSelectionHandler(element, i);
+	};
+
+
+/***/ }),
+/* 318 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var instances = __webpack_require__(305);
+	var updateGeometry = __webpack_require__(310);
+
+	function bindNativeScrollHandler(element, i) {
+	  i.event.bind(element, 'scroll', function () {
+	    updateGeometry(element);
+	  });
+	}
+
+	module.exports = function (element) {
+	  var i = instances.get(element);
+	  bindNativeScrollHandler(element, i);
+	};
+
+
+/***/ }),
+/* 319 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _ = __webpack_require__(302);
+	var dom = __webpack_require__(304);
+	var instances = __webpack_require__(305);
+	var updateGeometry = __webpack_require__(310);
+	var updateScroll = __webpack_require__(311);
+
+	module.exports = function (element) {
+	  var i = instances.get(element);
+
+	  if (!i) {
+	    return;
+	  }
+
+	  // Recalcuate negative scrollLeft adjustment
+	  i.negativeScrollAdjustment = i.isNegativeScroll ? element.scrollWidth - element.clientWidth : 0;
+
+	  // Recalculate rail margins
+	  dom.css(i.scrollbarXRail, 'display', 'block');
+	  dom.css(i.scrollbarYRail, 'display', 'block');
+	  i.railXMarginWidth = _.toInt(dom.css(i.scrollbarXRail, 'marginLeft')) + _.toInt(dom.css(i.scrollbarXRail, 'marginRight'));
+	  i.railYMarginHeight = _.toInt(dom.css(i.scrollbarYRail, 'marginTop')) + _.toInt(dom.css(i.scrollbarYRail, 'marginBottom'));
+
+	  // Hide scrollbars not to affect scrollWidth and scrollHeight
+	  dom.css(i.scrollbarXRail, 'display', 'none');
+	  dom.css(i.scrollbarYRail, 'display', 'none');
+
+	  updateGeometry(element);
+
+	  // Update top/left scroll to trigger events
+	  updateScroll(element, 'top', element.scrollTop);
+	  updateScroll(element, 'left', element.scrollLeft);
+
+	  dom.css(i.scrollbarXRail, 'display', '');
+	  dom.css(i.scrollbarYRail, 'display', '');
+	};
+
+
+/***/ }),
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31396,7 +33345,7 @@
 	exports.default = RecipesList;
 
 /***/ }),
-/* 295 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31404,7 +33353,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(296);
+	var content = __webpack_require__(322);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -31431,7 +33380,7 @@
 	}
 
 /***/ }),
-/* 296 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -31439,13 +33388,13 @@
 
 
 	// module
-	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background: url('/resources/background.jpg');\n  background-size: cover;\n}\n.clickable {\n  cursor: pointer !important;\n}\n.secondary-color {\n  color: #ffa500;\n}\n.app {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  overflow: hidden;\n}\n.main__layout {\n  width: 100%;\n  height: 100%;\n}\nmain {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  overflow: hidden;\n}\n.topbar {\n  width: 100%;\n  height: 60px;\n  position: relative;\n  display: flex;\n  align-items: flex-start;\n  z-index: 5;\n}\n.topbar .topbar__title {\n  color: white;\n  font-size: 36px;\n  margin-right: 20px;\n}\n", ""]);
+	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background: url('/resources/background.jpg');\n  background-size: cover;\n}\n.clickable {\n  cursor: pointer !important;\n}\n.secondary-color {\n  color: #ffa500;\n}\n.app {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  overflow: hidden;\n}\n.main__layout {\n  width: 100%;\n  height: 100%;\n}\nmain {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  overflow: hidden;\n}\n.scrollbar-container {\n  height: 100%;\n}\n.topbar {\n  width: 100%;\n  height: 60px;\n  position: relative;\n  display: flex;\n  align-items: flex-start;\n  z-index: 5;\n}\n.topbar .topbar__title {\n  color: white;\n  font-size: 36px;\n  margin-right: 20px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 297 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31453,7 +33402,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(298);
+	var content = __webpack_require__(324);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -31480,7 +33429,7 @@
 	}
 
 /***/ }),
-/* 298 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -31488,13 +33437,13 @@
 
 
 	// module
-	exports.push([module.id, ".recipes-list__wrapper {\n  width: 300px;\n  height: 100%;\n  position: absolute;\n  right: -300px;\n  transition: left, .5s;\n}\n.recipes-list__wrapper.visible {\n  right: 0;\n}\n.recipes-list__wrapper .recipes-list__toggler {\n  z-index: 10;\n  position: absolute;\n  top: 0;\n  left: -40px;\n  background: grey;\n  width: 40px;\n  height: 40px;\n  color: white;\n}\n.recipes-list__wrapper .recipes-list__toggler span {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  font-size: 20px;\n  transform: translateX(-50%) translateY(-50%);\n}\n.recipes-list {\n  background: white;\n  box-shadow: 0 0 5px black;\n  width: 300px;\n  height: 100%;\n}\n", ""]);
+	exports.push([module.id, ".recipes-list__wrapper {\n  position: relative;\n  width: 300px;\n  height: 100%;\n  right: 0;\n  transition: left, .5s;\n}\n.recipes-list__wrapper.visible {\n  right: 0;\n}\n.recipes-list__wrapper .recipes-list__toggler {\n  z-index: 10;\n  position: absolute;\n  top: 0;\n  left: -40px;\n  background: grey;\n  width: 40px;\n  height: 40px;\n  color: white;\n}\n.recipes-list__wrapper .recipes-list__toggler span {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  font-size: 20px;\n  transform: translateX(-50%) translateY(-50%);\n}\n.recipes-list {\n  background: white;\n  box-shadow: 0 0 5px black;\n  width: 300px;\n  height: 100%;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 299 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31502,7 +33451,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(300);
+	var content = __webpack_require__(326);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -31529,7 +33478,7 @@
 	}
 
 /***/ }),
-/* 300 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -31537,13 +33486,13 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".recipe-finder {\n  width: 100%;\n  height: 100%;\n}\n.recipe-finder__form__wrapper {\n  position: absolute;\n  top: 40%;\n  left: 50%;\n  transform: translateX(-50%) translateY(-50%);\n  color: white;\n  text-align: center;\n  width: 100%;\n  transition: top .5s, background .5s;\n}\n.recipe-finder__form__wrapper p.description {\n  font-size: 1.8em;\n  margin-bottom: 40px;\n}\n.recipe-finder__form__wrapper p.details {\n  font-size: 1em;\n  color: white;\n  opacity: 0.5;\n  margin-top: 15px;\n}\n.recipe-finder__form__wrapper.closed {\n  top: 0;\n  background: #232627;\n  padding: 10px;\n  transform: translateX(-50%);\n  left: 50%;\n}\n.recipe-finder__form__wrapper.closed p.description {\n  display: none;\n}\n.recipe-finder__form {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto;\n}\n.recipe-finder__form input {\n  height: 40px;\n  width: 100%;\n  border-radius: 0;\n  font-size: 20px;\n  padding: 25px;\n  color: #434343;\n}\n.recipe-finder__form input:focus {\n  outline: none;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 301 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31560,9 +33509,9 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _actions = __webpack_require__(302);
+	var _actions = __webpack_require__(328);
 
-	__webpack_require__(303);
+	__webpack_require__(329);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31601,21 +33550,25 @@
 	          'div',
 	          { className: 'login-modal' },
 	          _react2.default.createElement(
-	            'p',
-	            { className: 'login__logo' },
-	            'Recipe Finder'
-	          ),
-	          _react2.default.createElement(
-	            'p',
-	            { className: 'login-modal__text' },
-	            'Register and log in with facebook and take advantage of ',
+	            'div',
+	            null,
 	            _react2.default.createElement(
-	              'span',
-	              {
-	                className: 'secondary-color' },
-	              'the best'
+	              'p',
+	              { className: 'login__logo' },
+	              'Recipe Finder'
 	            ),
-	            ' recipes management application!'
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'login-modal__text' },
+	              'Register and log in with Facebook and take advantage of ',
+	              _react2.default.createElement(
+	                'span',
+	                {
+	                  className: 'secondary-color' },
+	                'the best'
+	              ),
+	              ' recipes management application!'
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -31649,7 +33602,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Login);
 
 /***/ }),
-/* 302 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31660,7 +33613,7 @@
 	exports.RECEIVE_USER_PROFILE = exports.REQUEST_USER_PROFILE = undefined;
 	exports.login = login;
 
-	var _APIHelper = __webpack_require__(293);
+	var _APIHelper = __webpack_require__(267);
 
 	var _APIHelper2 = _interopRequireDefault(_APIHelper);
 
@@ -31696,7 +33649,7 @@
 	}
 
 /***/ }),
-/* 303 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31704,7 +33657,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(304);
+	var content = __webpack_require__(330);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -31731,7 +33684,7 @@
 	}
 
 /***/ }),
-/* 304 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -31739,13 +33692,13 @@
 
 
 	// module
-	exports.push([module.id, ".login-modal__wrapper {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  align-items: center;\n}\n.login-modal {\n  background: white;\n  width: 100%;\n  max-width: 400px;\n  height: 500px;\n  margin: 0 auto;\n  padding: 30px;\n  display: flex;\n  position: relative;\n  flex-wrap: wrap;\n  border-radius: 5px;\n}\n.login__logo {\n  font-size: 2em;\n  align-self: flex-start;\n}\n.facebook__button {\n  background: #3b5998;\n  color: white;\n  text-align: center;\n  cursor: pointer;\n  align-self: flex-end;\n  width: 100%;\n  padding: 20px;\n  border-radius: 5px;\n}\n.login-modal__text {\n  font-size: 1.5em;\n  align-self: flex-start;\n}\n", ""]);
+	exports.push([module.id, ".login-modal__wrapper {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  align-items: center;\n}\n.login-modal {\n  background: white;\n  width: 100%;\n  max-width: 400px;\n  height: 400px;\n  position: absolute;\n  left: 150px;\n  top: 150px;\n  padding: 30px;\n  display: flex;\n  flex-wrap: wrap;\n  border-radius: 5px;\n  opacity: 0.9;\n}\n@media only screen and (max-width: 760px) {\n  .login-modal {\n    position: relative;\n    top: auto;\n    right: auto;\n    margin: 0 auto;\n  }\n}\n@media only screen and (max-width: 480px) {\n  .login-modal {\n    max-width: 100%;\n    top: 0;\n    right: 0;\n    width: 100%;\n    height: 100%;\n    border-radius: 0;\n  }\n}\n.login__logo {\n  font-size: 2em;\n  align-self: flex-start;\n}\n.facebook__button {\n  background: #3b5998;\n  color: white;\n  text-align: center;\n  cursor: pointer;\n  align-self: flex-end;\n  width: 100%;\n  padding: 20px;\n  border-radius: 5px;\n}\n.login-modal__text {\n  font-size: 1.5em;\n  align-self: flex-start;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 305 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31756,11 +33709,11 @@
 
 	var _redux = __webpack_require__(166);
 
-	var _reducer = __webpack_require__(306);
+	var _reducer = __webpack_require__(332);
 
 	var _reducer2 = _interopRequireDefault(_reducer);
 
-	var _reducer3 = __webpack_require__(307);
+	var _reducer3 = __webpack_require__(333);
 
 	var _reducer4 = _interopRequireDefault(_reducer3);
 
@@ -31779,7 +33732,7 @@
 	exports.default = rootReducer;
 
 /***/ }),
-/* 306 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31792,7 +33745,7 @@
 
 	exports.default = reducer;
 
-	var _actions = __webpack_require__(302);
+	var _actions = __webpack_require__(328);
 
 	var actions = _interopRequireWildcard(_actions);
 
@@ -31830,7 +33783,7 @@
 	}
 
 /***/ }),
-/* 307 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31843,7 +33796,7 @@
 
 	exports.default = reducer;
 
-	var _actions = __webpack_require__(263);
+	var _actions = __webpack_require__(266);
 
 	var actions = _interopRequireWildcard(_actions);
 
