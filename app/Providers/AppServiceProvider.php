@@ -15,7 +15,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        auth()->login(\App\Models\User::first());
     }
 
     /**
