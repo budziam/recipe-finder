@@ -11,6 +11,15 @@ use App\UserRecipeRepository;
 
 class RecipeController extends Controller
 {
+    public function show(Recipe $recipe, UserRecipeRepository $repository)
+    {
+        $userRecipe = $repository->getUserRecipe($this->user(), $recipe);
+
+        return fractal()
+            ->item($userRecipe, new UserRecipeTransformer())
+            ->toArray();
+    }
+
     public function search(SearchRequest $request, RecipeFinder $recipeFinder)
     {
         $ingredients = $request->input('ingredients');

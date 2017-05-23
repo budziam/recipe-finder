@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\UserRecipe
  *
- * @property int $id
- * @property int $user_id
- * @property int $recipe_id
- * @property bool $todo
- * @property bool $done
- * @property bool $favourite
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property int                     $id
+ * @property int                     $user_id
+ * @property int                     $recipe_id
+ * @property bool                    $todo
+ * @property bool                    $done
+ * @property bool                    $favourite
+ * @property \Carbon\Carbon          $created_at
+ * @property \Carbon\Carbon          $updated_at
  * @property-read \App\Models\Recipe $recipe
- * @property-read \App\Models\User $user
+ * @property-read \App\Models\User   $user
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserRecipe whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserRecipe whereDone($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\UserRecipe whereFavourite($value)

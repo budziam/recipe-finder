@@ -65,7 +65,7 @@ class UserRecipeRepository
             ]);
     }
 
-    protected function getUserRecipe(User $user, Recipe $recipe) : UserRecipe
+    public function getUserRecipe(User $user, Recipe $recipe) : UserRecipe
     {
         if (!$recipe->isComplete()) {
             $this->recipeFinder->get($recipe->recipe_id);

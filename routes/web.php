@@ -100,11 +100,16 @@ Route::group(['prefix' => 'recipes', 'middleware' => 'auth'], function () {
             'uses' => RecipeController::class . '@markDone',
         ]);
 
-        Route::delete('recipe}', [
+        Route::delete('{recipe}', [
             'as'   => 'recipes.done.unmark',
             'uses' => RecipeController::class . '@unmarkDone',
         ]);
     });
+
+    Route::get('{recipe}', [
+        'as'   => 'recipes.show',
+        'uses' => RecipeController::class . '@show',
+    ]);
 });
 
 Route::get('/{path?}', function () {
