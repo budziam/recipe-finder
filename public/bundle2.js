@@ -45464,7 +45464,8 @@
 	function mapDispatchToProps(dispatch, ownProps) {
 	  return {
 	    login: function login() {
-	      window.location = 'http://localhost:8888/login/facebook';
+	      console.log(window.location.href);
+	      window.location = '/login/facebook';
 	      dispatch((0, _actions.login)());
 	    }
 	  };
