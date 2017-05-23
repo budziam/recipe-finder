@@ -77,7 +77,7 @@
 
 	var _Router2 = _interopRequireDefault(_Router);
 
-	var _reducers = __webpack_require__(417);
+	var _reducers = __webpack_require__(419);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -22563,7 +22563,7 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _Login = __webpack_require__(413);
+	var _Login = __webpack_require__(415);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -26760,13 +26760,13 @@
 
 	var _RecipesList2 = _interopRequireDefault(_RecipesList);
 
-	__webpack_require__(407);
+	__webpack_require__(409);
 
 	__webpack_require__(257);
 
-	__webpack_require__(409);
-
 	__webpack_require__(411);
+
+	__webpack_require__(413);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26786,11 +26786,13 @@
 
 	    _this.state = {
 	      showUserProfile: false,
-	      showRecipesList: false
+	      showRecipesList: false,
+	      hideRecipeFinder: true
 	    };
 
 	    _this.toggleUserProfile = _this.toggleUserProfile.bind(_this);
 	    _this.toggleRecipesList = _this.toggleRecipesList.bind(_this);
+	    _this.toggleRecipeFinder = _this.toggleRecipeFinder.bind(_this);
 	    return _this;
 	  }
 
@@ -26805,6 +26807,11 @@
 	      this.setState({ showRecipesList: !this.state.showRecipesList });
 	    }
 	  }, {
+	    key: 'toggleRecipeFinder',
+	    value: function toggleRecipeFinder() {
+	      this.setState({ hideRecipeFinder: !this.state.hideRecipeFinder });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 
@@ -26814,7 +26821,25 @@
 	        _react2.default.createElement(
 	          'main',
 	          null,
-	          _react2.default.createElement(_RecipeFinder2.default, null)
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'recipes-list__wrapper' },
+	            _react2.default.createElement(_RecipesList2.default, { visible: this.state.hideRecipeFinder })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: (0, _classnames2.default)({ "recipe-finder__wrapper": true, "hidden": this.state.hideRecipeFinder }) },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'recipe-finder__toggler clickable', onClick: this.toggleRecipeFinder },
+	              _react2.default.createElement('span', { className: (0, _classnames2.default)({
+	                  "pt-icon-standard": true,
+	                  "pt-icon-chevron-right": !this.state.hideRecipeFinder,
+	                  "pt-icon-chevron-left": this.state.hideRecipeFinder
+	                }) })
+	            ),
+	            _react2.default.createElement(_RecipeFinder2.default, { hidden: this.state.hideRecipeFinder })
+	          )
 	        )
 	      );
 	    }
@@ -27636,7 +27661,7 @@
 
 	var _ListItem2 = _interopRequireDefault(_ListItem);
 
-	var _actions = __webpack_require__(352);
+	var _actions = __webpack_require__(382);
 
 	var _reactPerfectScrollbar = __webpack_require__(383);
 
@@ -27686,11 +27711,13 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var list = this.props.list;
+	      var _props = this.props,
+	          list = _props.list,
+	          hidden = _props.hidden;
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'recipe-finder' },
+	        { className: (0, _classnames2.default)({ "recipe-finder": true }) },
 	        _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)({ "recipe-finder__form__wrapper": true, "closed": list && list.length > 0 }) },
@@ -27767,11 +27794,11 @@
 
 	var _core = __webpack_require__(264);
 
-	var _SingleRecipe = __webpack_require__(420);
+	var _APIHelper = __webpack_require__(350);
 
-	var _SingleRecipe2 = _interopRequireDefault(_SingleRecipe);
+	var _APIHelper2 = _interopRequireDefault(_APIHelper);
 
-	__webpack_require__(350);
+	__webpack_require__(380);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27807,16 +27834,24 @@
 	    }
 	  }, {
 	    key: 'addToFavourites',
-	    value: function addToFavourites() {}
+	    value: function addToFavourites() {
+	      _APIHelper2.default.post('/recipes/favourites/' + this.props.recipe.id);
+	    }
 	  }, {
 	    key: 'addToTodoList',
-	    value: function addToTodoList() {}
+	    value: function addToTodoList() {
+	      _APIHelper2.default.post('/recipes/todo/' + this.props.recipe.id);
+	    }
 	  }, {
 	    key: 'addToDoneList',
-	    value: function addToDoneList() {}
+	    value: function addToDoneList() {
+	      _APIHelper2.default.post('/recipes/done/' + this.props.recipe.id);
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var recipe = this.props.recipe;
 
 	      return _react2.default.createElement(
@@ -27831,19 +27866,19 @@
 	              var children = [(0, _core.MenuItemFactory)({
 	                key: 1,
 	                onClick: function onClick() {
-	                  console.log('dzizlaa');
+	                  _this2.addToFavourites();
 	                },
 	                text: "Add to list: favourites"
 	              }), (0, _core.MenuItemFactory)({
 	                key: 2,
 	                onClick: function onClick() {
-	                  console.log('dzizlaa');
+	                  _this2.addToDoneList();
 	                },
 	                text: "Add to list: done"
 	              }), (0, _core.MenuItemFactory)({
 	                key: 3,
 	                onClick: function onClick() {
-	                  console.log('dzizlaa');
+	                  _this2.addToTodoList();
 	                },
 	                text: "Add to list: to do"
 	              })];
@@ -39390,146 +39425,11 @@
 
 	'use strict';
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(351);
-	if (typeof content === 'string') content = [[module.id, content, '']];
-	// Prepare cssTransformation
-	var transform;
-
-	var options = {};
-	options.transform = transform;
-	// add the styles to the DOM
-	var update = __webpack_require__(260)(content, options);
-	if (content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if (false) {
-		// When the styles change, update the <style> tags
-		if (!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/less-loader/dist/index.js!./styles.less", function () {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/less-loader/dist/index.js!./styles.less");
-				if (typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function () {
-			update();
-		});
-	}
-
-/***/ }),
-/* 351 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(259)(undefined);
-	// imports
-
-
-	// module
-	exports.push([module.id, ".rf__list-item__wrapper {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto;\n}\n.rf__list-item {\n  display: flex;\n  flex-wrap: nowrap;\n  align-items: center;\n  background: #e8e4e8;\n  padding: 10px;\n  margin: 10px;\n}\n.rf__list-item:hover {\n  background: #ececec;\n}\n.rf__list-item p {\n  margin-left: 15px;\n  font-size: 1.5em;\n  color: #3e3e3e;\n}\n.recipe-finder__recipes {\n  padding: 20px 0;\n}\n.rf__list-item__img__wrapper {\n  width: 120px;\n  height: 120px;\n  min-width: 120px;\n  display: flex;\n  align-items: center;\n  overflow: hidden;\n}\n.rf__list-item__img__wrapper img {\n  object-fit: cover;\n  height: 120px;\n  width: 120px;\n}\n.recipe__image__wrapper {\n  margin: 0 auto 30px;\n  width: 100%;\n}\n.recipe__image__wrapper img {\n  width: 100%;\n  max-height: 400px;\n  object-fit: cover;\n}\n.recipe__icons__wrapper {\n  display: flex;\n  width: 100%;\n  margin-top: 20px;\n}\n.recipe__icon {\n  width: 100%;\n  text-align: center;\n}\n.recipe__icon:hover {\n  cursor: pointer;\n}\n.recipe__icon:hover i {\n  transform: scale(1.2);\n}\n.recipe__icon i {\n  transform: scale(1);\n  transition: transform .5s;\n}\n", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 352 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.SET_RECIPE_IN_WORKSPACE = exports.RECEIVE_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = undefined;
-	exports.fetchSingleRecipe = fetchSingleRecipe;
-	exports.searchRecipes = searchRecipes;
-
-	var _APIHelper = __webpack_require__(353);
-
-	var _APIHelper2 = _interopRequireDefault(_APIHelper);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var REQUEST_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = 'REQUEST_RECIPES_SEARCH';
-	function requestRecipesSearch() {
-	  return {
-	    type: REQUEST_RECIPES_SEARCH
-	  };
-	}
-
-	var RECEIVE_RECIPES_SEARCH = exports.RECEIVE_RECIPES_SEARCH = 'RECEIVE_RECIPES_SEARCH';
-	function receiveRecipesSearch(recipes) {
-	  return {
-	    type: RECEIVE_RECIPES_SEARCH,
-	    recipes: recipes
-	  };
-	}
-
-	// export const INVALIDATE_RECIPES = 'INVALIDATE_RECIPES';
-	// export function invalidateRecipes() {
-	//   return {
-	//     type: INVALIDATE_RECIPES
-	//   }
-	// }
-	//
-	//
-	// case actions.INVALIDATE_RECIPES:
-	// return {
-	//   ...state,
-	//   recipes: {
-	//     didInvalidate: true
-	//   }
-	// };
-
-	function fetchSingleRecipe(id) {
-	  console.log('FETCHING SINGLE RECIPE');
-	  return function (dispatch) {
-	    _APIHelper2.default.get('/recipes/' + id).then(function (data) {
-	      dispatch(setRecipeInWorkspace(data));
-	    });
-	  };
-	}
-
-	var SET_RECIPE_IN_WORKSPACE = exports.SET_RECIPE_IN_WORKSPACE = 'SET_RECIPE_IN_WORKSPACE';
-	function setRecipeInWorkspace(recipe) {
-	  return {
-	    type: SET_RECIPE_IN_WORKSPACE,
-	    recipe: recipe
-	  };
-	}
-
-	function searchRecipes(ingredients) {
-	  return function (dispatch) {
-	    dispatch(requestRecipesSearch());
-
-	    var queryString = '?';
-	    var ingredientsArray = ingredients.split(', ').map(function (ingredient) {
-	      return ingredient.replace(' ', '%20');
-	    });
-
-	    ingredientsArray.forEach(function (ingredient, index) {
-	      queryString += 'ingredients[]=' + ingredient + '&';
-	    });
-
-	    _APIHelper2.default.get('/recipes/search' + queryString).then(function (recipes) {
-	      dispatch(receiveRecipesSearch(recipes.data));
-	    });
-	  };
-	}
-
-/***/ }),
-/* 353 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _axios = __webpack_require__(354);
+	var _axios = __webpack_require__(351);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
@@ -39548,21 +39448,21 @@
 	};
 
 /***/ }),
-/* 354 */
+/* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(355);
+	module.exports = __webpack_require__(352);
 
 /***/ }),
-/* 355 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(356);
-	var bind = __webpack_require__(361);
-	var Axios = __webpack_require__(362);
-	var defaults = __webpack_require__(363);
+	var utils = __webpack_require__(353);
+	var bind = __webpack_require__(358);
+	var Axios = __webpack_require__(359);
+	var defaults = __webpack_require__(360);
 
 	/**
 	 * Create an instance of Axios
@@ -39595,15 +39495,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(380);
-	axios.CancelToken = __webpack_require__(381);
-	axios.isCancel = __webpack_require__(377);
+	axios.Cancel = __webpack_require__(377);
+	axios.CancelToken = __webpack_require__(378);
+	axios.isCancel = __webpack_require__(374);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(382);
+	axios.spread = __webpack_require__(379);
 
 	module.exports = axios;
 
@@ -39612,12 +39512,12 @@
 
 
 /***/ }),
-/* 356 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 
-	var bind = __webpack_require__(361);
+	var bind = __webpack_require__(358);
 
 	/*global toString:true*/
 
@@ -39928,10 +39828,10 @@
 	  trim: trim
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(357).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(354).Buffer))
 
 /***/ }),
-/* 357 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -39944,9 +39844,9 @@
 
 	'use strict'
 
-	var base64 = __webpack_require__(358)
-	var ieee754 = __webpack_require__(359)
-	var isArray = __webpack_require__(360)
+	var base64 = __webpack_require__(355)
+	var ieee754 = __webpack_require__(356)
+	var isArray = __webpack_require__(357)
 
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -41727,7 +41627,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 358 */
+/* 355 */
 /***/ (function(module, exports) {
 
 	'use strict'
@@ -41847,7 +41747,7 @@
 
 
 /***/ }),
-/* 359 */
+/* 356 */
 /***/ (function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -41937,7 +41837,7 @@
 
 
 /***/ }),
-/* 360 */
+/* 357 */
 /***/ (function(module, exports) {
 
 	var toString = {}.toString;
@@ -41948,7 +41848,7 @@
 
 
 /***/ }),
-/* 361 */
+/* 358 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -41965,17 +41865,17 @@
 
 
 /***/ }),
-/* 362 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(363);
-	var utils = __webpack_require__(356);
-	var InterceptorManager = __webpack_require__(374);
-	var dispatchRequest = __webpack_require__(375);
-	var isAbsoluteURL = __webpack_require__(378);
-	var combineURLs = __webpack_require__(379);
+	var defaults = __webpack_require__(360);
+	var utils = __webpack_require__(353);
+	var InterceptorManager = __webpack_require__(371);
+	var dispatchRequest = __webpack_require__(372);
+	var isAbsoluteURL = __webpack_require__(375);
+	var combineURLs = __webpack_require__(376);
 
 	/**
 	 * Create a new instance of Axios
@@ -42056,13 +41956,13 @@
 
 
 /***/ }),
-/* 363 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(356);
-	var normalizeHeaderName = __webpack_require__(364);
+	var utils = __webpack_require__(353);
+	var normalizeHeaderName = __webpack_require__(361);
 
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/x-www-form-urlencoded'
@@ -42078,10 +41978,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(365);
+	    adapter = __webpack_require__(362);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(365);
+	    adapter = __webpack_require__(362);
 	  }
 	  return adapter;
 	}
@@ -42155,12 +42055,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 364 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(356);
+	var utils = __webpack_require__(353);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -42173,18 +42073,18 @@
 
 
 /***/ }),
-/* 365 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(356);
-	var settle = __webpack_require__(366);
-	var buildURL = __webpack_require__(369);
-	var parseHeaders = __webpack_require__(370);
-	var isURLSameOrigin = __webpack_require__(371);
-	var createError = __webpack_require__(367);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(372);
+	var utils = __webpack_require__(353);
+	var settle = __webpack_require__(363);
+	var buildURL = __webpack_require__(366);
+	var parseHeaders = __webpack_require__(367);
+	var isURLSameOrigin = __webpack_require__(368);
+	var createError = __webpack_require__(364);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(369);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -42280,7 +42180,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(373);
+	      var cookies = __webpack_require__(370);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -42359,12 +42259,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 366 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(367);
+	var createError = __webpack_require__(364);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -42390,12 +42290,12 @@
 
 
 /***/ }),
-/* 367 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(368);
+	var enhanceError = __webpack_require__(365);
 
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -42413,7 +42313,7 @@
 
 
 /***/ }),
-/* 368 */
+/* 365 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42438,12 +42338,12 @@
 
 
 /***/ }),
-/* 369 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(356);
+	var utils = __webpack_require__(353);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -42512,12 +42412,12 @@
 
 
 /***/ }),
-/* 370 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(356);
+	var utils = __webpack_require__(353);
 
 	/**
 	 * Parse headers into an object
@@ -42555,12 +42455,12 @@
 
 
 /***/ }),
-/* 371 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(356);
+	var utils = __webpack_require__(353);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -42629,7 +42529,7 @@
 
 
 /***/ }),
-/* 372 */
+/* 369 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42671,12 +42571,12 @@
 
 
 /***/ }),
-/* 373 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(356);
+	var utils = __webpack_require__(353);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -42730,12 +42630,12 @@
 
 
 /***/ }),
-/* 374 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(356);
+	var utils = __webpack_require__(353);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -42788,15 +42688,15 @@
 
 
 /***/ }),
-/* 375 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(356);
-	var transformData = __webpack_require__(376);
-	var isCancel = __webpack_require__(377);
-	var defaults = __webpack_require__(363);
+	var utils = __webpack_require__(353);
+	var transformData = __webpack_require__(373);
+	var isCancel = __webpack_require__(374);
+	var defaults = __webpack_require__(360);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -42873,12 +42773,12 @@
 
 
 /***/ }),
-/* 376 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(356);
+	var utils = __webpack_require__(353);
 
 	/**
 	 * Transform the data for a request or a response
@@ -42899,7 +42799,7 @@
 
 
 /***/ }),
-/* 377 */
+/* 374 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42910,7 +42810,7 @@
 
 
 /***/ }),
-/* 378 */
+/* 375 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42930,7 +42830,7 @@
 
 
 /***/ }),
-/* 379 */
+/* 376 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42950,7 +42850,7 @@
 
 
 /***/ }),
-/* 380 */
+/* 377 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42975,12 +42875,12 @@
 
 
 /***/ }),
-/* 381 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(380);
+	var Cancel = __webpack_require__(377);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -43038,7 +42938,7 @@
 
 
 /***/ }),
-/* 382 */
+/* 379 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43069,6 +42969,125 @@
 	  };
 	};
 
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(381);
+	if (typeof content === 'string') content = [[module.id, content, '']];
+	// Prepare cssTransformation
+	var transform;
+
+	var options = {};
+	options.transform = transform;
+	// add the styles to the DOM
+	var update = __webpack_require__(260)(content, options);
+	if (content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if (false) {
+		// When the styles change, update the <style> tags
+		if (!content.locals) {
+			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/less-loader/dist/index.js!./styles.less", function () {
+				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/less-loader/dist/index.js!./styles.less");
+				if (typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function () {
+			update();
+		});
+	}
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(259)(undefined);
+	// imports
+
+
+	// module
+	exports.push([module.id, ".rf__list-item__wrapper {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto;\n}\n.rf__list-item {\n  display: flex;\n  flex-wrap: nowrap;\n  align-items: center;\n  background: #e8e4e8;\n  padding: 10px;\n  margin: 10px;\n}\n.rf__list-item:hover {\n  background: #ececec;\n}\n.rf__list-item p {\n  margin-left: 15px;\n  font-size: 1.5em;\n  color: #3e3e3e;\n}\n.recipe-finder__recipes {\n  padding: 20px 0;\n}\n.rf__list-item__img__wrapper {\n  width: 120px;\n  height: 120px;\n  min-width: 120px;\n  display: flex;\n  align-items: center;\n  overflow: hidden;\n}\n.rf__list-item__img__wrapper img {\n  object-fit: cover;\n  height: 120px;\n  width: 120px;\n}\n.recipe__image__wrapper {\n  margin: 0 auto 30px;\n  width: 100%;\n}\n.recipe__image__wrapper img {\n  width: 100%;\n  max-height: 400px;\n  object-fit: cover;\n}\n.recipe__icons__wrapper {\n  display: flex;\n  width: 100%;\n  margin-top: 20px;\n}\n.recipe__icon {\n  width: 100%;\n  text-align: center;\n}\n.recipe__icon:hover {\n  cursor: pointer;\n}\n.recipe__icon:hover i {\n  transform: scale(1.2);\n}\n.recipe__icon i {\n  transform: scale(1);\n  transition: transform .5s;\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 382 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.SET_RECIPE_IN_WORKSPACE = exports.RECEIVE_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = undefined;
+	exports.fetchSingleRecipe = fetchSingleRecipe;
+	exports.setRecipeInWorkspace = setRecipeInWorkspace;
+	exports.searchRecipes = searchRecipes;
+
+	var _APIHelper = __webpack_require__(350);
+
+	var _APIHelper2 = _interopRequireDefault(_APIHelper);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var REQUEST_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = 'REQUEST_RECIPES_SEARCH';
+	function requestRecipesSearch() {
+	  return {
+	    type: REQUEST_RECIPES_SEARCH
+	  };
+	}
+
+	var RECEIVE_RECIPES_SEARCH = exports.RECEIVE_RECIPES_SEARCH = 'RECEIVE_RECIPES_SEARCH';
+	function receiveRecipesSearch(recipes) {
+	  return {
+	    type: RECEIVE_RECIPES_SEARCH,
+	    recipes: recipes
+	  };
+	}
+
+	function fetchSingleRecipe(id) {
+	  return function (dispatch) {
+	    _APIHelper2.default.get('/recipes/' + id).then(function (data) {
+	      dispatch(setRecipeInWorkspace(data));
+	    });
+	  };
+	}
+
+	var SET_RECIPE_IN_WORKSPACE = exports.SET_RECIPE_IN_WORKSPACE = 'SET_RECIPE_IN_WORKSPACE';
+	function setRecipeInWorkspace(recipe) {
+	  return {
+	    type: SET_RECIPE_IN_WORKSPACE,
+	    recipe: recipe
+	  };
+	}
+
+	function searchRecipes(ingredients) {
+	  return function (dispatch) {
+	    dispatch(requestRecipesSearch());
+
+	    var queryString = '?';
+	    var ingredientsArray = ingredients.split(', ').map(function (ingredient) {
+	      return ingredient.replace(' ', '%20');
+	    });
+
+	    ingredientsArray.forEach(function (ingredient, index) {
+	      queryString += 'ingredients[]=' + ingredient + '&';
+	    });
+
+	    _APIHelper2.default.get('/recipes/search' + queryString).then(function (recipes) {
+	      dispatch(receiveRecipesSearch(recipes.data));
+	    });
+	  };
+	}
 
 /***/ }),
 /* 383 */
@@ -44896,9 +44915,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Spinner = __webpack_require__(256);
+	var _classnames = __webpack_require__(253);
 
-	var _Spinner2 = _interopRequireDefault(_Spinner);
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _actions = __webpack_require__(407);
+
+	var _List = __webpack_require__(408);
+
+	var _List2 = _interopRequireDefault(_List);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44911,22 +44938,73 @@
 	var RecipesList = function (_Component) {
 	  _inherits(RecipesList, _Component);
 
-	  function RecipesList() {
+	  function RecipesList(props) {
 	    _classCallCheck(this, RecipesList);
 
-	    return _possibleConstructorReturn(this, (RecipesList.__proto__ || Object.getPrototypeOf(RecipesList)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (RecipesList.__proto__ || Object.getPrototypeOf(RecipesList)).call(this, props));
+
+	    _this.state = {
+	      activeTab: 0
+	    };
+
+	    _this.changeActiveTab = _this.changeActiveTab.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(RecipesList, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.refresh();
+	    }
+	  }, {
+	    key: 'changeActiveTab',
+	    value: function changeActiveTab(index) {
+	      this.setState({ activeTab: index });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'recipes-list' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'recipes-list-spinner' },
-	          _react2.default.createElement(_Spinner2.default, null)
+	          { className: 'recipes-list__sidebar' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'sidebar__tabs' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: (0, _classnames2.default)({ "sidebar__tab clickable": true, "active": this.state.activeTab === 0 }),
+	                onClick: function onClick() {
+	                  return _this2.changeActiveTab(0);
+	                } },
+	              'favourites'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: (0, _classnames2.default)({ "sidebar__tab clickable": true, "active": this.state.activeTab === 1 }),
+	                onClick: function onClick() {
+	                  return _this2.changeActiveTab(1);
+	                } },
+	              'done'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: (0, _classnames2.default)({ "sidebar__tab clickable": true, "active": this.state.activeTab === 2 }),
+	                onClick: function onClick() {
+	                  return _this2.changeActiveTab(2);
+	                } },
+	              'to do'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'list__wrapper' },
+	          _react2.default.createElement(_List2.default, null)
 	        )
 	      );
 	    }
@@ -44935,7 +45013,20 @@
 	  return RecipesList;
 	}(_react.Component);
 
-	exports.default = RecipesList;
+	function mapStateToProps(state) {
+	  console.log(state);
+	  return {};
+	}
+
+	function mapDispatchToProps(dispatch, ownProps) {
+	  return {
+	    refresh: function refresh() {
+	      return dispatch((0, _actions.fetchMyFavouritesIfNeeded)());
+	    }
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RecipesList);
 
 /***/ }),
 /* 407 */
@@ -44943,10 +45034,196 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.SET_RECIPE_IN_WORKSPACE = exports.RECEIVE_MY_TODO = exports.REQUEST_MY_TODO = exports.RECEIVE_MY_DONE = exports.REQUEST_MY_DONE = exports.RECEIVE_MY_FAVOURITES = exports.REQUEST_MY_FAVOURITES = undefined;
+	exports.fetchMyFavouritesIfNeeded = fetchMyFavouritesIfNeeded;
+	exports.fetchMyDoneIfNeeded = fetchMyDoneIfNeeded;
+	exports.fetchMyTodoIfNeeded = fetchMyTodoIfNeeded;
+
+	var _APIHelper = __webpack_require__(350);
+
+	var _APIHelper2 = _interopRequireDefault(_APIHelper);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var REQUEST_MY_FAVOURITES = exports.REQUEST_MY_FAVOURITES = 'REQUEST_MY_FAVOURITES';
+	function requestMyFavourites() {
+	  return {
+	    type: REQUEST_MY_FAVOURITES
+	  };
+	}
+
+	var RECEIVE_MY_FAVOURITES = exports.RECEIVE_MY_FAVOURITES = 'RECEIVE_MY_FAVOURITES';
+	function receiveMyFavourites(recipes) {
+	  return {
+	    type: RECEIVE_MY_FAVOURITES,
+	    recipes: recipes
+	  };
+	}
+
+	var REQUEST_MY_DONE = exports.REQUEST_MY_DONE = 'REQUEST_MY_DONE';
+	function requestMyDone() {
+	  return {
+	    type: REQUEST_MY_DONE
+	  };
+	}
+
+	var RECEIVE_MY_DONE = exports.RECEIVE_MY_DONE = 'RECEIVE_MY_DONE';
+	function receiveMyDone(recipes) {
+	  return {
+	    type: RECEIVE_MY_DONE,
+	    recipes: recipes
+	  };
+	}
+
+	var REQUEST_MY_TODO = exports.REQUEST_MY_TODO = 'REQUEST_MY_TODO';
+	function requestMyTodo() {
+	  return {
+	    type: REQUEST_MY_TODO
+	  };
+	}
+
+	var RECEIVE_MY_TODO = exports.RECEIVE_MY_TODO = 'RECEIVE_MY_TODO';
+	function receiveMyTodo(recipes) {
+	  return {
+	    type: RECEIVE_MY_TODO,
+	    recipes: recipes
+	  };
+	}
+
+	// export const INVALIDATE_RECIPES = 'INVALIDATE_RECIPES';
+	// export function invalidateRecipes() {
+	//   return {
+	//     type: INVALIDATE_RECIPES
+	//   }
+	// }
+	//
+	//
+	// case actions.INVALIDATE_RECIPES:
+	// return {
+	//   ...state,
+	//   recipes: {
+	//     didInvalidate: true
+	//   }
+	// };
+
+	function fetchMyFavouritesIfNeeded() {
+	  return function (dispatch) {
+	    dispatch(requestMyFavourites());
+	    _APIHelper2.default.get('/recipes/favourites').then(function (data) {
+	      dispatch(receiveMyFavourites(data.data));
+	    });
+	  };
+	}
+
+	function fetchMyDoneIfNeeded() {
+	  return function (dispatch) {
+	    dispatch(requestMyFavourites());
+	    _APIHelper2.default.get('/recipes/done').then(function (data) {
+	      dispatch(receiveMyFavourites(data));
+	    });
+	  };
+	}
+
+	function fetchMyTodoIfNeeded() {
+	  return function (dispatch) {
+	    dispatch(requestMyFavourites());
+	    _APIHelper2.default.get('/recipes/todo').then(function (data) {
+	      dispatch(receiveMyFavourites(data));
+	    });
+	  };
+	}
+
+	var SET_RECIPE_IN_WORKSPACE = exports.SET_RECIPE_IN_WORKSPACE = 'SET_RECIPE_IN_WORKSPACE';
+	function setRecipeInWorkspace(recipe) {
+	  return {
+	    type: SET_RECIPE_IN_WORKSPACE,
+	    recipe: recipe
+	  };
+	}
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	var _classnames = __webpack_require__(253);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _actions = __webpack_require__(407);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var List = function (_Component) {
+	  _inherits(List, _Component);
+
+	  function List(props) {
+	    _classCallCheck(this, List);
+
+	    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+	  }
+
+	  _createClass(List, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.refresh();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('div', { className: 'recipes-list' });
+	    }
+	  }]);
+
+	  return List;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  return {};
+	}
+
+	function mapDispatchToProps(dispatch, ownProps) {
+	  return {
+	    refresh: function refresh() {
+	      return dispatch((0, _actions.fetchMyFavouritesIfNeeded)());
+	    }
+	  };
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(List);
+
+/***/ }),
+/* 409 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(408);
+	var content = __webpack_require__(410);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -44973,55 +45250,6 @@
 	}
 
 /***/ }),
-/* 408 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(259)(undefined);
-	// imports
-
-
-	// module
-	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background: url('/resources/background.jpg');\n  background-size: cover;\n}\n.clickable {\n  cursor: pointer !important;\n}\n.secondary-color {\n  color: #ffa500;\n}\n.app {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  overflow: hidden;\n}\n.main__layout {\n  width: 100%;\n  height: 100%;\n}\nmain {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  overflow: hidden;\n}\n.scrollbar-container {\n  height: 100%;\n}\n.topbar {\n  width: 100%;\n  height: 60px;\n  position: relative;\n  display: flex;\n  align-items: flex-start;\n  z-index: 5;\n}\n.topbar .topbar__title {\n  color: white;\n  font-size: 36px;\n  margin-right: 20px;\n}\n.pt-dialog {\n  width: 100%;\n  max-width: 500px;\n}\n", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 409 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(410);
-	if (typeof content === 'string') content = [[module.id, content, '']];
-	// Prepare cssTransformation
-	var transform;
-
-	var options = {};
-	options.transform = transform;
-	// add the styles to the DOM
-	var update = __webpack_require__(260)(content, options);
-	if (content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if (false) {
-		// When the styles change, update the <style> tags
-		if (!content.locals) {
-			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/index.js!./styles.less", function () {
-				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/index.js!./styles.less");
-				if (typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function () {
-			update();
-		});
-	}
-
-/***/ }),
 /* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45030,7 +45258,7 @@
 
 
 	// module
-	exports.push([module.id, ".recipes-list__wrapper {\n  position: relative;\n  width: 300px;\n  height: 100%;\n  right: 0;\n  transition: left, .5s;\n}\n.recipes-list__wrapper.visible {\n  right: 0;\n}\n.recipes-list__wrapper .recipes-list__toggler {\n  z-index: 10;\n  position: absolute;\n  top: 0;\n  left: -40px;\n  background: grey;\n  width: 40px;\n  height: 40px;\n  color: white;\n}\n.recipes-list__wrapper .recipes-list__toggler span {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  font-size: 20px;\n  transform: translateX(-50%) translateY(-50%);\n}\n.recipes-list {\n  background: white;\n  box-shadow: 0 0 5px black;\n  width: 300px;\n  height: 100%;\n}\n", ""]);
+	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background: url('/resources/background.jpg');\n  background-size: cover;\n}\n.clickable {\n  cursor: pointer !important;\n}\n.secondary-color {\n  color: #ffa500;\n}\n.app {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  overflow: hidden;\n}\n.main__layout {\n  width: 100%;\n  height: 100%;\n}\nmain {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  overflow: hidden;\n}\n.scrollbar-container {\n  height: 100%;\n}\n.topbar {\n  width: 100%;\n  height: 60px;\n  position: relative;\n  display: flex;\n  align-items: flex-start;\n  z-index: 5;\n}\n.topbar .topbar__title {\n  color: white;\n  font-size: 36px;\n  margin-right: 20px;\n}\n.pt-dialog {\n  width: 100%;\n  max-width: 500px;\n}\n", ""]);
 
 	// exports
 
@@ -45079,13 +45307,62 @@
 
 
 	// module
-	exports.push([module.id, ".recipe-finder {\n  width: 100%;\n  max-width: 400px;\n  height: 100%;\n  position: absolute;\n  right: 0;\n  background: #232627;\n  padding: 20px;\n  display: flex;\n  flex-wrap: wrap;\n}\n.recipe-finder__form__wrapper {\n  position: relative;\n  color: white;\n  text-align: center;\n  width: 100%;\n  transition: align-self 0.5s, background 0.5s;\n  padding: 20px;\n  align-self: center;\n}\n.recipe-finder__form__wrapper p.description {\n  font-size: 1.8em;\n  margin-bottom: 40px;\n}\n.recipe-finder__form__wrapper p.details {\n  font-size: 1em;\n  color: white;\n  opacity: 0.5;\n  margin-top: 15px;\n}\n.recipe-finder__form__wrapper.closed {\n  top: 0;\n  background: #232627;\n  padding: 10px;\n  align-self: flex-start;\n}\n.recipe-finder__form__wrapper.closed p.description {\n  display: none;\n}\n.recipe-finder__form {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto;\n}\n.recipe-finder__form input {\n  height: 40px;\n  width: 100%;\n  border-radius: 0;\n  font-size: 20px;\n  padding: 25px;\n  color: #434343;\n}\n.recipe-finder__form input:focus {\n  outline: none;\n}\n", ""]);
+	exports.push([module.id, ".recipes-list__wrapper {\n  background: rgba(255, 255, 255, 0.3);\n  width: 100%;\n  height: 100%;\n}\n.recipes-list {\n  width: 100%;\n  height: 100%;\n}\n.recipes-list__sidebar {\n  width: 300px;\n  height: 100%;\n  background: #232627;\n}\n.sidebar__tabs {\n  display: flex;\n  width: 100%;\n}\n.sidebar__tab {\n  flex: 1;\n  color: white;\n  text-align: center;\n  text-transform: uppercase;\n  padding: 10px;\n  border-bottom: 1px solid rgba(231, 202, 179, 0.2);\n  transition: border-bottom 0.5s;\n}\n.sidebar__tab.active {\n  border-bottom: 1px solid #e7cab3;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
 /* 413 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(414);
+	if (typeof content === 'string') content = [[module.id, content, '']];
+	// Prepare cssTransformation
+	var transform;
+
+	var options = {};
+	options.transform = transform;
+	// add the styles to the DOM
+	var update = __webpack_require__(260)(content, options);
+	if (content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if (false) {
+		// When the styles change, update the <style> tags
+		if (!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/index.js!./styles.less", function () {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/index.js!./styles.less");
+				if (typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function () {
+			update();
+		});
+	}
+
+/***/ }),
+/* 414 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(259)(undefined);
+	// imports
+
+
+	// module
+	exports.push([module.id, ".recipe-finder__wrapper {\n  width: 100%;\n  max-width: 400px;\n  height: 100%;\n  position: absolute;\n  right: 0;\n  transition: width .7s;\n  background: #232627;\n}\n.recipe-finder__wrapper.hidden {\n  width: 30px;\n}\n.recipe-finder__wrapper.hidden .recipe-finder {\n  opacity: 0;\n}\n.recipe-finder {\n  width: 100%;\n  max-width: 400px;\n  height: 100%;\n  position: absolute;\n  right: 0;\n  padding: 20px;\n  display: flex;\n  flex-wrap: wrap;\n  transition: opacity .5s;\n}\n.recipe-finder__toggler {\n  position: absolute;\n  color: black;\n  background: white;\n  width: 30px;\n  height: 30px;\n  display: flex;\n  align-items: center;\n  z-index: 9999;\n  left: -30px;\n}\n.recipe-finder__toggler span {\n  margin: 0 auto;\n}\n.recipe-finder__form__wrapper {\n  position: relative;\n  color: white;\n  text-align: center;\n  width: 100%;\n  transition: align-self 0.5s, background 0.5s;\n  padding: 20px;\n  align-self: center;\n}\n.recipe-finder__form__wrapper p.description {\n  font-size: 1.8em;\n  margin-bottom: 40px;\n}\n.recipe-finder__form__wrapper p.details {\n  font-size: 1em;\n  color: white;\n  opacity: 0.5;\n  margin-top: 15px;\n}\n.recipe-finder__form__wrapper.closed {\n  top: 0;\n  background: #232627;\n  padding: 10px;\n  align-self: flex-start;\n}\n.recipe-finder__form__wrapper.closed p.description {\n  display: none;\n}\n.recipe-finder__form {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto;\n}\n.recipe-finder__form input {\n  height: 40px;\n  width: 100%;\n  border-radius: 0;\n  font-size: 20px;\n  padding: 25px;\n  color: #434343;\n}\n.recipe-finder__form input:focus {\n  outline: none;\n}\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45102,9 +45379,9 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _actions = __webpack_require__(414);
+	var _actions = __webpack_require__(416);
 
-	__webpack_require__(415);
+	__webpack_require__(417);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45126,7 +45403,7 @@
 	  _createClass(Login, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.props.login();
+	      // this.props.login();
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
@@ -45165,7 +45442,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'facebook__button' },
+	            { className: 'facebook__button', onClick: this.props.login },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'facebook__icon' },
@@ -45187,7 +45464,8 @@
 	function mapDispatchToProps(dispatch, ownProps) {
 	  return {
 	    login: function login() {
-	      return dispatch((0, _actions.login)());
+	      window.location = 'http://localhost:8888/login/facebook';
+	      dispatch((0, _actions.login)());
 	    }
 	  };
 	}
@@ -45195,7 +45473,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Login);
 
 /***/ }),
-/* 414 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45206,7 +45484,7 @@
 	exports.RECEIVE_USER_PROFILE = exports.REQUEST_USER_PROFILE = undefined;
 	exports.login = login;
 
-	var _APIHelper = __webpack_require__(353);
+	var _APIHelper = __webpack_require__(350);
 
 	var _APIHelper2 = _interopRequireDefault(_APIHelper);
 
@@ -45231,18 +45509,18 @@
 	  return function (dispatch) {
 	    requestUserProfile();
 
-	    _APIHelper2.default.post('/users/1/login').then(function (result) {
-	      if (result.status === 200) {
-	        _APIHelper2.default.get('/users/me').then(function (userProfile) {
-	          dispatch(receiveUserProfile(userProfile.data));
-	        });
-	      }
+	    // API.post('/users/1/login').then(result => {
+	    //   if (result.status === 200) {
+	    _APIHelper2.default.get('/users/me').then(function (userProfile) {
+	      dispatch(receiveUserProfile(userProfile.data));
 	    });
+	    // }
+	    // })
 	  };
 	}
 
 /***/ }),
-/* 415 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45250,7 +45528,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(416);
+	var content = __webpack_require__(418);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -45277,7 +45555,7 @@
 	}
 
 /***/ }),
-/* 416 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -45291,7 +45569,7 @@
 
 
 /***/ }),
-/* 417 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45302,13 +45580,17 @@
 
 	var _redux = __webpack_require__(166);
 
-	var _reducer = __webpack_require__(418);
+	var _reducer = __webpack_require__(420);
 
 	var _reducer2 = _interopRequireDefault(_reducer);
 
-	var _reducer3 = __webpack_require__(419);
+	var _reducer3 = __webpack_require__(421);
 
 	var _reducer4 = _interopRequireDefault(_reducer3);
+
+	var _reducer5 = __webpack_require__(422);
+
+	var _reducer6 = _interopRequireDefault(_reducer5);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45319,13 +45601,14 @@
 	    return _state;
 	  },
 	  userProfile: _reducer2.default,
-	  recipeFinder: _reducer4.default
+	  recipeFinder: _reducer4.default,
+	  myRecipes: _reducer6.default
 	});
 
 	exports.default = rootReducer;
 
 /***/ }),
-/* 418 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45338,7 +45621,7 @@
 
 	exports.default = reducer;
 
-	var _actions = __webpack_require__(414);
+	var _actions = __webpack_require__(416);
 
 	var actions = _interopRequireWildcard(_actions);
 
@@ -45376,7 +45659,7 @@
 	}
 
 /***/ }),
-/* 419 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45389,7 +45672,7 @@
 
 	exports.default = reducer;
 
-	var _actions = __webpack_require__(352);
+	var _actions = __webpack_require__(382);
 
 	var actions = _interopRequireWildcard(_actions);
 
@@ -45426,7 +45709,12 @@
 
 	    case actions.SET_RECIPE_IN_WORKSPACE:
 	      return _extends({}, state, {
-	        workspace: _extends({}, action.recipe)
+	        recipes: _extends({}, state.recipes, {
+	          workspace: {
+	            recipe: action.recipe
+	          }
+	        })
+
 	      });
 
 	    default:
@@ -45435,7 +45723,7 @@
 	}
 
 /***/ }),
-/* 420 */
+/* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45443,119 +45731,35 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.default = reducer;
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _actions = __webpack_require__(407);
 
-	var _react = __webpack_require__(2);
+	var actions = _interopRequireWildcard(_actions);
 
-	var _react2 = _interopRequireDefault(_react);
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-	var _reactRedux = __webpack_require__(160);
-
-	var _core = __webpack_require__(264);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ListItem = function (_Component) {
-	  _inherits(ListItem, _Component);
-
-	  function ListItem(props) {
-	    _classCallCheck(this, ListItem);
-
-	    return _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call(this, props));
+	var initialState = {
+	  myRecipes: {
+	    didInvalidate: true,
+	    isFetching: true,
+	    favourites: [],
+	    todo: [],
+	    done: [],
+	    workspace: {}
 	  }
+	};
 
-	  _createClass(ListItem, [{
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props,
-	          recipe = _props.recipe,
-	          isOpened = _props.isOpened,
-	          toggleRecipeModal = _props.toggleRecipeModal;
+	function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
 
-	      return _react2.default.createElement(
-	        _core.Dialog,
-	        { isOpen: isOpened,
-	          onClose: toggleRecipeModal },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'pt-dialog-body' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'recipe__image__wrapper' },
-	            _react2.default.createElement('img', { src: recipe.image_url, alt: recipe.image_url })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              recipe.title
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'a',
-	              { href: recipe.source_url },
-	              'Source: ',
-	              recipe.source_url
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'pt-dialog-footer' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'pt-dialog-footer-actions' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'recipe__icons__wrapper' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'recipe__icon clickable' },
-	                _react2.default.createElement('i', { className: 'fa fa-check fa-2x', 'aria-hidden': 'true' })
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'recipe__icon clickable' },
-	                _react2.default.createElement('i', { className: 'fa fa-heart-o fa-2x', 'aria-hidden': 'true' })
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'recipe__icon clickable' },
-	                _react2.default.createElement('i', { className: 'fa fa-bookmark-o fa-2x', 'aria-hidden': 'true' })
-	              )
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
+	  switch (action.type) {
 
-	  return ListItem;
-	}(_react.Component);
-
-	function mapStateToProps(state) {
-	  return {
-	    recipe: state.recipeFinder.workspace
-	  };
+	    default:
+	      return state;
+	  }
 	}
-
-	function mapDispatchToProps(dispatch, ownProps) {
-	  return {};
-	}
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ListItem);
 
 /***/ })
 /******/ ]);

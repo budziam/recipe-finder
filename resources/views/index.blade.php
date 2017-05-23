@@ -14,4 +14,5 @@
 <div class="app"></div>
 </body>
 <script src="./bundle2.js"></script>
+<script src="https://use.fontawesome.com/e6319a147b.js"></script>
 </html>
