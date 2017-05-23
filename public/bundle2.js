@@ -22634,7 +22634,7 @@
 	  };
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Router);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Router);
 
 /***/ }),
 /* 208 */
