@@ -22567,6 +22567,8 @@
 
 	var _Login2 = _interopRequireDefault(_Login);
 
+	var _actions = __webpack_require__(416);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22585,6 +22587,11 @@
 	  }
 
 	  _createClass(Router, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.checkUser();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var userProfile = this.props.userProfile;
@@ -22616,6 +22623,14 @@
 	function mapStateToProps(state) {
 	  return {
 	    userProfile: state.userProfile.userProfile
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return {
+	    checkUser: function checkUser() {
+	      dispatch((0, _actions.checkUserProfile)());
+	    }
 	  };
 	}
 
@@ -45466,7 +45481,6 @@
 	    login: function login() {
 	      console.log(window.location.href);
 	      window.location = '/login/facebook';
-	      dispatch((0, _actions.login)());
 	    }
 	  };
 	}
@@ -45483,7 +45497,7 @@
 	  value: true
 	});
 	exports.RECEIVE_USER_PROFILE = exports.REQUEST_USER_PROFILE = undefined;
-	exports.login = login;
+	exports.checkUserProfile = checkUserProfile;
 
 	var _APIHelper = __webpack_require__(350);
 
@@ -45506,7 +45520,7 @@
 	  };
 	}
 
-	function login() {
+	function checkUserProfile() {
 	  return function (dispatch) {
 	    requestUserProfile();
 
