@@ -61,13 +61,13 @@ class Food2ForkClient
                 ->getBody();
         } catch (BadResponseException $exception) {
             Log::error($exception);
-
             throw new Food2ForkException();
         }
 
         $decoded = json_decode($response, true);
 
         if (!isset($decoded['recipe'])) {
+            Log::error($response);
             throw new Food2ForkException();
         }
 
