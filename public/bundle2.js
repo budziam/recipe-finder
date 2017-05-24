@@ -27863,6 +27863,21 @@
 	      _APIHelper2.default.post('/recipes/done/' + this.props.recipe.id);
 	    }
 	  }, {
+	    key: 'removeFromFavourites',
+	    value: function removeFromFavourites() {
+	      _APIHelper2.default.remove('/recipes/favourites/' + this.props.recipe.id);
+	    }
+	  }, {
+	    key: 'removeFromDone',
+	    value: function removeFromDone() {
+	      _APIHelper2.default.remove('/recipes/done/' + this.props.recipe.id);
+	    }
+	  }, {
+	    key: 'removeFromTodo',
+	    value: function removeFromTodo() {
+	      _APIHelper2.default.remove('/recipes/todo/' + this.props.recipe.id);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -27881,21 +27896,21 @@
 	              var children = [(0, _core.MenuItemFactory)({
 	                key: 1,
 	                onClick: function onClick() {
-	                  _this2.addToFavourites();
+	                  recipe.user_recipe.favourite ? _this2.removeFromFavourites() : _this2.addToFavourites();
 	                },
-	                text: "Add to list: favourites"
+	                text: recipe.user_recipe.favourite ? "Remove from list: favourites" : "Add to list: favourites"
 	              }), (0, _core.MenuItemFactory)({
 	                key: 2,
 	                onClick: function onClick() {
-	                  _this2.addToDoneList();
+	                  recipe.user_recipe.done ? _this2.removeFromDone() : _this2.addToDoneList();
 	                },
-	                text: "Add to list: done"
+	                text: recipe.user_recipe.done ? "Remove from list: done" : "Add to list: done"
 	              }), (0, _core.MenuItemFactory)({
 	                key: 3,
 	                onClick: function onClick() {
-	                  _this2.addToTodoList();
+	                  recipe.user_recipe.todo ? _this2.removeFromTodo() : _this2.addToTodoList();
 	                },
-	                text: "Add to list: to do"
+	                text: recipe.user_recipe.todo ? "Remove from list: todo" : "Add to list: to do"
 	              })];
 
 	              var menu = (0, _core.MenuFactory)({
@@ -39459,6 +39474,9 @@
 
 	  post: function post(url, body) {
 	    return _axios2.default.post('' + API_BASE + url, { body: body });
+	  },
+	  remove: function remove(url, body) {
+	    return _axios2.default.delete('' + API_BASE + url, { body: body });
 	  }
 	};
 
@@ -44936,9 +44954,9 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _actions = __webpack_require__(407);
+	var _actions = __webpack_require__(408);
 
-	var _List = __webpack_require__(408);
+	var _List = __webpack_require__(407);
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -44963,6 +44981,7 @@
 	    };
 
 	    _this.changeActiveTab = _this.changeActiveTab.bind(_this);
+	    _this.renderLists = _this.renderLists.bind(_this);
 	    return _this;
 	  }
 
@@ -44977,9 +44996,32 @@
 	      this.setState({ activeTab: index });
 	    }
 	  }, {
+	    key: 'renderLists',
+	    value: function renderLists() {
+	      var _props = this.props,
+	          favourites = _props.favourites,
+	          todo = _props.todo,
+	          done = _props.done;
+
+
+	      if (this.state.activeTab === 0) {
+	        return _react2.default.createElement(_List2.default, { recipes: favourites });
+	      } else if (this.state.activeTab === 1) {
+	        return _react2.default.createElement(_List2.default, { recipes: todo });
+	      } else {
+	        return _react2.default.createElement(_List2.default, { recipes: done });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
+
+	      var _props2 = this.props,
+	          favourites = _props2.favourites,
+	          todo = _props2.todo,
+	          done = _props2.done;
+
 
 	      return _react2.default.createElement(
 	        'div',
@@ -45014,12 +45056,19 @@
 	                } },
 	              'to do'
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'list__wrapper' },
+	            favourites.length !== 0 && this.state.activeTab === 0 ? _react2.default.createElement(_List2.default, { recipes: favourites }) : null,
+	            done.length !== 0 && this.state.activeTab === 1 ? _react2.default.createElement(_List2.default, { recipes: done }) : null,
+	            todo.length !== 0 && this.state.activeTab === 2 ? _react2.default.createElement(_List2.default, { recipes: todo }) : null,
+	            favourites.length !== 0 && done.length !== 0 && todo.length !== 0 ? null : _react2.default.createElement(
+	              'div',
+	              { style: { color: 'white', fontSize: '25px', marginTop: '50px' } },
+	              'No recipes in here :('
+	            )
 	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'list__wrapper' },
-	          _react2.default.createElement(_List2.default, null)
 	        )
 	      );
 	    }
@@ -45030,13 +45079,17 @@
 
 	function mapStateToProps(state) {
 	  console.log(state);
-	  return {};
+	  return {
+	    favourites: state.myRecipes.favourites,
+	    done: state.myRecipes.done,
+	    todo: state.myRecipes.todo
+	  };
 	}
 
 	function mapDispatchToProps(dispatch, ownProps) {
 	  return {
 	    refresh: function refresh() {
-	      return dispatch((0, _actions.fetchMyFavouritesIfNeeded)());
+	      return dispatch((0, _actions.fetchMyRecipesIfNeeded)());
 	    }
 	  };
 	}
@@ -45052,122 +45105,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SET_RECIPE_IN_WORKSPACE = exports.RECEIVE_MY_TODO = exports.REQUEST_MY_TODO = exports.RECEIVE_MY_DONE = exports.REQUEST_MY_DONE = exports.RECEIVE_MY_FAVOURITES = exports.REQUEST_MY_FAVOURITES = undefined;
-	exports.fetchMyFavouritesIfNeeded = fetchMyFavouritesIfNeeded;
-	exports.fetchMyDoneIfNeeded = fetchMyDoneIfNeeded;
-	exports.fetchMyTodoIfNeeded = fetchMyTodoIfNeeded;
-
-	var _APIHelper = __webpack_require__(350);
-
-	var _APIHelper2 = _interopRequireDefault(_APIHelper);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var REQUEST_MY_FAVOURITES = exports.REQUEST_MY_FAVOURITES = 'REQUEST_MY_FAVOURITES';
-	function requestMyFavourites() {
-	  return {
-	    type: REQUEST_MY_FAVOURITES
-	  };
-	}
-
-	var RECEIVE_MY_FAVOURITES = exports.RECEIVE_MY_FAVOURITES = 'RECEIVE_MY_FAVOURITES';
-	function receiveMyFavourites(recipes) {
-	  return {
-	    type: RECEIVE_MY_FAVOURITES,
-	    recipes: recipes
-	  };
-	}
-
-	var REQUEST_MY_DONE = exports.REQUEST_MY_DONE = 'REQUEST_MY_DONE';
-	function requestMyDone() {
-	  return {
-	    type: REQUEST_MY_DONE
-	  };
-	}
-
-	var RECEIVE_MY_DONE = exports.RECEIVE_MY_DONE = 'RECEIVE_MY_DONE';
-	function receiveMyDone(recipes) {
-	  return {
-	    type: RECEIVE_MY_DONE,
-	    recipes: recipes
-	  };
-	}
-
-	var REQUEST_MY_TODO = exports.REQUEST_MY_TODO = 'REQUEST_MY_TODO';
-	function requestMyTodo() {
-	  return {
-	    type: REQUEST_MY_TODO
-	  };
-	}
-
-	var RECEIVE_MY_TODO = exports.RECEIVE_MY_TODO = 'RECEIVE_MY_TODO';
-	function receiveMyTodo(recipes) {
-	  return {
-	    type: RECEIVE_MY_TODO,
-	    recipes: recipes
-	  };
-	}
-
-	// export const INVALIDATE_RECIPES = 'INVALIDATE_RECIPES';
-	// export function invalidateRecipes() {
-	//   return {
-	//     type: INVALIDATE_RECIPES
-	//   }
-	// }
-	//
-	//
-	// case actions.INVALIDATE_RECIPES:
-	// return {
-	//   ...state,
-	//   recipes: {
-	//     didInvalidate: true
-	//   }
-	// };
-
-	function fetchMyFavouritesIfNeeded() {
-	  return function (dispatch) {
-	    dispatch(requestMyFavourites());
-	    _APIHelper2.default.get('/recipes/favourites').then(function (data) {
-	      dispatch(receiveMyFavourites(data.data));
-	    });
-	  };
-	}
-
-	function fetchMyDoneIfNeeded() {
-	  return function (dispatch) {
-	    dispatch(requestMyFavourites());
-	    _APIHelper2.default.get('/recipes/done').then(function (data) {
-	      dispatch(receiveMyFavourites(data));
-	    });
-	  };
-	}
-
-	function fetchMyTodoIfNeeded() {
-	  return function (dispatch) {
-	    dispatch(requestMyFavourites());
-	    _APIHelper2.default.get('/recipes/todo').then(function (data) {
-	      dispatch(receiveMyFavourites(data));
-	    });
-	  };
-	}
-
-	var SET_RECIPE_IN_WORKSPACE = exports.SET_RECIPE_IN_WORKSPACE = 'SET_RECIPE_IN_WORKSPACE';
-	function setRecipeInWorkspace(recipe) {
-	  return {
-	    type: SET_RECIPE_IN_WORKSPACE,
-	    recipe: recipe
-	  };
-	}
-
-/***/ }),
-/* 408 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -45175,13 +45112,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(160);
+	var _reactPerfectScrollbar = __webpack_require__(383);
 
-	var _classnames = __webpack_require__(253);
+	var _reactPerfectScrollbar2 = _interopRequireDefault(_reactPerfectScrollbar);
 
-	var _classnames2 = _interopRequireDefault(_classnames);
+	var _ListItem = __webpack_require__(263);
 
-	var _actions = __webpack_require__(407);
+	var _ListItem2 = _interopRequireDefault(_ListItem);
+
+	var _actions = __webpack_require__(408);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45201,33 +45140,87 @@
 	  }
 
 	  _createClass(List, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.props.refresh();
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', { className: 'recipes-list' });
+	      var recipes = this.props.recipes;
+
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'list-of-recipes' },
+	        _react2.default.createElement(
+	          _reactPerfectScrollbar2.default,
+	          null,
+	          recipes.map(function (recipe, index) {
+	            return _react2.default.createElement(_ListItem2.default, { key: index, recipe: recipe });
+	          })
+	        )
+	      );
 	    }
 	  }]);
 
 	  return List;
 	}(_react.Component);
 
-	function mapStateToProps(state) {
-	  return {};
-	}
+	exports.default = List;
 
-	function mapDispatchToProps(dispatch, ownProps) {
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.SET_RECIPE_IN_WORKSPACE = exports.RECEIVE_MY_RECIPES = exports.REQUEST_MY_RECIPES = undefined;
+	exports.fetchMyRecipesIfNeeded = fetchMyRecipesIfNeeded;
+
+	var _APIHelper = __webpack_require__(350);
+
+	var _APIHelper2 = _interopRequireDefault(_APIHelper);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var REQUEST_MY_RECIPES = exports.REQUEST_MY_RECIPES = 'REQUEST_MY_RECIPES';
+	function requestMyRecipes() {
 	  return {
-	    refresh: function refresh() {
-	      return dispatch((0, _actions.fetchMyFavouritesIfNeeded)());
-	    }
+	    type: REQUEST_MY_RECIPES
 	  };
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(List);
+	var RECEIVE_MY_RECIPES = exports.RECEIVE_MY_RECIPES = 'RECEIVE_MY_RECIPES';
+	function receiveMyRecipes(recipes) {
+	  return {
+	    type: RECEIVE_MY_RECIPES,
+	    recipes: recipes
+	  };
+	}
+
+	function fetchMyRecipesIfNeeded() {
+	  return function (dispatch) {
+	    dispatch(requestMyRecipes());
+	    _APIHelper2.default.get('/recipes/favourites').then(function (favourites) {
+	      _APIHelper2.default.get('/recipes/done').then(function (done) {
+	        _APIHelper2.default.get('/recipes/todo').then(function (todo) {
+	          dispatch(receiveMyRecipes({
+	            favourites: favourites.data,
+	            done: done.data,
+	            todo: todo.data
+	          }));
+	        });
+	      });
+	    });
+	  };
+	}
+
+	var SET_RECIPE_IN_WORKSPACE = exports.SET_RECIPE_IN_WORKSPACE = 'SET_RECIPE_IN_WORKSPACE';
+	function setRecipeInWorkspace(recipe) {
+	  return {
+	    type: SET_RECIPE_IN_WORKSPACE,
+	    recipe: recipe
+	  };
+	}
 
 /***/ }),
 /* 409 */
@@ -45273,7 +45266,7 @@
 
 
 	// module
-	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background: url('/resources/background.jpg');\n  background-size: cover;\n}\n.clickable {\n  cursor: pointer !important;\n}\n.secondary-color {\n  color: #ffa500;\n}\n.app {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  overflow: hidden;\n}\n.main__layout {\n  width: 100%;\n  height: 100%;\n}\nmain {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  overflow: hidden;\n}\n.scrollbar-container {\n  height: 100%;\n}\n.topbar {\n  width: 100%;\n  height: 60px;\n  position: relative;\n  display: flex;\n  align-items: flex-start;\n  z-index: 5;\n}\n.topbar .topbar__title {\n  color: white;\n  font-size: 36px;\n  margin-right: 20px;\n}\n.pt-dialog {\n  width: 100%;\n  max-width: 500px;\n}\n", ""]);
+	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background: url('/resources/background.jpg');\n  background-size: cover;\n}\n.clickable {\n  cursor: pointer !important;\n}\n.secondary-color {\n  color: #ffa500;\n}\n.app {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  overflow: hidden;\n}\n.main__layout {\n  width: 100%;\n  height: 100%;\n}\nmain {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  overflow: hidden;\n}\n.scrollbar-container {\n  height: 100%;\n}\n.topbar {\n  width: 100%;\n  height: 60px;\n  position: relative;\n  display: flex;\n  align-items: flex-start;\n  z-index: 5;\n}\n.topbar .topbar__title {\n  color: white;\n  font-size: 36px;\n  margin-right: 20px;\n}\n.pt-dialog {\n  width: 100%;\n  max-width: 500px;\n}\n.pt-spinner {\n  text-align: center;\n  margin: 50px;\n}\n", ""]);
 
 	// exports
 
@@ -45322,7 +45315,7 @@
 
 
 	// module
-	exports.push([module.id, ".recipes-list__wrapper {\n  background: rgba(255, 255, 255, 0.3);\n  width: 100%;\n  height: 100%;\n}\n.recipes-list {\n  width: 100%;\n  height: 100%;\n}\n.recipes-list__sidebar {\n  width: 300px;\n  height: 100%;\n  background: #232627;\n}\n.sidebar__tabs {\n  display: flex;\n  width: 100%;\n}\n.sidebar__tab {\n  flex: 1;\n  color: white;\n  text-align: center;\n  text-transform: uppercase;\n  padding: 10px;\n  border-bottom: 1px solid rgba(231, 202, 179, 0.2);\n  transition: border-bottom 0.5s;\n}\n.sidebar__tab.active {\n  border-bottom: 1px solid #e7cab3;\n}\n", ""]);
+	exports.push([module.id, ".recipes-list__wrapper {\n  background: rgba(255, 255, 255, 0.3);\n  width: 100%;\n  height: 100%;\n}\n.recipes-list {\n  width: 100%;\n  height: 100%;\n}\n.recipes-list__sidebar {\n  width: 400px;\n  height: 100%;\n  background: #232627;\n}\n.sidebar__tabs {\n  display: flex;\n  width: 100%;\n}\n.sidebar__tab {\n  flex: 1;\n  color: white;\n  text-align: center;\n  text-transform: uppercase;\n  padding: 10px;\n  border-bottom: 1px solid rgba(231, 202, 179, 0.2);\n  transition: border-bottom 0.5s;\n}\n.sidebar__tab.active {\n  border-bottom: 1px solid #e7cab3;\n}\n.list__wrapper {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n}\n.list-of-recipes {\n  height: 100%;\n  padding: 20px;\n}\n", ""]);
 
 	// exports
 
@@ -45428,6 +45421,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'login-modal__wrapper' },
@@ -45457,7 +45452,11 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'facebook__button', onClick: this.props.login },
+	            { className: 'facebook__button',
+	              onClick: function onClick() {
+	                _this2.props.facebookLogin();
+	                // this.props.checkUserProfile()
+	              } },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'facebook__icon' },
@@ -45478,7 +45477,10 @@
 
 	function mapDispatchToProps(dispatch, ownProps) {
 	  return {
-	    login: function login() {
+	    checkUserProfile: function checkUserProfile() {
+	      dispatch((0, _actions.checkUserProfile)());
+	    },
+	    facebookLogin: function facebookLogin() {
 	      console.log(window.location.href);
 	      window.location = '/login/facebook';
 	    }
@@ -45524,13 +45526,13 @@
 	  return function (dispatch) {
 	    requestUserProfile();
 
-	    // API.post('/users/1/login').then(result => {
-	    //   if (result.status === 200) {
-	    _APIHelper2.default.get('/users/me').then(function (userProfile) {
-	      dispatch(receiveUserProfile(userProfile.data));
+	    _APIHelper2.default.post('/users/1/login').then(function (result) {
+	      if (result.status === 200) {
+	        _APIHelper2.default.get('/users/me').then(function (userProfile) {
+	          dispatch(receiveUserProfile(userProfile.data));
+	        });
+	      }
 	    });
-	    // }
-	    // })
 	  };
 	}
 
@@ -45746,23 +45748,24 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	exports.default = reducer;
 
-	var _actions = __webpack_require__(407);
+	var _actions = __webpack_require__(408);
 
 	var actions = _interopRequireWildcard(_actions);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	var initialState = {
-	  myRecipes: {
-	    didInvalidate: true,
-	    isFetching: true,
-	    favourites: [],
-	    todo: [],
-	    done: [],
-	    workspace: {}
-	  }
+	  didInvalidate: true,
+	  isFetching: true,
+	  favourites: [],
+	  todo: [],
+	  done: [],
+	  workspace: {}
 	};
 
 	function reducer() {
@@ -45770,6 +45773,19 @@
 	  var action = arguments[1];
 
 	  switch (action.type) {
+	    case actions.RECEIVE_MY_RECIPES:
+	      console.log(action);
+	      return _extends({}, state, {
+	        favourites: action.recipes.favourites,
+	        done: action.recipes.done,
+	        todo: action.recipes.todo,
+	        isFetching: false
+	      });
+
+	    case actions.REQUEST_MY_RECIPES:
+	      return _extends({}, state, {
+	        isFetching: true
+	      });
 
 	    default:
 	      return state;
