@@ -22589,7 +22589,7 @@
 	  _createClass(Router, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      // this.props.checkUser();
+	      this.props.checkUser();
 	    }
 	  }, {
 	    key: 'render',
