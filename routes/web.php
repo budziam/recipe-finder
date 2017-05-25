@@ -17,7 +17,7 @@ use App\Http\Controllers\UserController;
 
 Route::group(['prefix' => 'users'], function () {
     Route::get('me', [
-        'as'   => 'user.me',
+        'as'   => 'users.me',
         'uses' => UserController::class . '@me',
     ])
         ->middleware('auth');
