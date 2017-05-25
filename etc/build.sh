@@ -2,3 +2,4 @@
 
 cp .env.production .env
 composer create-project
+phpunit
