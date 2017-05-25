@@ -77,7 +77,7 @@
 
 	var _Router2 = _interopRequireDefault(_Router);
 
-	var _reducers = __webpack_require__(419);
+	var _reducers = __webpack_require__(420);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -22563,11 +22563,11 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _Login = __webpack_require__(415);
+	var _Login = __webpack_require__(416);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _actions = __webpack_require__(416);
+	var _actions = __webpack_require__(417);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22589,7 +22589,7 @@
 	  _createClass(Router, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.props.checkUser();
+	      // this.props.checkUser();
 	    }
 	  }, {
 	    key: 'render',
@@ -26771,17 +26771,17 @@
 
 	var _RecipeFinder2 = _interopRequireDefault(_RecipeFinder);
 
-	var _RecipesList = __webpack_require__(406);
+	var _RecipesList = __webpack_require__(408);
 
 	var _RecipesList2 = _interopRequireDefault(_RecipesList);
 
-	__webpack_require__(409);
+	__webpack_require__(410);
 
 	__webpack_require__(257);
 
-	__webpack_require__(411);
+	__webpack_require__(412);
 
-	__webpack_require__(413);
+	__webpack_require__(414);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26802,7 +26802,7 @@
 	    _this.state = {
 	      showUserProfile: false,
 	      showRecipesList: false,
-	      hideRecipeFinder: true
+	      hideRecipeFinder: false
 	    };
 
 	    _this.toggleUserProfile = _this.toggleUserProfile.bind(_this);
@@ -27676,9 +27676,9 @@
 
 	var _ListItem2 = _interopRequireDefault(_ListItem);
 
-	var _actions = __webpack_require__(382);
+	var _actions = __webpack_require__(384);
 
-	var _reactPerfectScrollbar = __webpack_require__(383);
+	var _reactPerfectScrollbar = __webpack_require__(385);
 
 	var _reactPerfectScrollbar2 = _interopRequireDefault(_reactPerfectScrollbar);
 
@@ -27807,13 +27807,15 @@
 
 	var _reactRedux = __webpack_require__(160);
 
+	var _classnames = __webpack_require__(253);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
 	var _core = __webpack_require__(264);
 
-	var _APIHelper = __webpack_require__(350);
+	var _actions = __webpack_require__(350);
 
-	var _APIHelper2 = _interopRequireDefault(_APIHelper);
-
-	__webpack_require__(380);
+	__webpack_require__(382);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27836,9 +27838,6 @@
 	    };
 
 	    _this.toggleRecipeModal = _this.toggleRecipeModal.bind(_this);
-	    _this.addToDoneList = _this.addToDoneList.bind(_this);
-	    _this.addToFavourites = _this.addToFavourites.bind(_this);
-	    _this.addToTodoList = _this.addToTodoList.bind(_this);
 	    return _this;
 	  }
 
@@ -27848,41 +27847,13 @@
 	      this.setState({ recipeModalOpened: !this.state.recipeModalOpened });
 	    }
 	  }, {
-	    key: 'addToFavourites',
-	    value: function addToFavourites() {
-	      _APIHelper2.default.post('/recipes/favourites/' + this.props.recipe.id);
-	    }
-	  }, {
-	    key: 'addToTodoList',
-	    value: function addToTodoList() {
-	      _APIHelper2.default.post('/recipes/todo/' + this.props.recipe.id);
-	    }
-	  }, {
-	    key: 'addToDoneList',
-	    value: function addToDoneList() {
-	      _APIHelper2.default.post('/recipes/done/' + this.props.recipe.id);
-	    }
-	  }, {
-	    key: 'removeFromFavourites',
-	    value: function removeFromFavourites() {
-	      _APIHelper2.default.remove('/recipes/favourites/' + this.props.recipe.id);
-	    }
-	  }, {
-	    key: 'removeFromDone',
-	    value: function removeFromDone() {
-	      _APIHelper2.default.remove('/recipes/done/' + this.props.recipe.id);
-	    }
-	  }, {
-	    key: 'removeFromTodo',
-	    value: function removeFromTodo() {
-	      _APIHelper2.default.remove('/recipes/todo/' + this.props.recipe.id);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
-	      var recipe = this.props.recipe;
+	      var _props = this.props,
+	          recipe = _props.recipe,
+	          index = _props.index;
 
 	      return _react2.default.createElement(
 	        'div',
@@ -27890,25 +27861,25 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'block',
-	            onClick: this.toggleRecipeModal,
+	            style: { position: 'relative' },
 	            onContextMenu: function onContextMenu(e) {
 	              e.preventDefault();
 	              var children = [(0, _core.MenuItemFactory)({
 	                key: 1,
 	                onClick: function onClick() {
-	                  recipe.user_recipe.favourite ? _this2.removeFromFavourites() : _this2.addToFavourites();
+	                  recipe.user_recipe.favourite ? _this2.props.removeFromFavourites(recipe.id, index) : _this2.props.addToFavourites(recipe.id, index);
 	                },
 	                text: recipe.user_recipe.favourite ? "Remove from list: favourites" : "Add to list: favourites"
 	              }), (0, _core.MenuItemFactory)({
 	                key: 2,
 	                onClick: function onClick() {
-	                  recipe.user_recipe.done ? _this2.removeFromDone() : _this2.addToDoneList();
+	                  recipe.user_recipe.done ? _this2.props.removeFromDone(recipe.id, index) : _this2.props.addToDone(recipe.id, index);
 	                },
 	                text: recipe.user_recipe.done ? "Remove from list: done" : "Add to list: done"
 	              }), (0, _core.MenuItemFactory)({
 	                key: 3,
 	                onClick: function onClick() {
-	                  recipe.user_recipe.todo ? _this2.removeFromTodo() : _this2.addToTodoList();
+	                  recipe.user_recipe.todo ? _this2.props.removeFromTodo(recipe.id, index) : _this2.props.addToTodo(recipe.id, index);
 	                },
 	                text: recipe.user_recipe.todo ? "Remove from list: todo" : "Add to list: to do"
 	              })];
@@ -27920,7 +27891,7 @@
 	            } },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'rf__list-item' },
+	            { className: 'rf__list-item', onClick: this.toggleRecipeModal },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'rf__list-item__img__wrapper' },
@@ -27931,6 +27902,28 @@
 	              null,
 	              recipe.title
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'rf__icons' },
+	            _react2.default.createElement('div', { className: (0, _classnames2.default)({ "pt-icon-star": true, "active": recipe.user_recipe.favourite }),
+	              onClick: recipe.user_recipe.favourite ? function () {
+	                return _this2.props.removeFromFavourites(recipe.id, index);
+	              } : function () {
+	                return _this2.props.addToFavourites(recipe.id, index);
+	              } }),
+	            _react2.default.createElement('div', { className: (0, _classnames2.default)({ "pt-icon-bookmark": true, "active": recipe.user_recipe.todo }),
+	              onClick: recipe.user_recipe.todo ? function () {
+	                return _this2.props.removeFromTodo(recipe.id, index);
+	              } : function () {
+	                return _this2.props.addToTodo(recipe.id, index);
+	              } }),
+	            _react2.default.createElement('div', { className: (0, _classnames2.default)({ "pt-icon-tick": true, "active": recipe.user_recipe.done }),
+	              onClick: recipe.user_recipe.done ? function () {
+	                return _this2.props.removeFromDone(recipe.id, index);
+	              } : function () {
+	                return _this2.props.addToDone(recipe.id, index);
+	              } })
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -27977,17 +27970,17 @@
 	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'recipe__icon clickable' },
-	                  _react2.default.createElement('i', { className: 'fa fa-check fa-2x', 'aria-hidden': 'true' })
+	                  _react2.default.createElement('div', { className: (0, _classnames2.default)({ "pt-icon-star": true, "active": recipe.user_recipe.favourite }) })
 	                ),
 	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'recipe__icon clickable' },
-	                  _react2.default.createElement('i', { className: 'fa fa-heart-o fa-2x', 'aria-hidden': 'true' })
+	                  _react2.default.createElement('div', { className: (0, _classnames2.default)({ "pt-icon-bookmark": true, "active": recipe.user_recipe.todo }) })
 	                ),
 	                _react2.default.createElement(
 	                  'div',
 	                  { className: 'recipe__icon clickable' },
-	                  _react2.default.createElement('i', { className: 'fa fa-bookmark-o fa-2x', 'aria-hidden': 'true' })
+	                  _react2.default.createElement('div', { className: (0, _classnames2.default)({ "pt-icon-tick": true, "active": recipe.user_recipe.done }) })
 	                )
 	              )
 	            )
@@ -28005,7 +27998,27 @@
 	}
 
 	function mapDispatchToProps(dispatch, ownProps) {
-	  return {};
+	  return {
+	    removeFromTodo: function removeFromTodo(id, index) {
+	      dispatch((0, _actions.removeFromTodo)(id, index));
+	    },
+	    removeFromFavourites: function removeFromFavourites(id, index) {
+	      dispatch((0, _actions.removeFromFavourites)(id, index));
+	    },
+	    removeFromDone: function removeFromDone(id, index) {
+	      dispatch((0, _actions.removeFromDone)(id, index));
+	    },
+	    addToTodo: function addToTodo(id, index) {
+	      dispatch((0, _actions.addToTodo)(id, index));
+	    },
+	    addToDone: function addToDone(id, index) {
+	      dispatch((0, _actions.addToDone)(id, index));
+	    },
+	    addToFavourites: function addToFavourites(id, index) {
+	      dispatch((0, _actions.addToFavourites)(id, index));
+	    }
+
+	  };
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ListItem);
@@ -39458,14 +39471,151 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.SET_RECIPE_IN_WORKSPACE = exports.INVALIDATE_MY_RECIPES = exports.RECEIVE_MY_RECIPES = exports.REQUEST_MY_RECIPES = undefined;
+	exports.invalidateMyRecipes = invalidateMyRecipes;
+	exports.addToFavourites = addToFavourites;
+	exports.removeFromFavourites = removeFromFavourites;
+	exports.addToDone = addToDone;
+	exports.removeFromDone = removeFromDone;
+	exports.addToTodo = addToTodo;
+	exports.removeFromTodo = removeFromTodo;
+	exports.fetchMyRecipesIfNeeded = fetchMyRecipesIfNeeded;
 
-	var _axios = __webpack_require__(351);
+	var _APIHelper = __webpack_require__(351);
+
+	var _APIHelper2 = _interopRequireDefault(_APIHelper);
+
+	var _actions = __webpack_require__(384);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var REQUEST_MY_RECIPES = exports.REQUEST_MY_RECIPES = 'REQUEST_MY_RECIPES';
+	function requestMyRecipes() {
+	  return {
+	    type: REQUEST_MY_RECIPES
+	  };
+	}
+
+	var RECEIVE_MY_RECIPES = exports.RECEIVE_MY_RECIPES = 'RECEIVE_MY_RECIPES';
+	function receiveMyRecipes(recipes) {
+	  return {
+	    type: RECEIVE_MY_RECIPES,
+	    recipes: recipes
+	  };
+	}
+
+	var INVALIDATE_MY_RECIPES = exports.INVALIDATE_MY_RECIPES = 'INVALIDATE_MY_RECIPES';
+	function invalidateMyRecipes() {
+	  return {
+	    type: INVALIDATE_MY_RECIPES
+	  };
+	}
+
+	function addToFavourites(id, index) {
+	  return function (dispatch) {
+	    _APIHelper2.default.post('/recipes/favourites/' + id).then(function () {
+	      dispatch(invalidateMyRecipes());
+	      dispatch(fetchMyRecipesIfNeeded());
+	      dispatch((0, _actions.toggleFavourite)(index));
+	    });
+	  };
+	}
+
+	function removeFromFavourites(id, index) {
+	  return function (dispatch) {
+	    _APIHelper2.default.remove('/recipes/favourites/' + id).then(function () {
+	      dispatch(invalidateMyRecipes());
+	      dispatch(fetchMyRecipesIfNeeded());
+	      dispatch((0, _actions.toggleFavourite)(index));
+	    });
+	  };
+	}
+
+	function addToDone(id, index) {
+	  return function (dispatch) {
+	    _APIHelper2.default.post('/recipes/done/' + id).then(function () {
+	      dispatch(invalidateMyRecipes());
+	      dispatch(fetchMyRecipesIfNeeded());
+	      dispatch((0, _actions.toggleDone)(index));
+	    });
+	  };
+	}
+
+	function removeFromDone(id, index) {
+	  return function (dispatch) {
+	    _APIHelper2.default.remove('/recipes/done/' + id).then(function () {
+	      dispatch(invalidateMyRecipes());
+	      dispatch(fetchMyRecipesIfNeeded());
+	      dispatch((0, _actions.toggleDone)(index));
+	    });
+	  };
+	}
+
+	function addToTodo(id, index) {
+	  return function (dispatch) {
+	    _APIHelper2.default.post('/recipes/todo/' + id).then(function () {
+	      dispatch(invalidateMyRecipes());
+	      dispatch(fetchMyRecipesIfNeeded());
+	      dispatch((0, _actions.toggleTodo)(index));
+	    });
+	  };
+	}
+
+	function removeFromTodo(id, index) {
+	  return function (dispatch) {
+	    _APIHelper2.default.remove('/recipes/todo/' + id).then(function () {
+	      dispatch(invalidateMyRecipes());
+	      dispatch(fetchMyRecipesIfNeeded());
+	      dispatch((0, _actions.toggleTodo)(index));
+	    });
+	  };
+	}
+
+	function fetchMyRecipesIfNeeded() {
+	  return function (dispatch, getState) {
+	    var currentState = getState();
+	    if (currentState.myRecipes.didInvalidate) {
+	      dispatch(requestMyRecipes());
+	      _APIHelper2.default.get('/recipes/favourites').then(function (favourites) {
+	        _APIHelper2.default.get('/recipes/done').then(function (done) {
+	          _APIHelper2.default.get('/recipes/todo').then(function (todo) {
+	            dispatch(receiveMyRecipes({
+	              favourites: favourites.data,
+	              done: done.data,
+	              todo: todo.data
+	            }));
+	          });
+	        });
+	      });
+	    }
+	  };
+	}
+
+	var SET_RECIPE_IN_WORKSPACE = exports.SET_RECIPE_IN_WORKSPACE = 'SET_RECIPE_IN_WORKSPACE';
+	function setRecipeInWorkspace(recipe) {
+	  return {
+	    type: SET_RECIPE_IN_WORKSPACE,
+	    recipe: recipe
+	  };
+	}
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _axios = __webpack_require__(352);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var API_BASE = 'https://' + location.host;
+	var API_BASE = 'http://' + location.host;
 
 	exports.default = {
 	  get: function get(url, body) {
@@ -39481,21 +39631,21 @@
 	};
 
 /***/ }),
-/* 351 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(352);
+	module.exports = __webpack_require__(353);
 
 /***/ }),
-/* 352 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(353);
-	var bind = __webpack_require__(358);
-	var Axios = __webpack_require__(359);
-	var defaults = __webpack_require__(360);
+	var utils = __webpack_require__(354);
+	var bind = __webpack_require__(359);
+	var Axios = __webpack_require__(360);
+	var defaults = __webpack_require__(361);
 
 	/**
 	 * Create an instance of Axios
@@ -39528,15 +39678,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(377);
-	axios.CancelToken = __webpack_require__(378);
-	axios.isCancel = __webpack_require__(374);
+	axios.Cancel = __webpack_require__(378);
+	axios.CancelToken = __webpack_require__(379);
+	axios.isCancel = __webpack_require__(375);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(379);
+	axios.spread = __webpack_require__(380);
 
 	module.exports = axios;
 
@@ -39545,12 +39695,12 @@
 
 
 /***/ }),
-/* 353 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 
-	var bind = __webpack_require__(358);
+	var bind = __webpack_require__(359);
 
 	/*global toString:true*/
 
@@ -39861,10 +40011,10 @@
 	  trim: trim
 	};
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(354).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(355).Buffer))
 
 /***/ }),
-/* 354 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -39877,9 +40027,9 @@
 
 	'use strict'
 
-	var base64 = __webpack_require__(355)
-	var ieee754 = __webpack_require__(356)
-	var isArray = __webpack_require__(357)
+	var base64 = __webpack_require__(356)
+	var ieee754 = __webpack_require__(357)
+	var isArray = __webpack_require__(358)
 
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -41660,7 +41810,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 355 */
+/* 356 */
 /***/ (function(module, exports) {
 
 	'use strict'
@@ -41780,7 +41930,7 @@
 
 
 /***/ }),
-/* 356 */
+/* 357 */
 /***/ (function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -41870,7 +42020,7 @@
 
 
 /***/ }),
-/* 357 */
+/* 358 */
 /***/ (function(module, exports) {
 
 	var toString = {}.toString;
@@ -41881,7 +42031,7 @@
 
 
 /***/ }),
-/* 358 */
+/* 359 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -41898,17 +42048,17 @@
 
 
 /***/ }),
-/* 359 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(360);
-	var utils = __webpack_require__(353);
-	var InterceptorManager = __webpack_require__(371);
-	var dispatchRequest = __webpack_require__(372);
-	var isAbsoluteURL = __webpack_require__(375);
-	var combineURLs = __webpack_require__(376);
+	var defaults = __webpack_require__(361);
+	var utils = __webpack_require__(354);
+	var InterceptorManager = __webpack_require__(372);
+	var dispatchRequest = __webpack_require__(373);
+	var isAbsoluteURL = __webpack_require__(376);
+	var combineURLs = __webpack_require__(377);
 
 	/**
 	 * Create a new instance of Axios
@@ -41989,13 +42139,13 @@
 
 
 /***/ }),
-/* 360 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(353);
-	var normalizeHeaderName = __webpack_require__(361);
+	var utils = __webpack_require__(354);
+	var normalizeHeaderName = __webpack_require__(362);
 
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/x-www-form-urlencoded'
@@ -42011,10 +42161,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(362);
+	    adapter = __webpack_require__(363);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(362);
+	    adapter = __webpack_require__(363);
 	  }
 	  return adapter;
 	}
@@ -42088,12 +42238,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 361 */
+/* 362 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(353);
+	var utils = __webpack_require__(354);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -42106,18 +42256,18 @@
 
 
 /***/ }),
-/* 362 */
+/* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(353);
-	var settle = __webpack_require__(363);
-	var buildURL = __webpack_require__(366);
-	var parseHeaders = __webpack_require__(367);
-	var isURLSameOrigin = __webpack_require__(368);
-	var createError = __webpack_require__(364);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(369);
+	var utils = __webpack_require__(354);
+	var settle = __webpack_require__(364);
+	var buildURL = __webpack_require__(367);
+	var parseHeaders = __webpack_require__(368);
+	var isURLSameOrigin = __webpack_require__(369);
+	var createError = __webpack_require__(365);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(370);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -42213,7 +42363,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(370);
+	      var cookies = __webpack_require__(371);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -42292,12 +42442,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 363 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(364);
+	var createError = __webpack_require__(365);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -42323,12 +42473,12 @@
 
 
 /***/ }),
-/* 364 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(365);
+	var enhanceError = __webpack_require__(366);
 
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -42346,7 +42496,7 @@
 
 
 /***/ }),
-/* 365 */
+/* 366 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42371,12 +42521,12 @@
 
 
 /***/ }),
-/* 366 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(353);
+	var utils = __webpack_require__(354);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -42445,12 +42595,12 @@
 
 
 /***/ }),
-/* 367 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(353);
+	var utils = __webpack_require__(354);
 
 	/**
 	 * Parse headers into an object
@@ -42488,12 +42638,12 @@
 
 
 /***/ }),
-/* 368 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(353);
+	var utils = __webpack_require__(354);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -42562,7 +42712,7 @@
 
 
 /***/ }),
-/* 369 */
+/* 370 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42604,12 +42754,12 @@
 
 
 /***/ }),
-/* 370 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(353);
+	var utils = __webpack_require__(354);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -42663,12 +42813,12 @@
 
 
 /***/ }),
-/* 371 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(353);
+	var utils = __webpack_require__(354);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -42721,15 +42871,15 @@
 
 
 /***/ }),
-/* 372 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(353);
-	var transformData = __webpack_require__(373);
-	var isCancel = __webpack_require__(374);
-	var defaults = __webpack_require__(360);
+	var utils = __webpack_require__(354);
+	var transformData = __webpack_require__(374);
+	var isCancel = __webpack_require__(375);
+	var defaults = __webpack_require__(361);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -42806,12 +42956,12 @@
 
 
 /***/ }),
-/* 373 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(353);
+	var utils = __webpack_require__(354);
 
 	/**
 	 * Transform the data for a request or a response
@@ -42832,7 +42982,7 @@
 
 
 /***/ }),
-/* 374 */
+/* 375 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42843,7 +42993,7 @@
 
 
 /***/ }),
-/* 375 */
+/* 376 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42863,7 +43013,7 @@
 
 
 /***/ }),
-/* 376 */
+/* 377 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42883,7 +43033,7 @@
 
 
 /***/ }),
-/* 377 */
+/* 378 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42908,12 +43058,12 @@
 
 
 /***/ }),
-/* 378 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(377);
+	var Cancel = __webpack_require__(378);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -42971,7 +43121,7 @@
 
 
 /***/ }),
-/* 379 */
+/* 380 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43004,7 +43154,8 @@
 
 
 /***/ }),
-/* 380 */
+/* 381 */,
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43012,7 +43163,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(381);
+	var content = __webpack_require__(383);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -43039,7 +43190,7 @@
 	}
 
 /***/ }),
-/* 381 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -43047,13 +43198,13 @@
 
 
 	// module
-	exports.push([module.id, ".rf__list-item__wrapper {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto;\n}\n.rf__list-item {\n  display: flex;\n  flex-wrap: nowrap;\n  align-items: center;\n  background: #e8e4e8;\n  padding: 10px;\n  margin: 10px;\n}\n.rf__list-item:hover {\n  background: #ececec;\n}\n.rf__list-item p {\n  margin-left: 15px;\n  font-size: 1.5em;\n  color: #3e3e3e;\n}\n.recipe-finder__recipes {\n  padding: 20px 0;\n}\n.rf__list-item__img__wrapper {\n  width: 120px;\n  height: 120px;\n  min-width: 120px;\n  display: flex;\n  align-items: center;\n  overflow: hidden;\n}\n.rf__list-item__img__wrapper img {\n  object-fit: cover;\n  height: 120px;\n  width: 120px;\n}\n.recipe__image__wrapper {\n  margin: 0 auto 30px;\n  width: 100%;\n}\n.recipe__image__wrapper img {\n  width: 100%;\n  max-height: 400px;\n  object-fit: cover;\n}\n.recipe__icons__wrapper {\n  display: flex;\n  width: 100%;\n  margin-top: 20px;\n}\n.recipe__icon {\n  width: 100%;\n  text-align: center;\n}\n.recipe__icon:hover {\n  cursor: pointer;\n}\n.recipe__icon:hover i {\n  transform: scale(1.2);\n}\n.recipe__icon i {\n  transform: scale(1);\n  transition: transform .5s;\n}\n", ""]);
+	exports.push([module.id, ".rf__list-item__wrapper {\n  width: 100%;\n  max-width: 500px;\n  margin: 0 auto 10px;\n  background: #e8e4e8;\n}\n.rf__list-item__wrapper:hover {\n  background: #ececec;\n}\n.rf__list-item__wrapper:hover .rf__icons {\n  opacity: 1;\n}\n.rf__list-item {\n  display: flex;\n  flex-wrap: nowrap;\n  align-items: center;\n  padding: 10px;\n  margin-right: 50px;\n}\n.rf__list-item p {\n  margin-left: 15px;\n  font-size: 1.5em;\n  color: #3e3e3e;\n}\n.rf__icons {\n  opacity: 0;\n  display: flex;\n  position: absolute;\n  text-align: center;\n  top: 0;\n  right: 0;\n  padding: 10px 10px;\n  color: black;\n  font-size: 24px;\n  height: 100%;\n  border-left: solid 1px rgba(35, 38, 39, 0.3);\n  flex-wrap: wrap;\n  max-width: 50px;\n  transition: opacity .5s;\n}\n.rf__icons div {\n  margin: 0 auto;\n  width: 100%;\n}\n.rf__icons div:hover {\n  color: white;\n}\n.rf__icons div.active {\n  color: #d5b903;\n}\n.rf__icons div.active:hover {\n  color: white;\n}\n.recipe-finder__recipes {\n  padding: 20px 0;\n}\n.rf__list-item__img__wrapper {\n  width: 120px;\n  height: 120px;\n  min-width: 120px;\n  display: flex;\n  align-items: center;\n  overflow: hidden;\n}\n.rf__list-item__img__wrapper img {\n  object-fit: cover;\n  height: 120px;\n  width: 120px;\n}\n.recipe__image__wrapper {\n  margin: 0 auto 30px;\n  width: 100%;\n}\n.recipe__image__wrapper img {\n  width: 100%;\n  max-height: 400px;\n  object-fit: cover;\n}\n.recipe__icons__wrapper {\n  display: flex;\n  width: 100%;\n  margin-top: 20px;\n}\n.recipe__icon {\n  width: 100%;\n  text-align: center;\n}\n.recipe__icon:hover {\n  cursor: pointer;\n}\n.recipe__icon:hover i {\n  transform: scale(1.2);\n}\n.recipe__icon i {\n  transform: scale(1);\n  transition: transform .5s;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 382 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43061,12 +43212,15 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SET_RECIPE_IN_WORKSPACE = exports.RECEIVE_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = undefined;
+	exports.TOGGLE_TODO = exports.TOGGLE_DONE = exports.TOGGLE_FAVOURITE = exports.SET_RECIPE_IN_WORKSPACE = exports.RECEIVE_RECIPES_SEARCH = exports.REQUEST_RECIPES_SEARCH = undefined;
 	exports.fetchSingleRecipe = fetchSingleRecipe;
 	exports.setRecipeInWorkspace = setRecipeInWorkspace;
+	exports.toggleFavourite = toggleFavourite;
+	exports.toggleDone = toggleDone;
+	exports.toggleTodo = toggleTodo;
 	exports.searchRecipes = searchRecipes;
 
-	var _APIHelper = __webpack_require__(350);
+	var _APIHelper = __webpack_require__(351);
 
 	var _APIHelper2 = _interopRequireDefault(_APIHelper);
 
@@ -43103,6 +43257,30 @@
 	  };
 	}
 
+	var TOGGLE_FAVOURITE = exports.TOGGLE_FAVOURITE = 'TOGGLE_FAVOURITE';
+	function toggleFavourite(id) {
+	  return {
+	    type: TOGGLE_FAVOURITE,
+	    id: id
+	  };
+	}
+
+	var TOGGLE_DONE = exports.TOGGLE_DONE = 'TOGGLE_DONE';
+	function toggleDone(id) {
+	  return {
+	    type: TOGGLE_DONE,
+	    id: id
+	  };
+	}
+
+	var TOGGLE_TODO = exports.TOGGLE_TODO = 'TOGGLE_TODO';
+	function toggleTodo(id) {
+	  return {
+	    type: TOGGLE_TODO,
+	    id: id
+	  };
+	}
+
 	function searchRecipes(ingredients) {
 	  return function (dispatch) {
 	    dispatch(requestRecipesSearch());
@@ -43123,7 +43301,7 @@
 	}
 
 /***/ }),
-/* 383 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43132,7 +43310,7 @@
 	  value: true
 	});
 
-	var _scrollbar = __webpack_require__(384);
+	var _scrollbar = __webpack_require__(386);
 
 	var _scrollbar2 = _interopRequireDefault(_scrollbar);
 
@@ -43142,7 +43320,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 384 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43159,7 +43337,7 @@
 
 	var _propTypes = __webpack_require__(210);
 
-	var _perfectScrollbar = __webpack_require__(385);
+	var _perfectScrollbar = __webpack_require__(387);
 
 	var _perfectScrollbar2 = _interopRequireDefault(_perfectScrollbar);
 
@@ -43312,23 +43490,23 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 385 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(386);
+	module.exports = __webpack_require__(388);
 
 
 /***/ }),
-/* 386 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var destroy = __webpack_require__(387);
-	var initialize = __webpack_require__(395);
-	var update = __webpack_require__(405);
+	var destroy = __webpack_require__(389);
+	var initialize = __webpack_require__(397);
+	var update = __webpack_require__(407);
 
 	module.exports = {
 	  initialize: initialize,
@@ -43338,14 +43516,14 @@
 
 
 /***/ }),
-/* 387 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(388);
-	var dom = __webpack_require__(390);
-	var instances = __webpack_require__(391);
+	var _ = __webpack_require__(390);
+	var dom = __webpack_require__(392);
+	var instances = __webpack_require__(393);
 
 	module.exports = function (element) {
 	  var i = instances.get(element);
@@ -43366,13 +43544,13 @@
 
 
 /***/ }),
-/* 388 */
+/* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var cls = __webpack_require__(389);
-	var dom = __webpack_require__(390);
+	var cls = __webpack_require__(391);
+	var dom = __webpack_require__(392);
 
 	var toInt = exports.toInt = function (x) {
 	  return parseInt(x, 10) || 0;
@@ -43455,7 +43633,7 @@
 
 
 /***/ }),
-/* 389 */
+/* 391 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43503,7 +43681,7 @@
 
 
 /***/ }),
-/* 390 */
+/* 392 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43593,17 +43771,17 @@
 
 
 /***/ }),
-/* 391 */
+/* 393 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(388);
-	var cls = __webpack_require__(389);
-	var defaultSettings = __webpack_require__(392);
-	var dom = __webpack_require__(390);
-	var EventManager = __webpack_require__(393);
-	var guid = __webpack_require__(394);
+	var _ = __webpack_require__(390);
+	var cls = __webpack_require__(391);
+	var defaultSettings = __webpack_require__(394);
+	var dom = __webpack_require__(392);
+	var EventManager = __webpack_require__(395);
+	var guid = __webpack_require__(396);
 
 	var instances = {};
 
@@ -43706,7 +43884,7 @@
 
 
 /***/ }),
-/* 392 */
+/* 394 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43728,7 +43906,7 @@
 
 
 /***/ }),
-/* 393 */
+/* 395 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43805,7 +43983,7 @@
 
 
 /***/ }),
-/* 394 */
+/* 396 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43824,26 +44002,26 @@
 
 
 /***/ }),
-/* 395 */
+/* 397 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(388);
-	var cls = __webpack_require__(389);
-	var instances = __webpack_require__(391);
-	var updateGeometry = __webpack_require__(396);
+	var _ = __webpack_require__(390);
+	var cls = __webpack_require__(391);
+	var instances = __webpack_require__(393);
+	var updateGeometry = __webpack_require__(398);
 
 	// Handlers
 	var handlers = {
-	  'click-rail': __webpack_require__(398),
-	  'drag-scrollbar': __webpack_require__(399),
-	  'keyboard': __webpack_require__(400),
-	  'wheel': __webpack_require__(401),
-	  'touch': __webpack_require__(402),
-	  'selection': __webpack_require__(403)
+	  'click-rail': __webpack_require__(400),
+	  'drag-scrollbar': __webpack_require__(401),
+	  'keyboard': __webpack_require__(402),
+	  'wheel': __webpack_require__(403),
+	  'touch': __webpack_require__(404),
+	  'selection': __webpack_require__(405)
 	};
-	var nativeScrollHandler = __webpack_require__(404);
+	var nativeScrollHandler = __webpack_require__(406);
 
 	module.exports = function (element, userSettings) {
 	  userSettings = typeof userSettings === 'object' ? userSettings : {};
@@ -43867,16 +44045,16 @@
 
 
 /***/ }),
-/* 396 */
+/* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(388);
-	var cls = __webpack_require__(389);
-	var dom = __webpack_require__(390);
-	var instances = __webpack_require__(391);
-	var updateScroll = __webpack_require__(397);
+	var _ = __webpack_require__(390);
+	var cls = __webpack_require__(391);
+	var dom = __webpack_require__(392);
+	var instances = __webpack_require__(393);
+	var updateScroll = __webpack_require__(399);
 
 	function getThumbSize(i, thumbSize) {
 	  if (i.settings.minScrollbarLength) {
@@ -43999,12 +44177,12 @@
 
 
 /***/ }),
-/* 397 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var instances = __webpack_require__(391);
+	var instances = __webpack_require__(393);
 
 	var lastTop;
 	var lastLeft;
@@ -44102,14 +44280,14 @@
 
 
 /***/ }),
-/* 398 */
+/* 400 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var instances = __webpack_require__(391);
-	var updateGeometry = __webpack_require__(396);
-	var updateScroll = __webpack_require__(397);
+	var instances = __webpack_require__(393);
+	var updateGeometry = __webpack_require__(398);
+	var updateScroll = __webpack_require__(399);
 
 	function bindClickRailHandler(element, i) {
 	  function pageOffset(el) {
@@ -44147,16 +44325,16 @@
 
 
 /***/ }),
-/* 399 */
+/* 401 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(388);
-	var dom = __webpack_require__(390);
-	var instances = __webpack_require__(391);
-	var updateGeometry = __webpack_require__(396);
-	var updateScroll = __webpack_require__(397);
+	var _ = __webpack_require__(390);
+	var dom = __webpack_require__(392);
+	var instances = __webpack_require__(393);
+	var updateGeometry = __webpack_require__(398);
+	var updateScroll = __webpack_require__(399);
 
 	function bindMouseScrollXHandler(element, i) {
 	  var currentLeft = null;
@@ -44256,16 +44434,16 @@
 
 
 /***/ }),
-/* 400 */
+/* 402 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(388);
-	var dom = __webpack_require__(390);
-	var instances = __webpack_require__(391);
-	var updateGeometry = __webpack_require__(396);
-	var updateScroll = __webpack_require__(397);
+	var _ = __webpack_require__(390);
+	var dom = __webpack_require__(392);
+	var instances = __webpack_require__(393);
+	var updateGeometry = __webpack_require__(398);
+	var updateScroll = __webpack_require__(399);
 
 	function bindKeyboardHandler(element, i) {
 	  var hovered = false;
@@ -44416,14 +44594,14 @@
 
 
 /***/ }),
-/* 401 */
+/* 403 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var instances = __webpack_require__(391);
-	var updateGeometry = __webpack_require__(396);
-	var updateScroll = __webpack_require__(397);
+	var instances = __webpack_require__(393);
+	var updateGeometry = __webpack_require__(398);
+	var updateScroll = __webpack_require__(399);
 
 	function bindMouseWheelHandler(element, i) {
 	  var shouldPrevent = false;
@@ -44563,15 +44741,15 @@
 
 
 /***/ }),
-/* 402 */
+/* 404 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(388);
-	var instances = __webpack_require__(391);
-	var updateGeometry = __webpack_require__(396);
-	var updateScroll = __webpack_require__(397);
+	var _ = __webpack_require__(390);
+	var instances = __webpack_require__(393);
+	var updateGeometry = __webpack_require__(398);
+	var updateScroll = __webpack_require__(399);
 
 	function bindTouchHandler(element, i, supportsTouch, supportsIePointer) {
 	  function shouldPreventDefault(deltaX, deltaY) {
@@ -44748,15 +44926,15 @@
 
 
 /***/ }),
-/* 403 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(388);
-	var instances = __webpack_require__(391);
-	var updateGeometry = __webpack_require__(396);
-	var updateScroll = __webpack_require__(397);
+	var _ = __webpack_require__(390);
+	var instances = __webpack_require__(393);
+	var updateGeometry = __webpack_require__(398);
+	var updateScroll = __webpack_require__(399);
 
 	function bindSelectionHandler(element, i) {
 	  function getRangeNode() {
@@ -44869,13 +45047,13 @@
 
 
 /***/ }),
-/* 404 */
+/* 406 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var instances = __webpack_require__(391);
-	var updateGeometry = __webpack_require__(396);
+	var instances = __webpack_require__(393);
+	var updateGeometry = __webpack_require__(398);
 
 	function bindNativeScrollHandler(element, i) {
 	  i.event.bind(element, 'scroll', function () {
@@ -44890,16 +45068,16 @@
 
 
 /***/ }),
-/* 405 */
+/* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(388);
-	var dom = __webpack_require__(390);
-	var instances = __webpack_require__(391);
-	var updateGeometry = __webpack_require__(396);
-	var updateScroll = __webpack_require__(397);
+	var _ = __webpack_require__(390);
+	var dom = __webpack_require__(392);
+	var instances = __webpack_require__(393);
+	var updateGeometry = __webpack_require__(398);
+	var updateScroll = __webpack_require__(399);
 
 	module.exports = function (element) {
 	  var i = instances.get(element);
@@ -44933,7 +45111,7 @@
 
 
 /***/ }),
-/* 406 */
+/* 408 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44954,9 +45132,9 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _actions = __webpack_require__(408);
+	var _actions = __webpack_require__(350);
 
-	var _List = __webpack_require__(407);
+	var _List = __webpack_require__(409);
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -44981,7 +45159,6 @@
 	    };
 
 	    _this.changeActiveTab = _this.changeActiveTab.bind(_this);
-	    _this.renderLists = _this.renderLists.bind(_this);
 	    return _this;
 	  }
 
@@ -44991,36 +45168,27 @@
 	      this.props.refresh();
 	    }
 	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps) {
+	      if (prevProps.favourites !== this.props.favourites || prevProps.done !== this.props.done || prevProps.todo !== this.props.todo) {
+	        this.props.refresh();
+	      }
+	    }
+	  }, {
 	    key: 'changeActiveTab',
 	    value: function changeActiveTab(index) {
 	      this.setState({ activeTab: index });
-	    }
-	  }, {
-	    key: 'renderLists',
-	    value: function renderLists() {
-	      var _props = this.props,
-	          favourites = _props.favourites,
-	          todo = _props.todo,
-	          done = _props.done;
-
-
-	      if (this.state.activeTab === 0) {
-	        return _react2.default.createElement(_List2.default, { recipes: favourites });
-	      } else if (this.state.activeTab === 1) {
-	        return _react2.default.createElement(_List2.default, { recipes: todo });
-	      } else {
-	        return _react2.default.createElement(_List2.default, { recipes: done });
-	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
-	      var _props2 = this.props,
-	          favourites = _props2.favourites,
-	          todo = _props2.todo,
-	          done = _props2.done;
+	      var _props = this.props,
+	          favourites = _props.favourites,
+	          todo = _props.todo,
+	          done = _props.done,
+	          userProfile = _props.userProfile;
 
 
 	      return _react2.default.createElement(
@@ -45067,6 +45235,21 @@
 	              'div',
 	              { style: { color: 'white', fontSize: '25px', marginTop: '50px' } },
 	              'No recipes in here :('
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'user-details' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'user-name' },
+	                'Logged in as ',
+	                userProfile.name
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'user-logout clickable' },
+	                'logout'
+	              )
 	            )
 	          )
 	        )
@@ -45082,7 +45265,8 @@
 	  return {
 	    favourites: state.myRecipes.favourites,
 	    done: state.myRecipes.done,
-	    todo: state.myRecipes.todo
+	    todo: state.myRecipes.todo,
+	    userProfile: state.userProfile.userProfile
 	  };
 	}
 
@@ -45097,7 +45281,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RecipesList);
 
 /***/ }),
-/* 407 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45112,7 +45296,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactPerfectScrollbar = __webpack_require__(383);
+	var _reactPerfectScrollbar = __webpack_require__(385);
 
 	var _reactPerfectScrollbar2 = _interopRequireDefault(_reactPerfectScrollbar);
 
@@ -45120,7 +45304,7 @@
 
 	var _ListItem2 = _interopRequireDefault(_ListItem);
 
-	var _actions = __webpack_require__(408);
+	var _actions = __webpack_require__(350);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45152,7 +45336,7 @@
 	          _reactPerfectScrollbar2.default,
 	          null,
 	          recipes.map(function (recipe, index) {
-	            return _react2.default.createElement(_ListItem2.default, { key: index, recipe: recipe });
+	            return _react2.default.createElement(_ListItem2.default, { key: index, index: index, recipe: recipe });
 	          })
 	        )
 	      );
@@ -45165,65 +45349,7 @@
 	exports.default = List;
 
 /***/ }),
-/* 408 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.SET_RECIPE_IN_WORKSPACE = exports.RECEIVE_MY_RECIPES = exports.REQUEST_MY_RECIPES = undefined;
-	exports.fetchMyRecipesIfNeeded = fetchMyRecipesIfNeeded;
-
-	var _APIHelper = __webpack_require__(350);
-
-	var _APIHelper2 = _interopRequireDefault(_APIHelper);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var REQUEST_MY_RECIPES = exports.REQUEST_MY_RECIPES = 'REQUEST_MY_RECIPES';
-	function requestMyRecipes() {
-	  return {
-	    type: REQUEST_MY_RECIPES
-	  };
-	}
-
-	var RECEIVE_MY_RECIPES = exports.RECEIVE_MY_RECIPES = 'RECEIVE_MY_RECIPES';
-	function receiveMyRecipes(recipes) {
-	  return {
-	    type: RECEIVE_MY_RECIPES,
-	    recipes: recipes
-	  };
-	}
-
-	function fetchMyRecipesIfNeeded() {
-	  return function (dispatch) {
-	    dispatch(requestMyRecipes());
-	    _APIHelper2.default.get('/recipes/favourites').then(function (favourites) {
-	      _APIHelper2.default.get('/recipes/done').then(function (done) {
-	        _APIHelper2.default.get('/recipes/todo').then(function (todo) {
-	          dispatch(receiveMyRecipes({
-	            favourites: favourites.data,
-	            done: done.data,
-	            todo: todo.data
-	          }));
-	        });
-	      });
-	    });
-	  };
-	}
-
-	var SET_RECIPE_IN_WORKSPACE = exports.SET_RECIPE_IN_WORKSPACE = 'SET_RECIPE_IN_WORKSPACE';
-	function setRecipeInWorkspace(recipe) {
-	  return {
-	    type: SET_RECIPE_IN_WORKSPACE,
-	    recipe: recipe
-	  };
-	}
-
-/***/ }),
-/* 409 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45231,7 +45357,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(410);
+	var content = __webpack_require__(411);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -45258,7 +45384,7 @@
 	}
 
 /***/ }),
-/* 410 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -45272,7 +45398,7 @@
 
 
 /***/ }),
-/* 411 */
+/* 412 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45280,7 +45406,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(412);
+	var content = __webpack_require__(413);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -45307,7 +45433,7 @@
 	}
 
 /***/ }),
-/* 412 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -45315,13 +45441,13 @@
 
 
 	// module
-	exports.push([module.id, ".recipes-list__wrapper {\n  background: rgba(255, 255, 255, 0.3);\n  width: 100%;\n  height: 100%;\n}\n.recipes-list {\n  width: 100%;\n  height: 100%;\n}\n.recipes-list__sidebar {\n  width: 400px;\n  height: 100%;\n  background: #232627;\n}\n.sidebar__tabs {\n  display: flex;\n  width: 100%;\n}\n.sidebar__tab {\n  flex: 1;\n  color: white;\n  text-align: center;\n  text-transform: uppercase;\n  padding: 10px;\n  border-bottom: 1px solid rgba(231, 202, 179, 0.2);\n  transition: border-bottom 0.5s;\n}\n.sidebar__tab.active {\n  border-bottom: 1px solid #e7cab3;\n}\n.list__wrapper {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n}\n.list-of-recipes {\n  height: 100%;\n  padding: 20px;\n}\n", ""]);
+	exports.push([module.id, ".recipes-list__wrapper {\n  background: rgba(255, 255, 255, 0.3);\n  width: 100%;\n  height: calc(100% - 40px);\n  position: relative;\n}\n.recipes-list {\n  width: 100%;\n  height: 100%;\n}\n.recipes-list__sidebar {\n  width: 400px;\n  height: 100%;\n  background: #232627;\n}\n.sidebar__tabs {\n  display: flex;\n  width: 100%;\n}\n.sidebar__tab {\n  flex: 1;\n  color: white;\n  text-align: center;\n  text-transform: uppercase;\n  padding: 10px;\n  border-bottom: 1px solid rgba(231, 202, 179, 0.2);\n  transition: border-bottom 0.5s;\n}\n.sidebar__tab.active {\n  border-bottom: 1px solid #e7cab3;\n}\n.list__wrapper {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  margin-bottom: 40px;\n  position: relative;\n}\n.list-of-recipes {\n  position: absolute;\n  top: 0;\n  bottom: 100px;\n  padding: 20px;\n}\n.user-details {\n  position: absolute;\n  bottom: 0;\n  height: 60px;\n  width: 100%;\n  border-top: white 1px solid;\n  color: white;\n}\n.user-details .user-name {\n  position: absolute;\n  left: 0;\n  top: 0;\n  padding: 20px;\n}\n.user-details .user-logout {\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  padding: 20px;\n  text-transform: uppercase;\n}\n.user-details .user-logout:hover {\n  text-decoration: underline;\n}\n", ""]);
 
 	// exports
 
 
 /***/ }),
-/* 413 */
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45329,7 +45455,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(414);
+	var content = __webpack_require__(415);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -45356,7 +45482,7 @@
 	}
 
 /***/ }),
-/* 414 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -45370,7 +45496,7 @@
 
 
 /***/ }),
-/* 415 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45387,9 +45513,9 @@
 
 	var _reactRedux = __webpack_require__(160);
 
-	var _actions = __webpack_require__(416);
+	var _actions = __webpack_require__(417);
 
-	__webpack_require__(417);
+	__webpack_require__(418);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45490,7 +45616,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Login);
 
 /***/ }),
-/* 416 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45501,7 +45627,7 @@
 	exports.RECEIVE_USER_PROFILE = exports.REQUEST_USER_PROFILE = undefined;
 	exports.checkUserProfile = checkUserProfile;
 
-	var _APIHelper = __webpack_require__(350);
+	var _APIHelper = __webpack_require__(351);
 
 	var _APIHelper2 = _interopRequireDefault(_APIHelper);
 
@@ -45526,18 +45652,18 @@
 	  return function (dispatch) {
 	    requestUserProfile();
 
-	    // API.post('/users/1/login').then(result => {
-	    //   if (result.status === 200) {
-	    _APIHelper2.default.get('/users/me').then(function (userProfile) {
-	      dispatch(receiveUserProfile(userProfile.data));
+	    _APIHelper2.default.post('/users/1/login').then(function (result) {
+	      if (result.status === 200) {
+	        _APIHelper2.default.get('/users/me').then(function (userProfile) {
+	          dispatch(receiveUserProfile(userProfile.data));
+	        });
+	      }
 	    });
-	    // }
-	    // })
 	  };
 	}
 
 /***/ }),
-/* 417 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45545,7 +45671,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(418);
+	var content = __webpack_require__(419);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// Prepare cssTransformation
 	var transform;
@@ -45572,7 +45698,7 @@
 	}
 
 /***/ }),
-/* 418 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(259)(undefined);
@@ -45586,7 +45712,7 @@
 
 
 /***/ }),
-/* 419 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45597,15 +45723,15 @@
 
 	var _redux = __webpack_require__(166);
 
-	var _reducer = __webpack_require__(420);
+	var _reducer = __webpack_require__(421);
 
 	var _reducer2 = _interopRequireDefault(_reducer);
 
-	var _reducer3 = __webpack_require__(421);
+	var _reducer3 = __webpack_require__(422);
 
 	var _reducer4 = _interopRequireDefault(_reducer3);
 
-	var _reducer5 = __webpack_require__(422);
+	var _reducer5 = __webpack_require__(423);
 
 	var _reducer6 = _interopRequireDefault(_reducer5);
 
@@ -45625,7 +45751,7 @@
 	exports.default = rootReducer;
 
 /***/ }),
-/* 420 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45638,7 +45764,7 @@
 
 	exports.default = reducer;
 
-	var _actions = __webpack_require__(416);
+	var _actions = __webpack_require__(417);
 
 	var actions = _interopRequireWildcard(_actions);
 
@@ -45676,7 +45802,7 @@
 	}
 
 /***/ }),
-/* 421 */
+/* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45689,7 +45815,7 @@
 
 	exports.default = reducer;
 
-	var _actions = __webpack_require__(382);
+	var _actions = __webpack_require__(384);
 
 	var actions = _interopRequireWildcard(_actions);
 
@@ -45731,7 +45857,43 @@
 	            recipe: action.recipe
 	          }
 	        })
+	      });
 
+	    case actions.TOGGLE_FAVOURITE:
+	      var tmpRecipesList1 = state.recipes.list;
+	      if (state.recipes.list.length !== 0) {
+	        tmpRecipesList1[action.id].user_recipe.favourite = !tmpRecipesList1[action.id].user_recipe.favourite;
+	      }
+
+	      return _extends({}, state, {
+	        recipes: _extends({}, state.recipes, {
+	          list: tmpRecipesList1
+	        })
+	      });
+
+	    case actions.TOGGLE_DONE:
+	      var tmpRecipesList2 = state.recipes.list;
+	      if (state.recipes.list.length !== 0) {
+	        tmpRecipesList2[action.id].user_recipe.done = !tmpRecipesList2[action.id].user_recipe.done;
+	      }
+
+	      return _extends({}, state, {
+	        recipes: _extends({}, state.recipes, {
+	          list: tmpRecipesList2
+	        })
+	      });
+
+	    case actions.TOGGLE_TODO:
+	      var tmpRecipesList3 = state.recipes.list;
+
+	      if (state.recipes.list.length !== 0) {
+	        tmpRecipesList3[action.id].user_recipe.todo = !tmpRecipesList3[action.id].user_recipe.todo;
+	      }
+
+	      return _extends({}, state, {
+	        recipes: _extends({}, state.recipes, {
+	          list: tmpRecipesList3
+	        })
 	      });
 
 	    default:
@@ -45740,7 +45902,7 @@
 	}
 
 /***/ }),
-/* 422 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45753,7 +45915,7 @@
 
 	exports.default = reducer;
 
-	var _actions = __webpack_require__(408);
+	var _actions = __webpack_require__(350);
 
 	var actions = _interopRequireWildcard(_actions);
 
@@ -45774,17 +45936,22 @@
 
 	  switch (action.type) {
 	    case actions.RECEIVE_MY_RECIPES:
-	      console.log(action);
 	      return _extends({}, state, {
 	        favourites: action.recipes.favourites,
 	        done: action.recipes.done,
 	        todo: action.recipes.todo,
-	        isFetching: false
+	        isFetching: false,
+	        didInvalidate: false
 	      });
 
 	    case actions.REQUEST_MY_RECIPES:
 	      return _extends({}, state, {
 	        isFetching: true
+	      });
+
+	    case actions.INVALIDATE_MY_RECIPES:
+	      return _extends({}, state, {
+	        didInvalidate: true
 	      });
 
 	    default:
