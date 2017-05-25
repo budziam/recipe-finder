@@ -45652,13 +45652,13 @@
 	  return function (dispatch) {
 	    requestUserProfile();
 
-	    _APIHelper2.default.post('/users/1/login').then(function (result) {
-	      if (result.status === 200) {
-	        _APIHelper2.default.get('/users/me').then(function (userProfile) {
-	          dispatch(receiveUserProfile(userProfile.data));
-	        });
-	      }
+	    // API.post('/users/1/login').then(result => {
+	    //   if (result.status === 200) {
+	    _APIHelper2.default.get('/users/me').then(function (userProfile) {
+	      dispatch(receiveUserProfile(userProfile.data));
 	    });
+	    // }
+	    // })
 	  };
 	}
 
