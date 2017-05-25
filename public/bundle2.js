@@ -39615,7 +39615,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var API_BASE = 'http://' + location.host;
+	var API_BASE = 'https://' + location.host;
 
 	exports.default = {
 	  get: function get(url, body) {
