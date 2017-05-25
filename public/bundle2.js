@@ -45235,21 +45235,6 @@
 	              'div',
 	              { style: { color: 'white', fontSize: '25px', marginTop: '50px' } },
 	              'No recipes in here :('
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'user-details' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'user-name' },
-	                'Logged in as ',
-	                userProfile.name
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'user-logout clickable' },
-	                'logout'
-	              )
 	            )
 	          )
 	        )
@@ -45441,7 +45426,7 @@
 
 
 	// module
-	exports.push([module.id, ".recipes-list__wrapper {\n  background: rgba(255, 255, 255, 0.3);\n  width: 100%;\n  height: calc(100% - 40px);\n  position: relative;\n}\n.recipes-list {\n  width: 100%;\n  height: 100%;\n}\n.recipes-list__sidebar {\n  width: 400px;\n  height: 100%;\n  background: #232627;\n}\n.sidebar__tabs {\n  display: flex;\n  width: 100%;\n}\n.sidebar__tab {\n  flex: 1;\n  color: white;\n  text-align: center;\n  text-transform: uppercase;\n  padding: 10px;\n  border-bottom: 1px solid rgba(231, 202, 179, 0.2);\n  transition: border-bottom 0.5s;\n}\n.sidebar__tab.active {\n  border-bottom: 1px solid #e7cab3;\n}\n.list__wrapper {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  margin-bottom: 40px;\n  position: relative;\n}\n.list-of-recipes {\n  position: absolute;\n  top: 0;\n  bottom: 100px;\n  padding: 20px;\n}\n.user-details {\n  position: absolute;\n  bottom: 0;\n  height: 60px;\n  width: 100%;\n  border-top: white 1px solid;\n  color: white;\n}\n.user-details .user-name {\n  position: absolute;\n  left: 0;\n  top: 0;\n  padding: 20px;\n}\n.user-details .user-logout {\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  padding: 20px;\n  text-transform: uppercase;\n}\n.user-details .user-logout:hover {\n  text-decoration: underline;\n}\n", ""]);
+	exports.push([module.id, ".recipes-list__wrapper {\n  background: rgba(255, 255, 255, 0.3);\n  width: 100%;\n  position: relative;\n}\n.recipes-list {\n  width: 100%;\n  height: 100%;\n}\n.recipes-list__sidebar {\n  width: 400px;\n  height: 100%;\n  background: #232627;\n}\n.sidebar__tabs {\n  display: flex;\n  width: 100%;\n}\n.sidebar__tab {\n  flex: 1;\n  color: white;\n  text-align: center;\n  text-transform: uppercase;\n  padding: 10px;\n  border-bottom: 1px solid rgba(231, 202, 179, 0.2);\n  transition: border-bottom 0.5s;\n}\n.sidebar__tab.active {\n  border-bottom: 1px solid #e7cab3;\n}\n.list__wrapper {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  margin-bottom: 40px;\n  position: relative;\n  background: #232627;\n}\n.list-of-recipes {\n  position: absolute;\n  top: 0;\n  bottom: 100px;\n  padding: 20px;\n}\n.user-details {\n  position: absolute;\n  bottom: 0;\n  height: 60px;\n  width: 100%;\n  border-top: white 1px solid;\n  color: white;\n}\n.user-details .user-name {\n  position: absolute;\n  left: 0;\n  top: 0;\n  padding: 20px;\n}\n.user-details .user-logout {\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  padding: 20px;\n  text-transform: uppercase;\n}\n.user-details .user-logout:hover {\n  text-decoration: underline;\n}\n", ""]);
 
 	// exports
 
