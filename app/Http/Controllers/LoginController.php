@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\FacebookService;
+use GuzzleHttp\Exception\ClientException;
 use Socialite;
 
 class LoginController extends Controller
@@ -24,11 +25,23 @@ class LoginController extends Controller
      */
     public function handleProviderCallback(FacebookService $service)
     {
-        $socialiteUser = Socialite::driver('facebook')
-            ->redirectUrl(route('login.facebook.callback'))
-            ->user();
+        try {
+            $socialiteUser = Socialite::driver('facebook')
+                ->redirectUrl(route('login.facebook.callback'))
+                ->user();
+        } catch (ClientException $e) {
+            return redirect()->to('/no-access');
+        }
 
-        $user = $service->firstOrCreate($socialiteUser->getId(), $socialiteUser->getEmail(), $socialiteUser->getName());
+        $facebookId = $socialiteUser->getId();
+        $email = $socialiteUser->getEmail();
+        $name = $socialiteUser->getName() ?? uniqid();
+
+        if (!strlen($facebookId) || !strlen($email)) {
+            return redirect()->to('/no-access');
+        }
+
+        $user = $service->firstOrCreate($facebookId, $email, $name);
 
         auth()->login($user);
 
